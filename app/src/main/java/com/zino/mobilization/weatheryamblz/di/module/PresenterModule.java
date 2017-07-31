@@ -4,7 +4,7 @@ import com.zino.mobilization.weatheryamblz.data.cache.prefs.SharedPreferencesHel
 import com.zino.mobilization.weatheryamblz.repository.WeatherRepository;
 import com.zino.mobilization.weatheryamblz.presentation.settings.SettingsPresenter;
 import com.zino.mobilization.weatheryamblz.presentation.weather.WeatherPresenter;
-import com.zino.mobilization.weatheryamblz.utils.AndroidJobHelper;
+import com.zino.mobilization.weatheryamblz.data.service.AndroidJobHelper;
 
 import dagger.Module;
 import dagger.Provides;

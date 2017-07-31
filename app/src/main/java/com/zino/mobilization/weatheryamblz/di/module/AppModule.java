@@ -10,7 +10,7 @@ import com.zino.mobilization.weatheryamblz.data.cache.cache.CacheManagerImpl;
 import com.zino.mobilization.weatheryamblz.data.cache.prefs.SharedPreferencesHelper;
 import com.zino.mobilization.weatheryamblz.data.cache.prefs.SharedPreferencesHelperImpl;
 import com.zino.mobilization.weatheryamblz.utils.AppResources;
-import com.zino.mobilization.weatheryamblz.utils.AndroidJobHelper;
+import com.zino.mobilization.weatheryamblz.data.service.AndroidJobHelper;
 
 import javax.inject.Singleton;
 

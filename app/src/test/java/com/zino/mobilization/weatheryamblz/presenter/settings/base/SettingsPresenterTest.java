@@ -2,7 +2,7 @@ package com.zino.mobilization.weatheryamblz.presenter.settings.base;
 
 import com.zino.mobilization.weatheryamblz.presentation.settings.SettingsView$$State;
 import com.zino.mobilization.weatheryamblz.presenter.BasePresenterTest;
-import com.zino.mobilization.weatheryamblz.utils.AndroidJobHelper;
+import com.zino.mobilization.weatheryamblz.data.service.AndroidJobHelper;
 
 import org.mockito.Mock;
 

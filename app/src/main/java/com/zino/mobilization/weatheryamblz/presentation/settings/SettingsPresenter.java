@@ -9,7 +9,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.zino.mobilization.weatheryamblz.R;
 import com.zino.mobilization.weatheryamblz.data.cache.pojo.City;
 import com.zino.mobilization.weatheryamblz.data.cache.prefs.SharedPreferencesHelper;
-import com.zino.mobilization.weatheryamblz.utils.AndroidJobHelper;
+import com.zino.mobilization.weatheryamblz.data.service.AndroidJobHelper;
 
 import io.reactivex.disposables.CompositeDisposable;
 
