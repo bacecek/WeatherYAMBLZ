@@ -1,10 +1,10 @@
 package com.zino.mobilization.weatheryamblz.presenter.weather.base;
 
 import com.arellomobile.mvp.InjectViewState;
-import com.zino.mobilization.weatheryamblz.model.pojo.City;
-import com.zino.mobilization.weatheryamblz.model.prefs.SharedPreferencesHelper;
-import com.zino.mobilization.weatheryamblz.model.repository.WeatherRepository;
-import com.zino.mobilization.weatheryamblz.presentation.presenter.WeatherPresenter;
+import com.zino.mobilization.weatheryamblz.data.cache.pojo.City;
+import com.zino.mobilization.weatheryamblz.data.cache.prefs.SharedPreferencesHelper;
+import com.zino.mobilization.weatheryamblz.repository.WeatherRepository;
+import com.zino.mobilization.weatheryamblz.presentation.weather.WeatherPresenter;
 
 /**
  * Created by Denis Buzmakov on 28.07.17.

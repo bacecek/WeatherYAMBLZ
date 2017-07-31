@@ -2,7 +2,7 @@ package com.zino.mobilization.weatheryamblz.presenter;
 
 import android.support.annotation.CallSuper;
 
-import com.zino.mobilization.weatheryamblz.model.prefs.SharedPreferencesHelper;
+import com.zino.mobilization.weatheryamblz.data.cache.prefs.SharedPreferencesHelper;
 
 import org.junit.Before;
 import org.mockito.Mock;

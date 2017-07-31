@@ -1,9 +1,9 @@
 package com.zino.mobilization.weatheryamblz.presenter.weather.base;
 
-import com.zino.mobilization.weatheryamblz.model.pojo.City;
-import com.zino.mobilization.weatheryamblz.model.pojo.WeatherResponse;
-import com.zino.mobilization.weatheryamblz.model.repository.WeatherRepository;
-import com.zino.mobilization.weatheryamblz.presentation.view.WeatherView$$State;
+import com.zino.mobilization.weatheryamblz.data.cache.pojo.City;
+import com.zino.mobilization.weatheryamblz.data.network.response.WeatherResponse;
+import com.zino.mobilization.weatheryamblz.repository.WeatherRepository;
+import com.zino.mobilization.weatheryamblz.presentation.weather.WeatherView$$State;
 import com.zino.mobilization.weatheryamblz.presenter.BasePresenterTest;
 import com.zino.mobilization.weatheryamblz.common.RxImmediateSchedulerRule;
 

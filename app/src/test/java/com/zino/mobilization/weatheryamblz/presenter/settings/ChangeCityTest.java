@@ -1,6 +1,6 @@
 package com.zino.mobilization.weatheryamblz.presenter.settings;
 
-import com.zino.mobilization.weatheryamblz.model.pojo.City;
+import com.zino.mobilization.weatheryamblz.data.cache.pojo.City;
 import com.zino.mobilization.weatheryamblz.presenter.settings.base.SettingsPresenterTest;
 import com.zino.mobilization.weatheryamblz.common.TestData;
 

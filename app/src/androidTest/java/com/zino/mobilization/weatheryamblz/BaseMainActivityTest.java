@@ -4,7 +4,7 @@ import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.zino.mobilization.weatheryamblz.ui.activity.MainActivity;
+import com.zino.mobilization.weatheryamblz.presentation.main.MainActivity;
 
 import org.junit.Rule;
 import org.junit.runner.RunWith;

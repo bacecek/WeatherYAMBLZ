@@ -3,8 +3,8 @@ package com.zino.mobilization.weatheryamblz.utils;
 import android.content.Context;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
-import com.zino.mobilization.weatheryamblz.WeatherJobCreator;
-import com.zino.mobilization.weatheryamblz.WeatherSyncJob;
+import com.zino.mobilization.weatheryamblz.data.service.WeatherJobCreator;
+import com.zino.mobilization.weatheryamblz.data.service.WeatherSyncJob;
 
 import java.util.Set;
 

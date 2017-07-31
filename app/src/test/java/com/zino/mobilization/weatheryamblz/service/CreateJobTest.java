@@ -1,8 +1,8 @@
 package com.zino.mobilization.weatheryamblz.service;
 
 import com.evernote.android.job.Job;
-import com.zino.mobilization.weatheryamblz.WeatherJobCreator;
-import com.zino.mobilization.weatheryamblz.WeatherSyncJob;
+import com.zino.mobilization.weatheryamblz.data.service.WeatherJobCreator;
+import com.zino.mobilization.weatheryamblz.data.service.WeatherSyncJob;
 
 import org.junit.Test;
 

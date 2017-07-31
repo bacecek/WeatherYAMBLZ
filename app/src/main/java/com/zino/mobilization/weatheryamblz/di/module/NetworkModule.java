@@ -3,10 +3,10 @@ package com.zino.mobilization.weatheryamblz.di.module;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.zino.mobilization.weatheryamblz.BuildConfig;
-import com.zino.mobilization.weatheryamblz.model.api.WeatherAPI;
-import com.zino.mobilization.weatheryamblz.model.cache.CacheManager;
-import com.zino.mobilization.weatheryamblz.model.repository.WeatherRepository;
-import com.zino.mobilization.weatheryamblz.model.repository.WeatherRepositoryImp;
+import com.zino.mobilization.weatheryamblz.data.network.api.WeatherAPI;
+import com.zino.mobilization.weatheryamblz.data.cache.cache.CacheManager;
+import com.zino.mobilization.weatheryamblz.repository.WeatherRepository;
+import com.zino.mobilization.weatheryamblz.repository.WeatherRepositoryImp;
 
 import javax.inject.Singleton;
 

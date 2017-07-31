@@ -1,9 +1,9 @@
 package com.zino.mobilization.weatheryamblz.di.module;
 
-import com.zino.mobilization.weatheryamblz.model.prefs.SharedPreferencesHelper;
-import com.zino.mobilization.weatheryamblz.model.repository.WeatherRepository;
-import com.zino.mobilization.weatheryamblz.presentation.presenter.SettingsPresenter;
-import com.zino.mobilization.weatheryamblz.presentation.presenter.WeatherPresenter;
+import com.zino.mobilization.weatheryamblz.data.cache.prefs.SharedPreferencesHelper;
+import com.zino.mobilization.weatheryamblz.repository.WeatherRepository;
+import com.zino.mobilization.weatheryamblz.presentation.settings.SettingsPresenter;
+import com.zino.mobilization.weatheryamblz.presentation.weather.WeatherPresenter;
 import com.zino.mobilization.weatheryamblz.utils.AndroidJobHelper;
 
 import dagger.Module;

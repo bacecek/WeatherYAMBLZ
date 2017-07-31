@@ -1,8 +1,8 @@
 package com.zino.mobilization.weatheryamblz.presenter.settings.base;
 
 import com.arellomobile.mvp.InjectViewState;
-import com.zino.mobilization.weatheryamblz.model.prefs.SharedPreferencesHelper;
-import com.zino.mobilization.weatheryamblz.presentation.presenter.SettingsPresenter;
+import com.zino.mobilization.weatheryamblz.data.cache.prefs.SharedPreferencesHelper;
+import com.zino.mobilization.weatheryamblz.presentation.settings.SettingsPresenter;
 import com.zino.mobilization.weatheryamblz.utils.AndroidJobHelper;
 
 /**

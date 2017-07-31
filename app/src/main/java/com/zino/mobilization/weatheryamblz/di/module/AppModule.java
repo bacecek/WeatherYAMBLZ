@@ -5,10 +5,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.f2prateek.rx.preferences2.RxSharedPreferences;
-import com.zino.mobilization.weatheryamblz.model.cache.CacheManager;
-import com.zino.mobilization.weatheryamblz.model.cache.CacheManagerImpl;
-import com.zino.mobilization.weatheryamblz.model.prefs.SharedPreferencesHelper;
-import com.zino.mobilization.weatheryamblz.model.prefs.SharedPreferencesHelperImpl;
+import com.zino.mobilization.weatheryamblz.data.cache.cache.CacheManager;
+import com.zino.mobilization.weatheryamblz.data.cache.cache.CacheManagerImpl;
+import com.zino.mobilization.weatheryamblz.data.cache.prefs.SharedPreferencesHelper;
+import com.zino.mobilization.weatheryamblz.data.cache.prefs.SharedPreferencesHelperImpl;
 import com.zino.mobilization.weatheryamblz.utils.AppResources;
 import com.zino.mobilization.weatheryamblz.utils.AndroidJobHelper;
 
@@ -17,7 +17,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-import static com.zino.mobilization.weatheryamblz.model.prefs.SharedPreferencesHelperImpl.FILE_NAME;
+import static com.zino.mobilization.weatheryamblz.data.cache.prefs.SharedPreferencesHelperImpl.FILE_NAME;
 
 /**
  * Created by Denis Buzmakov on 27.07.17.
