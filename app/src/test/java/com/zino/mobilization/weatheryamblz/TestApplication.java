@@ -9,6 +9,6 @@ public class TestApplication extends WeatherApplication {
 
     @Override
     protected void initJobHelper() {
-
+        //no functionality here because Android Job is *******
     }
 }

@@ -3,7 +3,7 @@ package com.zino.mobilization.weatheryamblz.repository;
 import com.zino.mobilization.weatheryamblz.common.TestData;
 import com.zino.mobilization.weatheryamblz.data.network.api.WeatherAPI;
 import com.zino.mobilization.weatheryamblz.data.cache.cache.CacheManager;
-import com.zino.mobilization.weatheryamblz.data.network.response.WeatherResponse;
+import com.zino.mobilization.weatheryamblz.data.network.response.weather.WeatherResponse;
 
 import org.junit.Before;
 import org.junit.Test;

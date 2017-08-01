@@ -1,7 +1,7 @@
 package com.zino.mobilization.weatheryamblz.presenter.weather;
 
 import com.zino.mobilization.weatheryamblz.data.cache.pojo.City;
-import com.zino.mobilization.weatheryamblz.data.network.response.WeatherResponse;
+import com.zino.mobilization.weatheryamblz.data.network.response.weather.WeatherResponse;
 import com.zino.mobilization.weatheryamblz.presenter.weather.base.WeatherPresenterTest;
 import com.zino.mobilization.weatheryamblz.common.TestData;
 

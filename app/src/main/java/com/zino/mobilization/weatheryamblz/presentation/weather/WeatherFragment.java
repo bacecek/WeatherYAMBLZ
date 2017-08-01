@@ -21,7 +21,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.zino.mobilization.weatheryamblz.R;
 import com.zino.mobilization.weatheryamblz.WeatherApplication;
 import com.zino.mobilization.weatheryamblz.data.cache.pojo.City;
-import com.zino.mobilization.weatheryamblz.data.network.response.WeatherResponse;
+import com.zino.mobilization.weatheryamblz.data.network.response.weather.WeatherResponse;
 import com.zino.mobilization.weatheryamblz.data.service.UpdateWeatherService;
 import com.zino.mobilization.weatheryamblz.presentation.common.BaseFragment;
 import com.zino.mobilization.weatheryamblz.utils.Utils;

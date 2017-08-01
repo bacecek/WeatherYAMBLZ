@@ -4,7 +4,7 @@ package com.zino.mobilization.weatheryamblz.presentation.weather;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.zino.mobilization.weatheryamblz.data.cache.pojo.City;
-import com.zino.mobilization.weatheryamblz.data.network.response.WeatherResponse;
+import com.zino.mobilization.weatheryamblz.data.network.response.weather.WeatherResponse;
 import com.zino.mobilization.weatheryamblz.data.cache.prefs.SharedPreferencesHelper;
 import com.zino.mobilization.weatheryamblz.repository.WeatherRepository;
 

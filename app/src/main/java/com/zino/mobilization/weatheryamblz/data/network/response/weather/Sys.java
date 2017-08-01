@@ -1,4 +1,4 @@
-package com.zino.mobilization.weatheryamblz.data.network.response;
+package com.zino.mobilization.weatheryamblz.data.network.response.weather;
 
 import com.google.gson.annotations.SerializedName;
 

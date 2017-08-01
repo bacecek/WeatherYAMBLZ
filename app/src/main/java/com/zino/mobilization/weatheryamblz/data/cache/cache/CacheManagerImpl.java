@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.zino.mobilization.weatheryamblz.data.network.response.WeatherResponse;
+import com.zino.mobilization.weatheryamblz.data.network.response.weather.WeatherResponse;
 
 import java.io.BufferedReader;
 import java.io.File;

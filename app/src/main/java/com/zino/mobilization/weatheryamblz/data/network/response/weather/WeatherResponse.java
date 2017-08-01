@@ -1,6 +1,13 @@
-package com.zino.mobilization.weatheryamblz.data.network.response;
+package com.zino.mobilization.weatheryamblz.data.network.response.weather;
 
 import com.google.gson.annotations.SerializedName;
+import com.zino.mobilization.weatheryamblz.data.network.response.common.Clouds;
+import com.zino.mobilization.weatheryamblz.data.network.response.common.Coord;
+import com.zino.mobilization.weatheryamblz.data.network.response.common.Main;
+import com.zino.mobilization.weatheryamblz.data.network.response.common.Rain;
+import com.zino.mobilization.weatheryamblz.data.network.response.common.Snow;
+import com.zino.mobilization.weatheryamblz.data.network.response.common.Weather;
+import com.zino.mobilization.weatheryamblz.data.network.response.common.Wind;
 
 import java.util.List;
 
@@ -31,6 +38,10 @@ public class WeatherResponse {
     private String name;
     @SerializedName("cod")
     private int cod;
+    @SerializedName("snow")
+    private Snow snowInfo;
+    @SerializedName("rain")
+    private Rain rainInfo;
 
     public Coord getCoord() {
         return coord;
@@ -80,4 +91,11 @@ public class WeatherResponse {
         return cod;
     }
 
+    public Snow getSnowInfo() {
+        return snowInfo;
+    }
+
+    public Rain getRainInfo() {
+        return rainInfo;
+    }
 }

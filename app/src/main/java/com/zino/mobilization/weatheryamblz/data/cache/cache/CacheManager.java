@@ -1,6 +1,6 @@
 package com.zino.mobilization.weatheryamblz.data.cache.cache;
 
-import com.zino.mobilization.weatheryamblz.data.network.response.WeatherResponse;
+import com.zino.mobilization.weatheryamblz.data.network.response.weather.WeatherResponse;
 
 import io.reactivex.Single;
 

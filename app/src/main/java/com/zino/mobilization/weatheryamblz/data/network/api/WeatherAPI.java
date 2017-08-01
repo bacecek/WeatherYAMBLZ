@@ -1,6 +1,7 @@
 package com.zino.mobilization.weatheryamblz.data.network.api;
 
-import com.zino.mobilization.weatheryamblz.data.network.response.WeatherResponse;
+import com.zino.mobilization.weatheryamblz.data.network.response.forecast.ForecastResponse;
+import com.zino.mobilization.weatheryamblz.data.network.response.weather.WeatherResponse;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;
@@ -19,4 +20,8 @@ public interface WeatherAPI {
                                               @Query("lang") String lang,
                                               @Query("units") String units);
 
+    @GET("forecast")
+    Single<ForecastResponse> getForecast(@Query("lat") double lat,
+                                         @Query("lon") double lon,
+                                         @Query("units") String units);
 }

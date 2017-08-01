@@ -6,7 +6,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.zino.mobilization.weatheryamblz.WeatherApplication;
-import com.zino.mobilization.weatheryamblz.data.network.response.WeatherResponse;
+import com.zino.mobilization.weatheryamblz.data.network.response.weather.WeatherResponse;
 import com.zino.mobilization.weatheryamblz.data.cache.prefs.SharedPreferencesHelper;
 import com.zino.mobilization.weatheryamblz.repository.WeatherRepository;
 
