@@ -3,8 +3,10 @@ package com.zino.mobilization.weatheryamblz.di.module;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.zino.mobilization.weatheryamblz.BuildConfig;
-import com.zino.mobilization.weatheryamblz.data.network.api.WeatherAPI;
+import com.zino.mobilization.weatheryamblz.data.network.api.WeatherApi;
 import com.zino.mobilization.weatheryamblz.data.cache.cache.CacheManager;
+import com.zino.mobilization.weatheryamblz.data.network.util.KeyInterceptor;
+import com.zino.mobilization.weatheryamblz.data.network.util.LanguageInterceptor;
 import com.zino.mobilization.weatheryamblz.repository.WeatherRepository;
 import com.zino.mobilization.weatheryamblz.repository.WeatherRepositoryImp;
 
@@ -27,8 +29,22 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient() {
+    KeyInterceptor provideKeyInterceptor() {
+        return new KeyInterceptor("appid", WeatherApi.API_KEY);
+    }
+
+    @Provides
+    @Singleton
+    LanguageInterceptor provideLanguageInterceptor() {
+        return new LanguageInterceptor("lang");
+    }
+
+    @Provides
+    @Singleton
+    OkHttpClient provideOkHttpClient(LanguageInterceptor languageInterceptor, KeyInterceptor keyInterceptor) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.addInterceptor(languageInterceptor)
+                .addInterceptor(keyInterceptor);
         if(BuildConfig.DEBUG) {
             builder.addNetworkInterceptor(new StethoInterceptor());
         }
@@ -52,7 +68,7 @@ public class NetworkModule {
     Retrofit provideRetrofit(OkHttpClient client, GsonConverterFactory factory) {
         return new Retrofit.Builder()
                 .client(client)
-                .baseUrl(WeatherAPI.BASE_URL)
+                .baseUrl(WeatherApi.BASE_URL)
                 .addConverterFactory(factory)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
@@ -60,13 +76,13 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    WeatherAPI provideWeatherApi(Retrofit retrofit) {
-        return retrofit.create(WeatherAPI.class);
+    WeatherApi provideWeatherApi(Retrofit retrofit) {
+        return retrofit.create(WeatherApi.class);
     }
 
     @Provides
     @Singleton
-    WeatherRepository provideWeatherRepository(CacheManager cacheManager, WeatherAPI api) {
+    WeatherRepository provideWeatherRepository(CacheManager cacheManager, WeatherApi api) {
         return new WeatherRepositoryImp(cacheManager, api);
     }
 

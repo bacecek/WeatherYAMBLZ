@@ -11,9 +11,9 @@ import io.reactivex.Single;
 
 public interface WeatherRepository {
 
-    Observable<WeatherResponse> getCurrentWeather(double lat, double lon, String lang);
+    Observable<WeatherResponse> getCurrentWeather(double lat, double lon);
 
-    Single<WeatherResponse> getCurrentWeatherFromApi(double lat, double lon, String lang);
+    Single<WeatherResponse> getCurrentWeatherFromApi(double lat, double lon);
 
     Single<WeatherResponse> getCurrentWeatherFromCache();
 

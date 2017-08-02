@@ -4,11 +4,9 @@ package com.zino.mobilization.weatheryamblz.presentation.weather;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.zino.mobilization.weatheryamblz.data.cache.pojo.City;
-import com.zino.mobilization.weatheryamblz.data.network.response.weather.WeatherResponse;
 import com.zino.mobilization.weatheryamblz.data.cache.prefs.SharedPreferencesHelper;
+import com.zino.mobilization.weatheryamblz.data.network.response.weather.WeatherResponse;
 import com.zino.mobilization.weatheryamblz.repository.WeatherRepository;
-
-import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -43,8 +41,7 @@ public class WeatherPresenter extends MvpPresenter<WeatherView> {
                             currentCity = city;
                             return weatherRepository.getCurrentWeather(
                                     city.getLatitude(),
-                                    city.getLongitude(),
-                                    Locale.getDefault().getLanguage())
+                                    city.getLongitude())
                                     .doOnNext(result -> weatherRepository.saveCurrentWeather(result));
                         })
                         .observeOn(AndroidSchedulers.mainThread())
@@ -58,8 +55,7 @@ public class WeatherPresenter extends MvpPresenter<WeatherView> {
             compositeDisposable.add(
                     weatherRepository.getCurrentWeatherFromApi(
                             currentCity.getLatitude(),
-                            currentCity.getLongitude(),
-                            Locale.getDefault().getLanguage())
+                            currentCity.getLongitude())
                             .doOnSuccess(result -> weatherRepository.saveCurrentWeather(result))
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribeOn(Schedulers.io())

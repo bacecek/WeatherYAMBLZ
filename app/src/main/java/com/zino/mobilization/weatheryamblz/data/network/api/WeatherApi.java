@@ -9,19 +9,17 @@ import retrofit2.http.Query;
 
 
 
-public interface WeatherAPI {
+public interface WeatherApi {
 
     String BASE_URL = "http://api.openweathermap.org/data/2.5/";
 
+    String API_KEY = "ad0dae19ea9cd24058581481b3ce84ce";
+
     @GET("weather")
     Single<WeatherResponse> getCurrentWeather(@Query("lat") double lat,
-                                              @Query("lon") double lon,
-                                              @Query("appid") String apiKey,
-                                              @Query("lang") String lang,
-                                              @Query("units") String units);
+                                              @Query("lon") double lon);
 
     @GET("forecast")
     Single<ForecastResponse> getForecast(@Query("lat") double lat,
-                                         @Query("lon") double lon,
-                                         @Query("units") String units);
+                                         @Query("lon") double lon);
 }

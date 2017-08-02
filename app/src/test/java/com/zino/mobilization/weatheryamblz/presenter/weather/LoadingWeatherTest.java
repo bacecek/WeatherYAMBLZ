@@ -1,20 +1,17 @@
 package com.zino.mobilization.weatheryamblz.presenter.weather;
 
+import com.zino.mobilization.weatheryamblz.common.TestData;
 import com.zino.mobilization.weatheryamblz.data.cache.pojo.City;
 import com.zino.mobilization.weatheryamblz.data.network.response.weather.WeatherResponse;
 import com.zino.mobilization.weatheryamblz.presenter.weather.base.WeatherPresenterTest;
-import com.zino.mobilization.weatheryamblz.common.TestData;
 
 import org.junit.Test;
-
-import java.util.Locale;
 
 import io.reactivex.observers.TestObserver;
 import io.reactivex.subjects.PublishSubject;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyDouble;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.verify;
@@ -29,13 +26,13 @@ public class LoadingWeatherTest extends WeatherPresenterTest {
 
     @Test
     public void shouldLoadFromApiAfterRefresh() {
-        when(weatherRepository.getCurrentWeatherFromApi(anyDouble(), anyDouble(), anyString()))
+        when(weatherRepository.getCurrentWeatherFromApi(anyDouble(), anyDouble()))
                 .thenReturn(singleSubject);
         presenter.setCurrentCity(currentCity);
 
         presenter.onRefresh();
 
-        verify(weatherRepository, only()).getCurrentWeatherFromApi(anyDouble(), anyDouble(), anyString());
+        verify(weatherRepository, only()).getCurrentWeatherFromApi(anyDouble(), anyDouble());
 
         singleSubject.onSuccess(weatherResponse);
         responseObserver.assertValue(weatherResponse);
@@ -69,7 +66,7 @@ public class LoadingWeatherTest extends WeatherPresenterTest {
         weatherSubject.subscribe(responseObserver);
 
         when(preferencesHelper.getCurrentCity()).thenReturn(citySubject);
-        when(weatherRepository.getCurrentWeather(anyDouble(), anyDouble(), anyString()))
+        when(weatherRepository.getCurrentWeather(anyDouble(), anyDouble()))
                 .thenReturn(weatherSubject);
 
         presenter.onFirstViewAttach();
@@ -79,7 +76,7 @@ public class LoadingWeatherTest extends WeatherPresenterTest {
 
         citySubject.onNext(city);
         verify(weatherRepository, only())
-                .getCurrentWeather(city.getLatitude(), city.getLongitude(), Locale.getDefault().getLanguage());
+                .getCurrentWeather(city.getLatitude(), city.getLongitude());
         weatherSubject.onNext(weatherResponse);
         responseObserver.assertValue(weatherResponse);
 

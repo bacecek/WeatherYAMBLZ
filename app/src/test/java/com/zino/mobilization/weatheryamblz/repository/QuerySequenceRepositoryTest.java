@@ -1,8 +1,8 @@
 package com.zino.mobilization.weatheryamblz.repository;
 
 import com.zino.mobilization.weatheryamblz.common.TestData;
-import com.zino.mobilization.weatheryamblz.data.network.api.WeatherAPI;
 import com.zino.mobilization.weatheryamblz.data.cache.cache.CacheManager;
+import com.zino.mobilization.weatheryamblz.data.network.api.WeatherApi;
 import com.zino.mobilization.weatheryamblz.data.network.response.weather.WeatherResponse;
 
 import org.junit.Before;
@@ -14,7 +14,6 @@ import io.reactivex.observers.TestObserver;
 import io.reactivex.subjects.SingleSubject;
 
 import static org.mockito.Mockito.anyDouble;
-import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.when;
 
 /**
@@ -30,7 +29,7 @@ public class QuerySequenceRepositoryTest {
     private final WeatherResponse cacheResponse = TestData.getPermResponse();
 
     @Mock
-    private WeatherAPI api;
+    private WeatherApi api;
 
     @Mock
     private CacheManager cacheManager;
@@ -42,7 +41,7 @@ public class QuerySequenceRepositoryTest {
         MockitoAnnotations.initMocks(this);
         currentWeatherFromApi = SingleSubject.create();
         currentWeatherFromCache = SingleSubject.create();
-        when(api.getCurrentWeather(anyDouble(), anyDouble(), anyString(), anyString(), anyString()))
+        when(api.getCurrentWeather(anyDouble(), anyDouble()))
                 .thenReturn(currentWeatherFromApi);
         when(cacheManager.getCurrentWeather())
                 .thenReturn(currentWeatherFromCache);
@@ -53,7 +52,7 @@ public class QuerySequenceRepositoryTest {
     public void shouldReturnOnlyFromApi() {
         when(cacheManager.isCacheAvailable()).thenReturn(false);
         TestObserver<WeatherResponse> observer = new TestObserver<>();
-        repository.getCurrentWeather(0, 0, "ru")
+        repository.getCurrentWeather(0, 0)
                 .subscribe(observer);
         currentWeatherFromApi.onSuccess(apiResponse);
         observer.assertValues(apiResponse);
@@ -64,7 +63,7 @@ public class QuerySequenceRepositoryTest {
     public void shouldReturnFromCacheAndApi() {
         when(cacheManager.isCacheAvailable()).thenReturn(true);
         TestObserver<WeatherResponse> observer = new TestObserver<>();
-        repository.getCurrentWeather(0, 0, "ru")
+        repository.getCurrentWeather(0, 0)
                 .subscribe(observer);
         currentWeatherFromCache.onSuccess(cacheResponse);
         currentWeatherFromApi.onSuccess(apiResponse);

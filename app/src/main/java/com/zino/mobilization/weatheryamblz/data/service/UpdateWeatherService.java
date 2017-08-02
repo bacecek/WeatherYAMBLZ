@@ -6,11 +6,9 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.zino.mobilization.weatheryamblz.WeatherApplication;
-import com.zino.mobilization.weatheryamblz.data.network.response.weather.WeatherResponse;
 import com.zino.mobilization.weatheryamblz.data.cache.prefs.SharedPreferencesHelper;
+import com.zino.mobilization.weatheryamblz.data.network.response.weather.WeatherResponse;
 import com.zino.mobilization.weatheryamblz.repository.WeatherRepository;
-
-import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -52,8 +50,7 @@ public class UpdateWeatherService extends Service {
         disposable = preferencesHelper.getCurrentCity()
                 .flatMap(city -> weatherRepository.getCurrentWeather(
                         city.getLatitude(),
-                        city.getLongitude(),
-                        Locale.getDefault().getLanguage()))
+                        city.getLongitude()))
                 .doOnNext(result -> weatherRepository.saveCurrentWeather(result))
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::onCurrentWeatherLoaded);
