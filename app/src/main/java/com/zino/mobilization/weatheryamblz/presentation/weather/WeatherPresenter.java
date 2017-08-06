@@ -3,14 +3,12 @@ package com.zino.mobilization.weatheryamblz.presentation.weather;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.zino.mobilization.weatheryamblz.data.cache.pojo.City;
-import com.zino.mobilization.weatheryamblz.data.cache.prefs.SharedPreferencesHelper;
+import com.zino.mobilization.weatheryamblz.business.entity.City;
 import com.zino.mobilization.weatheryamblz.data.network.response.weather.WeatherResponse;
-import com.zino.mobilization.weatheryamblz.repository.WeatherRepository;
+import com.zino.mobilization.weatheryamblz.data.settings.SettingsManager;
+import com.zino.mobilization.weatheryamblz.repository.weather.WeatherRepository;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 
 
 @InjectViewState
@@ -18,9 +16,9 @@ public class WeatherPresenter extends MvpPresenter<WeatherView> {
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     protected City currentCity;
     private WeatherRepository weatherRepository;
-    protected SharedPreferencesHelper preferencesHelper;
+    protected SettingsManager preferencesHelper;
 
-    public WeatherPresenter(SharedPreferencesHelper preferencesHelper,
+    public WeatherPresenter(SettingsManager preferencesHelper,
                             WeatherRepository weatherRepository) {
         this.preferencesHelper = preferencesHelper;
         this.weatherRepository = weatherRepository;
@@ -29,13 +27,13 @@ public class WeatherPresenter extends MvpPresenter<WeatherView> {
     @Override
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
-        boolean isCelsius = preferencesHelper.isCelsius();
+        /*boolean isCelsius = preferencesHelper.isCelsius();
         if (isCelsius) {
             getViewState().setCelsius(true);
         } else {
             getViewState().setCelsius(false);
-        }
-        compositeDisposable.add(
+        }*/
+        /*compositeDisposable.add(
                 preferencesHelper.getCurrentCity()
                         .flatMap(city -> {
                             currentCity = city;
@@ -47,11 +45,11 @@ public class WeatherPresenter extends MvpPresenter<WeatherView> {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeOn(Schedulers.io())
                         .subscribe(this::showWeatherResponse)
-        );
+        );*/
     }
 
     public void onRefresh() {
-        if(currentCity != null) {
+        /*if(currentCity != null) {
             compositeDisposable.add(
                     weatherRepository.getCurrentWeatherFromApi(
                             currentCity.getLatitude(),
@@ -61,15 +59,15 @@ public class WeatherPresenter extends MvpPresenter<WeatherView> {
                             .subscribeOn(Schedulers.io())
                             .subscribe(this::showWeatherResponse)
             );
-        }
+        }*/
     }
 
     public void onWeatherLoadedFromService() {
-        compositeDisposable.add(
-                weatherRepository.getCurrentWeatherFromCache()
+        /*compositeDisposable.add(
+                weatherRepository.getCurrentWeatherFromDb()
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(this::showWeatherResponse)
-        );
+        );*/
     }
 
     private void showWeatherResponse(WeatherResponse response) {

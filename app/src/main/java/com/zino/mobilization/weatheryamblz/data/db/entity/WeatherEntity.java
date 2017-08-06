@@ -5,7 +5,9 @@ package com.zino.mobilization.weatheryamblz.data.db.entity;
  * <buzmakov.da@gmail.com>
  */
 
-public class Weather {
+
+public class WeatherEntity {
+
     private double temperature;
 
     private String description;
@@ -118,7 +120,7 @@ public class Weather {
 
     @Override
     public String toString() {
-        return "Weather{" +
+        return "WeatherEntity{" +
                 "temperature=" + temperature +
                 ", description='" + description + '\'' +
                 ", humidity=" + humidity +
@@ -136,9 +138,9 @@ public class Weather {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Weather)) return false;
+        if (!(o instanceof WeatherEntity)) return false;
 
-        Weather weather = (Weather) o;
+        WeatherEntity weather = (WeatherEntity) o;
 
         if (Double.compare(weather.temperature, temperature) != 0) return false;
         if (Double.compare(weather.humidity, humidity) != 0) return false;

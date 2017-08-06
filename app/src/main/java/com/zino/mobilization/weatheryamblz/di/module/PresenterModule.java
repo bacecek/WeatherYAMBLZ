@@ -1,10 +1,11 @@
 package com.zino.mobilization.weatheryamblz.di.module;
 
-import com.zino.mobilization.weatheryamblz.data.cache.prefs.SharedPreferencesHelper;
-import com.zino.mobilization.weatheryamblz.repository.WeatherRepository;
+import com.zino.mobilization.weatheryamblz.business.interactor.cities.CitiesInteractor;
+import com.zino.mobilization.weatheryamblz.data.settings.SettingsManager;
+import com.zino.mobilization.weatheryamblz.presentation.cities.CitiesPresenter;
 import com.zino.mobilization.weatheryamblz.presentation.settings.SettingsPresenter;
 import com.zino.mobilization.weatheryamblz.presentation.weather.WeatherPresenter;
-import com.zino.mobilization.weatheryamblz.data.service.AndroidJobHelper;
+import com.zino.mobilization.weatheryamblz.repository.weather.WeatherRepository;
 
 import dagger.Module;
 import dagger.Provides;
@@ -18,15 +19,19 @@ import dagger.Provides;
 public class PresenterModule {
 
     @Provides
-    SettingsPresenter provideSettingsPresenter(SharedPreferencesHelper preferencesHelper,
-                                               AndroidJobHelper jobHelper) {
-        return new SettingsPresenter(preferencesHelper, jobHelper);
+    SettingsPresenter provideSettingsPresenter(SettingsManager preferencesHelper) {
+        return new SettingsPresenter(preferencesHelper);
     }
 
     @Provides
-    WeatherPresenter provideWeatherPresenter(SharedPreferencesHelper preferencesHelper,
+    WeatherPresenter provideWeatherPresenter(SettingsManager preferencesHelper,
                                               WeatherRepository repository) {
         return new WeatherPresenter(preferencesHelper, repository);
+    }
+
+    @Provides
+    CitiesPresenter provideCitiesPresenter(CitiesInteractor interactor) {
+        return new CitiesPresenter(interactor);
     }
 
 }

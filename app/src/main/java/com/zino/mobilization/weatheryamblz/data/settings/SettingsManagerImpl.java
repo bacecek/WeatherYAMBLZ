@@ -1,11 +1,8 @@
-package com.zino.mobilization.weatheryamblz.data.cache.prefs;
+package com.zino.mobilization.weatheryamblz.data.settings;
 
 import android.content.SharedPreferences;
 
 import com.f2prateek.rx.preferences2.RxSharedPreferences;
-import com.google.gson.Gson;
-import com.zino.mobilization.weatheryamblz.R;
-import com.zino.mobilization.weatheryamblz.data.cache.pojo.City;
 import com.zino.mobilization.weatheryamblz.utils.AppResources;
 
 import io.reactivex.Observable;
@@ -14,7 +11,7 @@ import io.reactivex.Observable;
  * Created by Алексей on 16.07.2017.
  */
 
-public class SharedPreferencesHelperImpl implements SharedPreferencesHelper{
+public class SettingsManagerImpl implements SettingsManager {
 
     public  static final String FILE_NAME = "app_preferences";
     private static final String IS_CELSIUS_KEY = "is_celsius_key";
@@ -26,7 +23,7 @@ public class SharedPreferencesHelperImpl implements SharedPreferencesHelper{
     private RxSharedPreferences rxSharedPreferences;
     private AppResources appResources;
 
-    public SharedPreferencesHelperImpl(
+    public SettingsManagerImpl(
             SharedPreferences sharedPreferences,
             RxSharedPreferences rxSharedPreferences,
             AppResources resources) {
@@ -36,8 +33,9 @@ public class SharedPreferencesHelperImpl implements SharedPreferencesHelper{
     }
 
     @Override
-    public boolean isCelsius() {
-        return sharedPreferences.getBoolean(IS_CELSIUS_KEY, true);
+    public Observable<Boolean> isCelsius() {
+        return rxSharedPreferences.getBoolean(IS_CELSIUS_KEY, true)
+                .asObservable();
     }
 
     @Override
@@ -45,7 +43,6 @@ public class SharedPreferencesHelperImpl implements SharedPreferencesHelper{
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(IS_CELSIUS_KEY, isCelsuis);
         editor.apply();
-
     }
 
     @Override
@@ -56,8 +53,9 @@ public class SharedPreferencesHelperImpl implements SharedPreferencesHelper{
     }
 
     @Override
-    public long getUpdateTime() {
-        return sharedPreferences.getLong(UPDATE_TIME_KEY, 900_000L);
+    public Observable<Long> getUpdateTime() {
+        return rxSharedPreferences.getLong(UPDATE_TIME_KEY, 900_000L)
+                .asObservable();
     }
 
     @Override
@@ -68,37 +66,9 @@ public class SharedPreferencesHelperImpl implements SharedPreferencesHelper{
     }
 
     @Override
-    public int getTimeRadioButtonId() {
-        return sharedPreferences.getInt(SELECTED_RADIO_KEY, 0);
-    }
-
-    @Override
-    public Observable<City> getCurrentCity() {
-        Gson gson = new Gson();
-        return rxSharedPreferences.getString(CURRENT_CITY, "")
-                .asObservable()
-                .map(s -> {
-                    if(s.isEmpty()) {
-                        return defaultCity();
-                    } else {
-                        return gson.fromJson(s, City.class);
-                    }
-                });
-    }
-
-    @Override
-    public void setCurrentCity(City city) {
-        if(city == null) return;
-        Gson gson = new Gson();
-        String json = gson.toJson(city);
-        sharedPreferences.edit()
-                .putString(CURRENT_CITY, json)
-                .apply();
-    }
-
-    @Override
-    public City defaultCity() {
-        return new City(appResources.getString(R.string.moscow_full), 55.755826, 37.6173);
+    public Observable<Integer> getTimeRadioButtonId() {
+        return rxSharedPreferences.getInteger(SELECTED_RADIO_KEY, 0)
+                .asObservable();
     }
 
 }

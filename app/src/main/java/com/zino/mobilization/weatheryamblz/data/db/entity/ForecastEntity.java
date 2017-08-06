@@ -1,6 +1,7 @@
 package com.zino.mobilization.weatheryamblz.data.db.entity;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
@@ -10,12 +11,18 @@ import android.arch.persistence.room.PrimaryKey;
  */
 
 @Entity(tableName = "forecasts",
-        indices = {@Index("cityId"), @Index("id")})
-public class Forecast {
+        indices = {@Index("cityId"), @Index("forecastId")},
+        foreignKeys = {
+                @ForeignKey(entity = CityEntity.class,
+                        parentColumns = "id",
+                        childColumns = "cityId",
+                        onDelete = ForeignKey.CASCADE)
+        })
+public class ForecastEntity {
     @PrimaryKey(autoGenerate = true)
-    private long id;
+    private long forecastId;
 
-    private long cityId;
+    private String cityId;
 
     private double temperature;
 
@@ -33,19 +40,19 @@ public class Forecast {
 
     private String iconId;
 
-    public long getId() {
-        return id;
+    public long getForecastId() {
+        return forecastId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setForecastId(long id) {
+        this.forecastId = id;
     }
 
-    public long getCityId() {
+    public String getCityId() {
         return cityId;
     }
 
-    public void setCityId(long cityId) {
+    public void setCityId(String cityId) {
         this.cityId = cityId;
     }
 
@@ -115,8 +122,8 @@ public class Forecast {
 
     @Override
     public String toString() {
-        return "Forecast{" +
-                "id=" + id +
+        return "ForecastEntity{" +
+                "forecastId=" + forecastId +
                 ", cityId=" + cityId +
                 ", temperature=" + temperature +
                 ", description='" + description + '\'' +
@@ -132,15 +139,15 @@ public class Forecast {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Forecast)) return false;
+        if (!(o instanceof ForecastEntity)) return false;
 
-        Forecast forecast = (Forecast) o;
+        ForecastEntity forecast = (ForecastEntity) o;
 
-        return id == forecast.id;
+        return forecastId == forecast.forecastId;
     }
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        return (int) (forecastId ^ (forecastId >>> 32));
     }
 }

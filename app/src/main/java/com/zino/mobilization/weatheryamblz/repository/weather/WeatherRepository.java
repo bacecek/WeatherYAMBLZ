@@ -1,8 +1,7 @@
-package com.zino.mobilization.weatheryamblz.repository;
+package com.zino.mobilization.weatheryamblz.repository.weather;
 
 import com.zino.mobilization.weatheryamblz.data.network.response.weather.WeatherResponse;
 
-import io.reactivex.Observable;
 import io.reactivex.Single;
 
 /**
@@ -10,13 +9,7 @@ import io.reactivex.Single;
  */
 
 public interface WeatherRepository {
-
-    Observable<WeatherResponse> getCurrentWeather(double lat, double lon);
-
     Single<WeatherResponse> getCurrentWeatherFromApi(double lat, double lon);
-
-    Single<WeatherResponse> getCurrentWeatherFromCache();
-
-    void saveCurrentWeather(WeatherResponse response);
-
+    //Observable<List<WeatherEntity>> getAllCurrentWeathers();
+    //Observable<WeatherEntity> getCurrentWeatherFromDb(String cityId);
 }

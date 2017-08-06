@@ -29,6 +29,22 @@
     <string name="moscow">Moscow</string>
     <string name="moscow_full">Moscow, Russia</string>
 
+    <string name="empty_list_cities_title">No cities added</string>
+    <string name="empty_list_cities_subtitle">Tap "+" to add new city</string>
+    <string name="empty_city_weather">No data yet. Downloading now…</string>
+
     <string name="error_play_services_not_available">Google Play Services is not available: %1$s</string>
+
+    <string name="template_temperature_metric">%1$d &#176;C</string>
+    <string name="template_temperature_imperial">%1$d &#176;F</string>
+    <string name="template_wind_speed">%1$.1f m/s</string>
+    <string name="template_pressure">%1$.1f hPa</string>
+    <string name="template_humidity">%1$.0f%%</string>
+    <string name="template_visibility">%1$d m</string>
+    <string name="template_cloudiness">%1$d%%</string>
+
+    <!--Time formats-->
+    <string name="format_sunrise">H:mm</string>
+    <string name="format_update_weather">EEEE h:mm a</string>
 
 </resources>

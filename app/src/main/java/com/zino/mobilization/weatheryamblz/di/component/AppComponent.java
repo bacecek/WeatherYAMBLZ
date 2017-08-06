@@ -1,13 +1,15 @@
 package com.zino.mobilization.weatheryamblz.di.component;
 
+import com.zino.mobilization.weatheryamblz.WeatherApplication;
+import com.zino.mobilization.weatheryamblz.data.service.UpdateWeatherService;
 import com.zino.mobilization.weatheryamblz.di.module.AppModule;
+import com.zino.mobilization.weatheryamblz.di.module.BindsModule;
+import com.zino.mobilization.weatheryamblz.di.module.DatabaseModule;
 import com.zino.mobilization.weatheryamblz.di.module.NetworkModule;
 import com.zino.mobilization.weatheryamblz.di.module.PresenterModule;
-import com.zino.mobilization.weatheryamblz.data.cache.prefs.SharedPreferencesHelper;
+import com.zino.mobilization.weatheryamblz.presentation.cities.CitiesPresenter;
 import com.zino.mobilization.weatheryamblz.presentation.settings.SettingsPresenter;
 import com.zino.mobilization.weatheryamblz.presentation.weather.WeatherPresenter;
-import com.zino.mobilization.weatheryamblz.data.service.UpdateWeatherService;
-import com.zino.mobilization.weatheryamblz.data.service.AndroidJobHelper;
 
 import javax.inject.Singleton;
 
@@ -19,13 +21,16 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {AppModule.class, NetworkModule.class, PresenterModule.class})
+@Component(modules = {AppModule.class,
+        NetworkModule.class,
+        PresenterModule.class,
+        BindsModule.class,
+        DatabaseModule.class})
 public interface AppComponent {
     void inject(UpdateWeatherService service);
-
-    SharedPreferencesHelper getPreferenceHelper();
-    AndroidJobHelper getJobHelper();
+    void inject(WeatherApplication application);
 
     SettingsPresenter getSettingsPresenter();
     WeatherPresenter getWeatherPresenter();
+    CitiesPresenter getCitiesPresenter();
 }

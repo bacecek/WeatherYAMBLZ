@@ -4,12 +4,8 @@ import android.support.annotation.IdRes;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.maps.model.LatLng;
 import com.zino.mobilization.weatheryamblz.R;
-import com.zino.mobilization.weatheryamblz.data.cache.pojo.City;
-import com.zino.mobilization.weatheryamblz.data.cache.prefs.SharedPreferencesHelper;
-import com.zino.mobilization.weatheryamblz.data.service.AndroidJobHelper;
+import com.zino.mobilization.weatheryamblz.data.settings.SettingsManager;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -20,57 +16,40 @@ import io.reactivex.disposables.CompositeDisposable;
 @InjectViewState
 public class SettingsPresenter extends MvpPresenter<SettingsView> {
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private SharedPreferencesHelper preferencesHelper;
-    private AndroidJobHelper jobHelper;
+    private SettingsManager settingsManager;
 
-    public SettingsPresenter(SharedPreferencesHelper preferencesHelper,
-                             AndroidJobHelper jobHelper) {
-        this.preferencesHelper = preferencesHelper;
-        this.jobHelper = jobHelper;
+    public SettingsPresenter(SettingsManager settingsManager) {
+        this.settingsManager = settingsManager;
     }
 
     @Override
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
 
-        boolean isCelsius = preferencesHelper.isCelsius();
-        if (isCelsius) {
-            getViewState().setCelsiusButtonActive();
-        } else {
-            getViewState().setFahrenheitButtonActive();
-        }
+        settingsManager.isCelsius()
+                .subscribe(isCelsius -> {
+                    if (isCelsius) {
+                        getViewState().setCelsiusButtonActive();
+                    } else {
+                        getViewState().setFahrenheitButtonActive();
+                    }
+                });
 
-        int id = preferencesHelper.getTimeRadioButtonId();
-        if (id == 0) {
-            id = R.id.radio_fifteen;
-        }
-        getViewState().checkRadioButton(id);
-
-        compositeDisposable.add(
-                preferencesHelper.getCurrentCity()
-                .subscribe(city -> getViewState().setCurrentCityName(city.getName()))
-        );
+        settingsManager.getTimeRadioButtonId()
+                .subscribe(id -> {
+                    if (id == 0) {
+                        id = R.id.radio_fifteen;
+                    }
+                    getViewState().checkRadioButton(id);
+                });
     }
 
     public void onCelsiusButtonClicked() {
-        getViewState().setCelsiusButtonActive();
-        preferencesHelper.setCelsius(true);
+        settingsManager.setCelsius(true);
     }
 
     public void onFahrenheitButtonClicked() {
-        getViewState().setFahrenheitButtonActive();
-        preferencesHelper.setCelsius(false);
-    }
-
-    public void onCityClicked() {
-        getViewState().openChooseCity();
-    }
-
-    public void onCityChosen(Place place) {
-        if(place == null) return;
-        LatLng latLngCity = place.getLatLng();
-        City city = new City(place.getAddress().toString(), latLngCity.latitude, latLngCity.longitude);
-        preferencesHelper.setCurrentCity(city);
+        settingsManager.setCelsius(false);
     }
 
     public void onTimeCheckedChanged(@IdRes int id) {
@@ -94,14 +73,8 @@ public class SettingsPresenter extends MvpPresenter<SettingsView> {
         }
         if(updateTime == -1) return;
 
-        preferencesHelper.setUpdateTime(updateTime);
-        preferencesHelper.setTimeRadioButtonId(id);
-        if (updateTime == 0) {
-            jobHelper.cancelAllJobs();
-        } else {
-            jobHelper.changeSchedulePeriod(updateTime);
-        }
-
+        settingsManager.setUpdateTime(updateTime);
+        settingsManager.setTimeRadioButtonId(id);
     }
 
     @Override

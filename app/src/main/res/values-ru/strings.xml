@@ -23,6 +23,18 @@
     <string name="moscow">Москва</string>
     <string name="moscow_full">Москва, Россия</string>
 
+    <string name="empty_list_cities_title">Список городов пуст</string>
+    <string name="empty_list_cities_subtitle">Нажмите "+", чтобы добавить город</string>
+    <string name="empty_city_weather">Данных о погоде пока нет. Загружаются…</string>
+
     <string name="error_play_services_not_available">Google Play Services недоступны: %1$s</string>
+
+    <string name="template_temperature_metric">%1$d &#176;C</string>
+    <string name="template_temperature_imperial">%1$d &#176;F</string>
+    <string name="template_wind_speed">%1$.1f м/с</string>
+    <string name="template_pressure">%1$.1f гПа</string>
+    <string name="template_humidity">%1$.0f%%</string>
+    <string name="template_visibility">%1$d м</string>
+    <string name="template_cloudiness">%1$d%%</string>
 
 </resources>

@@ -3,12 +3,10 @@ package com.zino.mobilization.weatheryamblz.data.service;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
 
 import com.zino.mobilization.weatheryamblz.WeatherApplication;
-import com.zino.mobilization.weatheryamblz.data.cache.prefs.SharedPreferencesHelper;
-import com.zino.mobilization.weatheryamblz.data.network.response.weather.WeatherResponse;
-import com.zino.mobilization.weatheryamblz.repository.WeatherRepository;
+import com.zino.mobilization.weatheryamblz.business.interactor.cities.CitiesInteractor;
+import com.zino.mobilization.weatheryamblz.data.settings.SettingsManager;
 
 import javax.inject.Inject;
 
@@ -18,15 +16,13 @@ import io.reactivex.schedulers.Schedulers;
 
 public class UpdateWeatherService extends Service {
 
-    public final static String WEATHER_LOADED_ACTION = "com.zino.mobilization.weather.weather_loaded";
-
     private Disposable disposable;
 
     @Inject
-    SharedPreferencesHelper preferencesHelper;
+    SettingsManager settingsManager;
 
     @Inject
-    WeatherRepository weatherRepository;
+    CitiesInteractor citiesInteractor;
 
     public UpdateWeatherService(){
         WeatherApplication.getAppComponent().inject(this);
@@ -47,19 +43,8 @@ public class UpdateWeatherService extends Service {
     }
 
     void loadWeather() {
-        disposable = preferencesHelper.getCurrentCity()
-                .flatMap(city -> weatherRepository.getCurrentWeather(
-                        city.getLatitude(),
-                        city.getLongitude()))
-                .doOnNext(result -> weatherRepository.saveCurrentWeather(result))
+        disposable = citiesInteractor.fetchAndSaveAllCities()
                 .subscribeOn(Schedulers.io())
-                .subscribe(this::onCurrentWeatherLoaded);
-    }
-
-    public void onCurrentWeatherLoaded(WeatherResponse weatherResponse) {
-        Log.i("kkk", "onCurrentWeatherLoaded: "  + weatherResponse.getMain().getTemp() + " C");
-        Intent intent = new Intent(WEATHER_LOADED_ACTION);
-        sendBroadcast(intent);
-        stopSelf();
+                .subscribe();
     }
 }

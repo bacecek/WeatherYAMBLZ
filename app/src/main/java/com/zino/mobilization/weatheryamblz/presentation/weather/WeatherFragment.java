@@ -1,18 +1,12 @@
 package com.zino.mobilization.weatheryamblz.presentation.weather;
 
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,9 +14,8 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.zino.mobilization.weatheryamblz.R;
 import com.zino.mobilization.weatheryamblz.WeatherApplication;
-import com.zino.mobilization.weatheryamblz.data.cache.pojo.City;
+import com.zino.mobilization.weatheryamblz.business.entity.City;
 import com.zino.mobilization.weatheryamblz.data.network.response.weather.WeatherResponse;
-import com.zino.mobilization.weatheryamblz.data.service.UpdateWeatherService;
 import com.zino.mobilization.weatheryamblz.presentation.common.BaseFragment;
 import com.zino.mobilization.weatheryamblz.utils.Utils;
 
@@ -72,26 +65,15 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
 
     private boolean isCelsius = true;
 
-    private final BroadcastReceiver br = new BroadcastReceiver() {
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if(action != null) {
-                if (action.equals(UpdateWeatherService.WEATHER_LOADED_ACTION)) {
-                    presenter.onWeatherLoadedFromService();
-                }
-            }
-        }
-    };
-
     @ProvidePresenter
     WeatherPresenter provideWeatherPresenter() {
         return WeatherApplication.getAppComponent().getWeatherPresenter();
     }
 
-    @NonNull
+    @LayoutRes
     @Override
-    protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_weather, container, false);
+    protected int getLayoutId() {
+        return R.layout.fragment_weather;
     }
 
     @Override
@@ -103,43 +85,13 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        IntentFilter intentFilter = new IntentFilter(UpdateWeatherService.WEATHER_LOADED_ACTION);
-        getActivity().registerReceiver(br, intentFilter);
-    }
-
-    @Override
     public void showWeather(WeatherResponse weatherResponse) {
-        double temp = 0;
-        if (isCelsius) {
-            temp = weatherResponse.getMain().getTemp();
-        } else {
-            temp = Utils.celsiusToFahrenheit(weatherResponse.getMain().getTemp());
-        }
-        tempTextView.setText(Utils.formatTemperature(temp));
 
-        double minTemp = 0;
-        if (isCelsius) {
-            minTemp = weatherResponse.getMain().getTempMin();
-        } else {
-            minTemp = Utils.celsiusToFahrenheit(weatherResponse.getMain().getTempMin());
-        }
-        minTempTextView.setText(Utils.formatTemperature(minTemp));
-
-        double maxTemp = 0;
-        if (isCelsius) {
-            maxTemp = weatherResponse.getMain().getTempMax();
-        } else {
-            maxTemp = Utils.celsiusToFahrenheit(weatherResponse.getMain().getTempMax());
-        }
-
-        maxTempTextView.setText(Utils.formatTemperature(maxTemp));
         descriptionTextView.setText(weatherResponse.getWeather().get(0).getDescription());
 
         weatherImageView.setImageDrawable(
                 getResources().getDrawable(
-                        Utils.getImageIdByName(weatherResponse.getWeather().get(0).getIcon())));
+                        Utils.getImageIdByWeatherCondition(weatherResponse.getWeather().get(0).getIcon())));
 
         pressureTextView.setText(String.format(getResources().getString(R.string.pressure),
                 String.valueOf(weatherResponse.getMain().getPressure())));
@@ -174,9 +126,7 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
         isCelsius = celsius;
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        getActivity().unregisterReceiver(br);
+    public static WeatherFragment newInstance() {
+        return new WeatherFragment();
     }
 }

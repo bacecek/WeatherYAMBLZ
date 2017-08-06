@@ -9,5 +9,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class Rain {
     @SerializedName("3h")
-    private int volume;
+    private double volume;
+
+    public double getVolume() {
+        return volume;
+    }
 }

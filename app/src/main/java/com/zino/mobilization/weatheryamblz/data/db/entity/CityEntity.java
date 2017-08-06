@@ -10,10 +10,10 @@ import android.arch.persistence.room.PrimaryKey;
  */
 
 @Entity(tableName = "cities")
-public class City {
+public class CityEntity {
 
-    @PrimaryKey(autoGenerate = true)
-    private long id;
+    @PrimaryKey
+    private String id; //from Places API
 
     private String name;
 
@@ -24,59 +24,44 @@ public class City {
     private double longitude;
 
     @Embedded
-    private Weather currentWeather;
+    private WeatherEntity currentWeather;
 
-    public long getId() {
-        return id;
+    public CityEntity(String id, String name, String address, double latitude, double longitude, WeatherEntity currentWeather) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.currentWeather = currentWeather;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public String getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getAddress() {
         return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
     public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public Weather getCurrentWeather() {
+    public WeatherEntity getCurrentWeather() {
         return currentWeather;
-    }
-
-    public void setCurrentWeather(Weather currentWeather) {
-        this.currentWeather = currentWeather;
     }
 
     @Override
     public String toString() {
-        return "City{" +
+        return "CityEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
@@ -88,15 +73,15 @@ public class City {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof City)) return false;
+        if (!(o instanceof CityEntity)) return false;
 
-        City city = (City) o;
+        CityEntity city = (CityEntity) o;
 
-        return id == city.id;
+        return id.equals(city.id);
     }
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        return id.hashCode();
     }
 }

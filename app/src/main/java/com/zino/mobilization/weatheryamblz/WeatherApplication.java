@@ -4,10 +4,14 @@ import android.app.Application;
 
 import com.facebook.stetho.Stetho;
 import com.squareup.leakcanary.LeakCanary;
+import com.zino.mobilization.weatheryamblz.data.service.AndroidJobHelper;
+import com.zino.mobilization.weatheryamblz.data.settings.SettingsManager;
 import com.zino.mobilization.weatheryamblz.di.component.AppComponent;
 import com.zino.mobilization.weatheryamblz.di.component.DaggerAppComponent;
 import com.zino.mobilization.weatheryamblz.di.module.AppModule;
 import com.zino.mobilization.weatheryamblz.di.module.NetworkModule;
+
+import javax.inject.Inject;
 
 import timber.log.Timber;
 
@@ -15,6 +19,12 @@ import timber.log.Timber;
 public class WeatherApplication extends Application {
 
     private static AppComponent appComponent;
+
+    @Inject
+    SettingsManager settingsManager;
+
+    @Inject
+    AndroidJobHelper jobHelper;
 
     @Override
     public void onCreate() {
@@ -30,15 +40,18 @@ public class WeatherApplication extends Application {
                 .appModule(new AppModule(this))
                 .networkModule(new NetworkModule())
                 .build();
+        appComponent.inject(this);
     }
 
     protected void initJobHelper() {
-        long period = appComponent.getPreferenceHelper().getUpdateTime();
-        if (period == 0) {
-            appComponent.getJobHelper().cancelAllJobs();
-        } else {
-            appComponent.getJobHelper().scheduleIfJobRequestsIsEmpty(period);
-        }
+        settingsManager.getUpdateTime()
+                .subscribe(period -> {
+                    if (period == 0) {
+                        jobHelper.cancelAllJobs();
+                    } else {
+                        jobHelper.scheduleIfJobRequestsIsEmpty(period);
+                    }
+                });
     }
 
     protected void initLibraries() {
