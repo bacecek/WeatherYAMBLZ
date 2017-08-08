@@ -5,7 +5,8 @@ import android.content.Context;
 
 import com.zino.mobilization.weatheryamblz.data.db.AppDatabase;
 import com.zino.mobilization.weatheryamblz.data.db.dao.CityDao;
-import com.zino.mobilization.weatheryamblz.data.db.dao.ForecastDao;
+import com.zino.mobilization.weatheryamblz.data.db.dao.DailyForecastDao;
+import com.zino.mobilization.weatheryamblz.data.db.dao.HourlyForecastDao;
 
 import javax.inject.Singleton;
 
@@ -33,16 +34,15 @@ public class DatabaseModule {
         return database.cityDao();
     }
 
-    /*@Provides
+    @Provides
     @Singleton
-    WeatherDao provideWeatherDao(AppDatabase database) {
-        return database.weatherDao();
-    }*/
+    HourlyForecastDao provideHourlyForecastDao(AppDatabase database) {
+        return database.hourlyForecastDao();
+    }
 
     @Provides
     @Singleton
-    ForecastDao provideForecastDao(AppDatabase database) {
-        return database.forecastDao();
+    DailyForecastDao provideDailyForecastDao(AppDatabase database) {
+        return database.dailyForecastDao();
     }
-
 }

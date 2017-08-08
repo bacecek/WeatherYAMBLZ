@@ -1,5 +1,7 @@
 package com.zino.mobilization.weatheryamblz.repository.city;
 
+import android.arch.persistence.room.EmptyResultSetException;
+
 import com.zino.mobilization.weatheryamblz.data.db.dao.CityDao;
 import com.zino.mobilization.weatheryamblz.data.db.entity.CityEntity;
 
@@ -9,7 +11,6 @@ import javax.inject.Inject;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
-import io.reactivex.Single;
 import timber.log.Timber;
 
 /**
@@ -21,14 +22,21 @@ public class CitiesRepositoryImpl implements CitiesRepository {
     private CityDao cityDao;
 
     @Inject
-    public CitiesRepositoryImpl(CityDao cityDao) {
+    CitiesRepositoryImpl(CityDao cityDao) {
         this.cityDao = cityDao;
     }
 
     @Override
-    public Single<CityEntity> getCity(String id) {
+    public Observable<CityEntity> getCity(String id) {
         Timber.d("get city by id: " + id);
-        return cityDao.getCityById(id);
+        return cityDao.getCityById(id)
+                .doOnNext(list -> {
+                    if(list.length == 0) {
+                        throw new EmptyResultSetException("City is no longer exists");
+                    }
+                })
+                .map(list -> list[0])
+                .toObservable();
     }
 
     @Override

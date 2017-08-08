@@ -1,84 +1,78 @@
 package com.zino.mobilization.weatheryamblz.presentation.weather;
 
 
+import android.arch.persistence.room.EmptyResultSetException;
+
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.zino.mobilization.weatheryamblz.business.entity.City;
-import com.zino.mobilization.weatheryamblz.data.network.response.weather.WeatherResponse;
-import com.zino.mobilization.weatheryamblz.data.settings.SettingsManager;
-import com.zino.mobilization.weatheryamblz.repository.weather.WeatherRepository;
+import com.zino.mobilization.weatheryamblz.business.interactor.weather.WeatherInteractor;
 
-import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 
 @InjectViewState
 public class WeatherPresenter extends MvpPresenter<WeatherView> {
-    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
-    protected City currentCity;
-    private WeatherRepository weatherRepository;
-    protected SettingsManager preferencesHelper;
+    private WeatherInteractor interactor;
+    private String cityId;
 
-    public WeatherPresenter(SettingsManager preferencesHelper,
-                            WeatherRepository weatherRepository) {
-        this.preferencesHelper = preferencesHelper;
-        this.weatherRepository = weatherRepository;
+    public WeatherPresenter(WeatherInteractor interactor) {
+        this.interactor = interactor;
     }
 
-    @Override
-    protected void onFirstViewAttach() {
-        super.onFirstViewAttach();
-        /*boolean isCelsius = preferencesHelper.isCelsius();
-        if (isCelsius) {
-            getViewState().setCelsius(true);
-        } else {
-            getViewState().setCelsius(false);
-        }*/
-        /*compositeDisposable.add(
-                preferencesHelper.getCurrentCity()
-                        .flatMap(city -> {
-                            currentCity = city;
-                            return weatherRepository.getCurrentWeather(
-                                    city.getLatitude(),
-                                    city.getLongitude())
-                                    .doOnNext(result -> weatherRepository.saveCurrentWeather(result));
-                        })
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeOn(Schedulers.io())
-                        .subscribe(this::showWeatherResponse)
-        );*/
+    public void setCityId(String cityId) {
+        if(this.cityId == null) {
+            this.cityId = cityId;
+
+            interactor.getCity(cityId)
+                    .doOnNext(city -> {
+                        if(city.getCurrentWeather() == null) {
+                            onRefresh();
+                        }
+                    })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(city -> getViewState().showCity(city),
+                            error -> {
+                                getViewState().hideLoading();
+                                if(error instanceof EmptyResultSetException) {
+                                    getViewState().removeYourself();
+                                }
+                            });
+
+            interactor.getHourlyForecast(cityId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(forecasts -> getViewState().showHourlyForecasts(forecasts),
+                            error -> getViewState().hideLoading());
+
+            interactor.getDailyForecast(cityId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(forecasts -> getViewState().showDailyForecasts(forecasts),
+                            error -> getViewState().hideLoading());
+        }
     }
 
     public void onRefresh() {
-        /*if(currentCity != null) {
-            compositeDisposable.add(
-                    weatherRepository.getCurrentWeatherFromApi(
-                            currentCity.getLatitude(),
-                            currentCity.getLongitude())
-                            .doOnSuccess(result -> weatherRepository.saveCurrentWeather(result))
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribeOn(Schedulers.io())
-                            .subscribe(this::showWeatherResponse)
-            );
-        }*/
-    }
+        if(cityId != null) {
+            interactor.fetchAndSaveWeather(cityId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(() -> getViewState().hideLoading(),
+                            error -> getViewState().hideLoading());
 
-    public void onWeatherLoadedFromService() {
-        /*compositeDisposable.add(
-                weatherRepository.getCurrentWeatherFromDb()
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(this::showWeatherResponse)
-        );*/
-    }
+            interactor.fetchAndSaveHourlyForecasts(cityId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(() -> getViewState().hideLoading(),
+                            error -> getViewState().hideLoading());
 
-    private void showWeatherResponse(WeatherResponse response) {
-        getViewState().hideLoading();
-        getViewState().showWeather(response);
-        getViewState().showCity(currentCity);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        compositeDisposable.clear();
+            interactor.fetchAndSaveDailyForecasts(cityId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(() -> getViewState().hideLoading(),
+                            error -> getViewState().hideLoading());
+        }
     }
 }

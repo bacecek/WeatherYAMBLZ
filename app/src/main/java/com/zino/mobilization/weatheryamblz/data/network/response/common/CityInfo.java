@@ -1,7 +1,6 @@
-package com.zino.mobilization.weatheryamblz.data.network.response.forecast;
+package com.zino.mobilization.weatheryamblz.data.network.response.common;
 
 import com.google.gson.annotations.SerializedName;
-import com.zino.mobilization.weatheryamblz.data.network.response.common.Coord;
 
 /**
  * Created by Denis Buzmakov on 02.08.17.

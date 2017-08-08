@@ -1,8 +1,10 @@
 package com.zino.mobilization.weatheryamblz.presentation.cities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -28,6 +30,7 @@ import com.zino.mobilization.weatheryamblz.R;
 import com.zino.mobilization.weatheryamblz.WeatherApplication;
 import com.zino.mobilization.weatheryamblz.business.entity.City;
 import com.zino.mobilization.weatheryamblz.presentation.common.BaseFragment;
+import com.zino.mobilization.weatheryamblz.presentation.main.OnCitySelectedListener;
 import com.zino.mobilization.weatheryamblz.utils.GridDividerItemDecoration;
 import com.zino.mobilization.weatheryamblz.utils.Utils;
 
@@ -44,6 +47,7 @@ import timber.log.Timber;
 
 public class CitiesFragment extends BaseFragment implements CitiesView {
     private final static int REQUEST_CHOOSE_CITY = 777;
+    private OnCitySelectedListener onCitySelectedListener;
 
     @InjectPresenter
     CitiesPresenter presenter;
@@ -68,6 +72,19 @@ public class CitiesFragment extends BaseFragment implements CitiesView {
                 presenter.onSwipeCity(city);
             }
         }
+
+        @Override
+        public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+            if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+                float width = (float) viewHolder.itemView.getWidth();
+                float alpha = 1.0f - Math.abs(dX) / width;
+                viewHolder.itemView.setAlpha(alpha);
+                viewHolder.itemView.setTranslationX(dX);
+            } else {
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY,
+                        actionState, isCurrentlyActive);
+            }
+        }
     };
     private final ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchCallback);
 
@@ -83,6 +100,16 @@ public class CitiesFragment extends BaseFragment implements CitiesView {
         return WeatherApplication.getAppComponent().getCitiesPresenter();
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof OnCitySelectedListener) {
+            onCitySelectedListener = (OnCitySelectedListener) context;
+        } else {
+            throw new ClassCastException(getClass().getName() + " must implement OnCitySelectedListener");
+        }
+    }
+
     @LayoutRes
     @Override
     protected int getLayoutId() {
@@ -92,22 +119,63 @@ public class CitiesFragment extends BaseFragment implements CitiesView {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        int orientation = getResources().getConfiguration().orientation;
-        if(orientation == Configuration.ORIENTATION_PORTRAIT) {
-            rvCities.setLayoutManager(new LinearLayoutManager(getActivity()));
-            final DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
-            itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.divider_cities));
-            rvCities.addItemDecoration(itemDecoration);
-        } else {
-            int spanCount = 2;
-            rvCities.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-            final GridDividerItemDecoration itemDecoration = new GridDividerItemDecoration(
-                    (int) Utils.dpToPx(getResources(), 16),
-                    spanCount);
-            rvCities.addItemDecoration(itemDecoration);
-        }
+        rvCities.setLayoutManager(getLayoutManager());
+        rvCities.addItemDecoration(getItemDecoration());
+        rvCities.setHasFixedSize(true);
 
         itemTouchHelper.attachToRecyclerView(rvCities);
+    }
+
+    private RecyclerView.LayoutManager getLayoutManager() {
+        boolean isTablet = getResources().getBoolean(R.bool.is_tablet);
+        int orientation = getResources().getConfiguration().orientation;
+        if(isTablet) {
+            if(orientation == Configuration.ORIENTATION_PORTRAIT) {
+                //return new GridLayoutManager(getActivity(), 2);
+                return new LinearLayoutManager(getActivity());
+            } else {
+                //return new GridLayoutManager(getActivity(), 3);
+                return new LinearLayoutManager(getActivity());
+            }
+        } else {
+            if(orientation == Configuration.ORIENTATION_PORTRAIT) {
+                return new LinearLayoutManager(getActivity());
+            } else {
+                return new GridLayoutManager(getActivity(), 2);
+            }
+        }
+    }
+
+    private RecyclerView.ItemDecoration getItemDecoration() {
+        boolean isTablet = getResources().getBoolean(R.bool.is_tablet);
+        int orientation = getResources().getConfiguration().orientation;
+        if(isTablet) {
+            if(orientation == Configuration.ORIENTATION_PORTRAIT) {
+                /*return new GridDividerItemDecoration(
+                        (int) Utils.dpToPx(getResources(), 16),
+                        2);*/
+                final DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
+                itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.divider_cities));
+                return itemDecoration;
+            } else {
+                /*return new GridDividerItemDecoration(
+                        (int) Utils.dpToPx(getResources(), 16),
+                        3);*/
+                final DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
+                itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.divider_cities));
+                return itemDecoration;
+            }
+        } else {
+            if(orientation == Configuration.ORIENTATION_PORTRAIT) {
+                final DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
+                itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.divider_cities));
+                return itemDecoration;
+            } else {
+                return new GridDividerItemDecoration(
+                        (int) Utils.dpToPx(getResources(), 16),
+                        2);
+            }
+        }
     }
 
     @Override
@@ -123,7 +191,7 @@ public class CitiesFragment extends BaseFragment implements CitiesView {
     @Override
     public void updateCities(List<City> cities) {
         if(citiesAdapter == null) {
-            citiesAdapter = new CitiesAdapter(cities, null);
+            citiesAdapter = new CitiesAdapter(cities, city -> onCitySelectedListener.onCitySelected(city.getId()));
             rvCities.setAdapter(citiesAdapter);
         } else {
             citiesAdapter.updateData(cities);

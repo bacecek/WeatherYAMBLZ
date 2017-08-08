@@ -6,11 +6,11 @@ import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
 /**
- * Created by Denis Buzmakov on 01.08.17.
+ * Created by Denis Buzmakov on 06.08.17.
  * <buzmakov.da@gmail.com>
  */
 
-@Entity(tableName = "forecasts",
+@Entity(tableName = "daily_forecasts",
         indices = {@Index("cityId"), @Index("forecastId")},
         foreignKeys = {
                 @ForeignKey(entity = CityEntity.class,
@@ -18,23 +18,23 @@ import android.arch.persistence.room.PrimaryKey;
                         childColumns = "cityId",
                         onDelete = ForeignKey.CASCADE)
         })
-public class ForecastEntity {
+public class DailyForecastEntity {
     @PrimaryKey(autoGenerate = true)
     private long forecastId;
 
     private String cityId;
 
-    private double temperature;
+    private long date;
+
+    private double tempDay;
+
+    private double tempNight;
 
     private String description;
 
     private double humidity;
 
     private double pressure;
-
-    private long sunriseTime;
-
-    private double windSpeed;
 
     private int conditionId;
 
@@ -44,8 +44,8 @@ public class ForecastEntity {
         return forecastId;
     }
 
-    public void setForecastId(long id) {
-        this.forecastId = id;
+    public void setForecastId(long forecastId) {
+        this.forecastId = forecastId;
     }
 
     public String getCityId() {
@@ -56,12 +56,28 @@ public class ForecastEntity {
         this.cityId = cityId;
     }
 
-    public double getTemperature() {
-        return temperature;
+    public long getDate() {
+        return date;
     }
 
-    public void setTemperature(double temperature) {
-        this.temperature = temperature;
+    public void setDate(long date) {
+        this.date = date;
+    }
+
+    public double getTempDay() {
+        return tempDay;
+    }
+
+    public void setTempDay(double tempDay) {
+        this.tempDay = tempDay;
+    }
+
+    public double getTempNight() {
+        return tempNight;
+    }
+
+    public void setTempNight(double tempNight) {
+        this.tempNight = tempNight;
     }
 
     public String getDescription() {
@@ -88,22 +104,6 @@ public class ForecastEntity {
         this.pressure = pressure;
     }
 
-    public long getSunriseTime() {
-        return sunriseTime;
-    }
-
-    public void setSunriseTime(long sunriseTime) {
-        this.sunriseTime = sunriseTime;
-    }
-
-    public double getWindSpeed() {
-        return windSpeed;
-    }
-
-    public void setWindSpeed(double windSpeed) {
-        this.windSpeed = windSpeed;
-    }
-
     public int getConditionId() {
         return conditionId;
     }
@@ -122,15 +122,15 @@ public class ForecastEntity {
 
     @Override
     public String toString() {
-        return "ForecastEntity{" +
+        return "DailyForecastEntity{" +
                 "forecastId=" + forecastId +
-                ", cityId=" + cityId +
-                ", temperature=" + temperature +
+                ", cityId='" + cityId + '\'' +
+                ", date=" + date +
+                ", tempDay=" + tempDay +
+                ", tempNight=" + tempNight +
                 ", description='" + description + '\'' +
                 ", humidity=" + humidity +
                 ", pressure=" + pressure +
-                ", sunriseTime=" + sunriseTime +
-                ", windSpeed=" + windSpeed +
                 ", conditionId=" + conditionId +
                 ", iconId='" + iconId + '\'' +
                 '}';
@@ -139,15 +139,18 @@ public class ForecastEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ForecastEntity)) return false;
+        if (!(o instanceof DailyForecastEntity)) return false;
 
-        ForecastEntity forecast = (ForecastEntity) o;
+        DailyForecastEntity that = (DailyForecastEntity) o;
 
-        return forecastId == forecast.forecastId;
+        if (forecastId != that.forecastId) return false;
+        return cityId != null ? cityId.equals(that.cityId) : that.cityId == null;
     }
 
     @Override
     public int hashCode() {
-        return (int) (forecastId ^ (forecastId >>> 32));
+        int result = (int) (forecastId ^ (forecastId >>> 32));
+        result = 31 * result + (cityId != null ? cityId.hashCode() : 0);
+        return result;
     }
 }

@@ -17,6 +17,5 @@ public interface CitiesInteractor {
     Observable<List<City>> getCitiesWithoutWeather();
     Completable addCity(City city);
     Completable fetchAndSaveWeather(String cityId);
-    Completable fetchAndSaveAllCities();
     Completable removeCity(String cityId);
 }

@@ -11,7 +11,6 @@ import com.zino.mobilization.weatheryamblz.data.db.entity.CityEntity;
 import java.util.List;
 
 import io.reactivex.Flowable;
-import io.reactivex.Single;
 
 /**
  * Created by Denis Buzmakov on 01.08.17.
@@ -24,10 +23,12 @@ public interface CityDao {
     @Query("SELECT * FROM cities")
     Flowable<List<CityEntity>> getAllCities();
 
+    //"Since Reactive Streams does not allow null, if the query returns a nullable type
+    // it will not dispatch anything if the value is null."
     @Query("SELECT * FROM cities WHERE id = :id")
-    Single<CityEntity> getCityById(String id);
+    Flowable<CityEntity[]> getCityById(String id);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertCity(CityEntity city);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)

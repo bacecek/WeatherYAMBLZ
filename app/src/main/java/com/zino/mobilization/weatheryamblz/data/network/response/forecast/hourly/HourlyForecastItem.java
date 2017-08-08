@@ -1,4 +1,4 @@
-package com.zino.mobilization.weatheryamblz.data.network.response.forecast;
+package com.zino.mobilization.weatheryamblz.data.network.response.forecast.hourly;
 
 import com.google.gson.annotations.SerializedName;
 import com.zino.mobilization.weatheryamblz.data.network.response.common.Clouds;
@@ -15,14 +15,14 @@ import java.util.List;
  * <buzmakov.da@gmail.com>
  */
 
-public class Forecast {
+public class HourlyForecastItem {
     @SerializedName("dt")
-    private String time;
+    private long time;
     @SerializedName("weather")
     private List<Weather> weatherInfo;
     @SerializedName("main")
     private Main mainInfo;
-    @SerializedName("wind")
+    @SerializedName("ic_wind")
     private Wind windInfo;
     @SerializedName("clouds")
     private Clouds cloudsInfo;
@@ -31,7 +31,7 @@ public class Forecast {
     @SerializedName("rain")
     private Rain rainInfo;
 
-    public String getTime() {
+    public long getTime() {
         return time;
     }
 

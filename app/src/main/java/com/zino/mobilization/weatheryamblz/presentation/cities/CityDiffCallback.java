@@ -16,7 +16,7 @@ public class CityDiffCallback extends DiffUtil.Callback {
     private List<City> oldList;
     private List<City> newList;
 
-    public CityDiffCallback(List<City> oldList, List<City> newList) {
+    CityDiffCallback(List<City> oldList, List<City> newList) {
         this.oldList = oldList;
         this.newList = newList;
     }
@@ -41,13 +41,13 @@ public class CityDiffCallback extends DiffUtil.Callback {
         City oldCity = oldList.get(oldItemPosition);
         City newCity = newList.get(newItemPosition);
 
-        return TextUtils.equals(oldCity.getName(), newCity.getName()) &&
-                TextUtils.equals(oldCity.getAddress(), newCity.getAddress()) &&
-                oldCity.getCurrentWeather() != null &&
-                newCity.getCurrentWeather() != null &&
-                TextUtils.equals(oldCity.getCurrentWeather().getTemperature(), newCity.getCurrentWeather().getTemperature()) &&
-                TextUtils.equals(oldCity.getCurrentWeather().getHumidity(), newCity.getCurrentWeather().getHumidity()) &&
-                oldCity.getCurrentWeather().getConditionId() == newCity.getCurrentWeather().getConditionId() &&
-                TextUtils.equals(oldCity.getCurrentWeather().getIconId(), newCity.getCurrentWeather().getIconId());
+        return TextUtils.equals(oldCity.getName(), newCity.getName())
+                && TextUtils.equals(oldCity.getAddress(), newCity.getAddress())
+                && oldCity.getCurrentWeather() != null
+                && newCity.getCurrentWeather() != null
+                && TextUtils.equals(oldCity.getCurrentWeather().getTemperature(), newCity.getCurrentWeather().getTemperature())
+                && TextUtils.equals(oldCity.getCurrentWeather().getHumidity(), newCity.getCurrentWeather().getHumidity())
+                && oldCity.getCurrentWeather().getConditionId() == newCity.getCurrentWeather().getConditionId()
+                && TextUtils.equals(oldCity.getCurrentWeather().getIconId(), newCity.getCurrentWeather().getIconId());
     }
 }

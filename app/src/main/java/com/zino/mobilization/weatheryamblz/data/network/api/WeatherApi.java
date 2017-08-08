@@ -1,6 +1,7 @@
 package com.zino.mobilization.weatheryamblz.data.network.api;
 
-import com.zino.mobilization.weatheryamblz.data.network.response.forecast.ForecastResponse;
+import com.zino.mobilization.weatheryamblz.data.network.response.forecast.daily.DailyForecastResponse;
+import com.zino.mobilization.weatheryamblz.data.network.response.forecast.hourly.HourlyForecastResponse;
 import com.zino.mobilization.weatheryamblz.data.network.response.weather.WeatherResponse;
 
 import io.reactivex.Single;
@@ -13,13 +14,17 @@ public interface WeatherApi {
 
     String BASE_URL = "http://api.openweathermap.org/data/2.5/";
 
-    String API_KEY = "ad0dae19ea9cd24058581481b3ce84ce";
+    String API_KEY = "a5628ee4c36c6009a88a491a2a2cfdbf";
 
     @GET("weather")
     Single<WeatherResponse> getCurrentWeather(@Query("lat") double lat,
                                               @Query("lon") double lon);
 
     @GET("forecast")
-    Single<ForecastResponse> getForecast(@Query("lat") double lat,
-                                         @Query("lon") double lon);
+    Single<HourlyForecastResponse> getHourlyForecast(@Query("lat") double lat,
+                                                     @Query("lon") double lon);
+
+    @GET("forecast/daily?cnt=5")
+    Single<DailyForecastResponse> getDailyForecast(@Query("lat") double lat,
+                                                   @Query("lon") double lon);
 }

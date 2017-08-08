@@ -9,7 +9,7 @@
     <!--Condition states-->
     <color name="colorSun">#F5BE25</color>
     <color name="colorCloudsSun">#DBD678</color>
-    <color name="colorClouds">#C2D9FF</color>
+    <color name="colorClouds">#B4CFFB</color>
     <color name="colorRain">#457AD1</color>
     <color name="colorThunderstorm">#11274A</color>
     <color name="colorSnow">@android:color/white</color>

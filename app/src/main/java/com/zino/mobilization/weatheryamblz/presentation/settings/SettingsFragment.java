@@ -49,8 +49,6 @@ public class SettingsFragment extends BaseFragment implements SettingsView {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        onNavigationChanged.setTitle(getResources().getString(R.string.action_settings));
-
 
         timeRadioGroup.setOnCheckedChangeListener((radioGroup, id) -> presenter.onTimeCheckedChanged(id));
 
@@ -85,5 +83,9 @@ public class SettingsFragment extends BaseFragment implements SettingsView {
     @Override
     public void checkRadioButton(int id) {
         timeRadioGroup.check(id);
+    }
+
+    public static SettingsFragment newInstance() {
+        return new SettingsFragment();
     }
 }

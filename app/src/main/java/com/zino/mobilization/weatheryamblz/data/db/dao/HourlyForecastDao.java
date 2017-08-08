@@ -5,7 +5,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
-import com.zino.mobilization.weatheryamblz.data.db.entity.ForecastEntity;
+import com.zino.mobilization.weatheryamblz.data.db.entity.HourlyForecastEntity;
 
 import java.util.List;
 
@@ -17,10 +17,13 @@ import io.reactivex.Flowable;
  */
 
 @Dao
-public interface ForecastDao {
+public interface HourlyForecastDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(List<ForecastEntity> forecasts);
+    void insert(List<HourlyForecastEntity> forecasts);
 
-    @Query("SELECT * FROM forecasts WHERE cityId = :cityId")
-    Flowable<List<ForecastEntity>> getForecastsByCityId(long cityId);
+    @Query("SELECT * FROM hourly_forecasts WHERE cityId = :cityId")
+    Flowable<List<HourlyForecastEntity>> getForecastsByCityId(String cityId);
+
+    @Query("DELETE FROM hourly_forecasts WHERE cityId = :cityId")
+    void removeForecastsByCityId(String cityId);
 }

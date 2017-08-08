@@ -3,7 +3,8 @@ package com.zino.mobilization.weatheryamblz.data.network.response.common;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by Алексей on 15.07.2017.
+ * Created by Denis Buzmakov on 15.07.2017.
+ * <buzmakov.da@gmail.com>
  */
 
 public class Weather {
@@ -11,7 +12,7 @@ public class Weather {
     @SerializedName("id")
     private int id;
     @SerializedName("main")
-    private String main;
+    private String shortDescription;
     @SerializedName("description")
     private String description;
     @SerializedName("icon")
@@ -21,8 +22,8 @@ public class Weather {
         return id;
     }
 
-    public String getMain() {
-        return main;
+    public String getShortDescription() {
+        return shortDescription;
     }
 
     public String getDescription() {

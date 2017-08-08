@@ -95,7 +95,7 @@ public class Utils {
         return lum > 186 ? 0xFF000000 : 0xFFFFFFFF;
     }
 
-    public static int metersToKm(int meters) {
+    static int metersToKm(int meters) {
         return Math.round((float) meters / 1000);
     }
 
@@ -114,5 +114,9 @@ public class Utils {
 
     public static double dpToPx(Resources resources, int dp) {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.getDisplayMetrics());
+    }
+
+    public static String capitalize(String string) {
+        return string.substring(0, 1).toUpperCase() + string.substring(1);
     }
 }

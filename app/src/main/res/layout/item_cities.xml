@@ -21,7 +21,7 @@
             android:lines="1"
             android:ellipsize="end"
             android:layout_marginTop="@dimen/item_city_padding_top_bottom"
-            android:layout_marginLeft="@dimen/item_city_padding_left_right"
+            android:layout_marginStart="@dimen/item_city_padding_left_right"
             app:layout_constraintRight_toLeftOf="@+id/img_condition"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -35,7 +35,7 @@
             android:textColor="#D1D1D1"
             android:lines="1"
             android:ellipsize="end"
-            android:layout_marginLeft="@dimen/item_city_padding_left_right"
+            android:layout_marginStart="@dimen/item_city_padding_left_right"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_city"
             app:layout_constraintRight_toRightOf="@+id/txt_city"
@@ -61,10 +61,11 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:id="@+id/img_condition"
-            android:layout_marginRight="@dimen/item_city_padding_left_right"
+            android:layout_marginEnd="@dimen/item_city_padding_left_right"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -72,7 +73,7 @@
             android:id="@+id/txt_temperature"
             android:textSize="40sp"
             android:lines="1"
-            android:layout_marginLeft="@dimen/item_city_padding_left_right"
+            android:layout_marginStart="@dimen/item_city_padding_left_right"
             android:layout_marginBottom="@dimen/item_city_padding_top_bottom"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -80,22 +81,23 @@
             android:visibility="gone"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:id="@+id/img_umbrella"
-            android:src="@drawable/ic_umbrella"
-            android:layout_marginLeft="12dp"
+            android:src="@drawable/ic_humidity"
+            android:layout_marginStart="12dp"
             app:layout_constraintLeft_toRightOf="@+id/txt_temperature"
             app:layout_constraintTop_toTopOf="@+id/txt_humidity"
             app:layout_constraintBottom_toBottomOf="@+id/txt_humidity"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/txt_humidity"
             android:textSize="16sp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             app:layout_constraintLeft_toRightOf="@+id/img_umbrella"
             app:layout_constraintBaseline_toBaselineOf="@+id/txt_temperature"
             tools:text="50%"

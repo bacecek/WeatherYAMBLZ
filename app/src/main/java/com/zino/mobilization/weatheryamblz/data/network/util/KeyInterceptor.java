@@ -1,7 +1,6 @@
 package com.zino.mobilization.weatheryamblz.data.network.util;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import java.io.IOException;
 
@@ -21,20 +20,16 @@ public class KeyInterceptor implements Interceptor {
     @NonNull
     private String keyName;
 
-    @Nullable
+    @NonNull
     private String key;
 
-    public KeyInterceptor(@NonNull String keyName, @Nullable String key) {
+    public KeyInterceptor(@NonNull String keyName, @NonNull String key) {
         this.keyName = keyName;
         this.key = key;
     }
 
-    public KeyInterceptor(@NonNull String keyName) {
-        this.keyName = keyName;
-    }
-
     @Override
-    public Response intercept(Chain chain) throws IOException {
+    public Response intercept(@NonNull Chain chain) throws IOException {
         Request original = chain.request();
         HttpUrl originalHttpUrl = original.url();
 
