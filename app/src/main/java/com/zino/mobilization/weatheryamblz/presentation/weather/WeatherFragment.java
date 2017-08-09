@@ -13,6 +13,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -132,10 +133,18 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
         rvHourlyForecasts.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         rvHourlyForecasts.setHasFixedSize(true);
         rvHourlyForecasts.setNestedScrollingEnabled(false);
+        RecyclerView.ItemAnimator dailyAnimator = rvHourlyForecasts.getItemAnimator();
+        if(dailyAnimator instanceof SimpleItemAnimator) {
+            ((SimpleItemAnimator) dailyAnimator).setSupportsChangeAnimations(false);
+        }
 
         rvDailyForecasts.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvDailyForecasts.setHasFixedSize(true);
         rvDailyForecasts.setNestedScrollingEnabled(false);
+        RecyclerView.ItemAnimator hourlyAnimator = rvDailyForecasts.getItemAnimator();
+        if(hourlyAnimator instanceof SimpleItemAnimator) {
+            ((SimpleItemAnimator) hourlyAnimator).setSupportsChangeAnimations(false);
+        }
     }
 
     @Override
