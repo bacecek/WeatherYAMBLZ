@@ -51,28 +51,34 @@ public class WeatherPresenter extends MvpPresenter<WeatherView> {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(forecasts -> getViewState().showDailyForecasts(forecasts),
                             error -> getViewState().hideLoading());
+
+            fetchInfo();
         }
     }
 
     public void onRefresh() {
         if(cityId != null) {
-            interactor.fetchAndSaveWeather(cityId)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(() -> getViewState().hideLoading(),
-                            error -> getViewState().hideLoading());
-
-            interactor.fetchAndSaveHourlyForecasts(cityId)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(() -> getViewState().hideLoading(),
-                            error -> getViewState().hideLoading());
-
-            interactor.fetchAndSaveDailyForecasts(cityId)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(() -> getViewState().hideLoading(),
-                            error -> getViewState().hideLoading());
+            fetchInfo();
         }
+    }
+
+    private void fetchInfo() {
+        interactor.fetchAndSaveWeather(cityId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> getViewState().hideLoading(),
+                        error -> getViewState().hideLoading());
+
+        interactor.fetchAndSaveHourlyForecasts(cityId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> getViewState().hideLoading(),
+                        error -> getViewState().hideLoading());
+
+        interactor.fetchAndSaveDailyForecasts(cityId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> getViewState().hideLoading(),
+                        error -> getViewState().hideLoading());
     }
 }

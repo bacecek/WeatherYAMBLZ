@@ -8,6 +8,7 @@ import com.zino.mobilization.weatheryamblz.business.interactor.cities.CitiesInte
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -40,7 +41,10 @@ public class CitiesPresenter extends MvpPresenter<CitiesView> {
 
         interactor.getCitiesWithoutWeather()
                 .flatMapCompletable(cities -> Observable.fromIterable(cities)
-                        .flatMapCompletable(city -> interactor.fetchAndSaveWeather(city.getId()))
+                        .flatMapCompletable(city -> Completable.concatArray(
+                                interactor.fetchAndSaveWeather(city.getId()),
+                                interactor.fetchAndSaveDailyForecasts(city.getId()),
+                                interactor.fetchAndSaveHourlyForecasts(city.getId())))
                 ).subscribe();
     }
 

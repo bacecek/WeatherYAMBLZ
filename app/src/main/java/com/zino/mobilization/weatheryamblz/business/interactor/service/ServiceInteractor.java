@@ -1,5 +1,7 @@
 package com.zino.mobilization.weatheryamblz.business.interactor.service;
 
+import com.zino.mobilization.weatheryamblz.business.interactor.base.BaseInteractor;
+
 import io.reactivex.Completable;
 
 /**
@@ -7,7 +9,6 @@ import io.reactivex.Completable;
  * <buzmakov.da@gmail.com>
  */
 
-public interface ServiceInteractor {
-    Completable fetchAndSaveWeather(String cityId);
+public interface ServiceInteractor extends BaseInteractor{
     Completable fetchAndSaveAllCities();
 }

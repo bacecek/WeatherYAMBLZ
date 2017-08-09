@@ -1,34 +1,26 @@
-package com.zino.mobilization.weatheryamblz.business.interactor.service;
+package com.zino.mobilization.weatheryamblz.business.interactor.base;
 
 import com.zino.mobilization.weatheryamblz.business.Mapper;
-import com.zino.mobilization.weatheryamblz.business.interactor.base.BaseInteractorImpl;
 import com.zino.mobilization.weatheryamblz.data.db.entity.CityEntity;
 import com.zino.mobilization.weatheryamblz.repository.city.CitiesRepository;
 import com.zino.mobilization.weatheryamblz.repository.weather.WeatherRepository;
 
-import javax.inject.Inject;
-
 import io.reactivex.Completable;
-import io.reactivex.Observable;
 import timber.log.Timber;
 
 /**
- * Created by Denis Buzmakov on 06.08.17.
+ * Created by Denis Buzmakov on 09.08.17.
  * <buzmakov.da@gmail.com>
  */
 
-public class ServiceInteractorImpl extends BaseInteractorImpl implements ServiceInteractor {
-    private CitiesRepository citiesRepository;
+public class BaseInteractorImpl implements BaseInteractor {
     private WeatherRepository weatherRepository;
+    private CitiesRepository citiesRepository;
     private Mapper mapper;
 
-    @Inject
-    ServiceInteractorImpl(CitiesRepository citiesRepository,
-                          WeatherRepository weatherRepository,
-                          Mapper mapper) {
-        super(weatherRepository, citiesRepository, mapper);
-        this.citiesRepository = citiesRepository;
+    public BaseInteractorImpl(WeatherRepository weatherRepository, CitiesRepository citiesRepository, Mapper mapper) {
         this.weatherRepository = weatherRepository;
+        this.citiesRepository = citiesRepository;
         this.mapper = mapper;
     }
 
@@ -52,10 +44,22 @@ public class ServiceInteractorImpl extends BaseInteractorImpl implements Service
     }
 
     @Override
-    public Completable fetchAndSaveAllCities() {
-        Timber.d("fetch and save all cities");
-        return citiesRepository.getAllCities().firstOrError()
-                .flatMapCompletable(cityEntities -> Observable.fromIterable(cityEntities)
-                        .flatMapCompletable(cityEntity -> fetchAndSaveWeather(cityEntity.getId())));
+    public Completable fetchAndSaveHourlyForecasts(String cityId) {
+        Timber.d("fetch and save hourly forecasts of city: " + cityId);
+        return citiesRepository.getCity(cityId)
+                .firstOrError()
+                .flatMap(city -> weatherRepository.getHourlyForecastFromApi(city.getLatitude(), city.getLongitude())
+                        .map(response -> mapper.convertHourlyForecastEntitiesFromResponse(cityId, response)))
+                .flatMapCompletable(entities -> weatherRepository.saveHourlyForecast(entities));
+    }
+
+    @Override
+    public Completable fetchAndSaveDailyForecasts(String cityId) {
+        Timber.d("fetch and save daily forecasts of city: " + cityId);
+        return citiesRepository.getCity(cityId)
+                .firstOrError()
+                .flatMap(city -> weatherRepository.getDailyForecastFromApi(city.getLatitude(), city.getLongitude())
+                        .map(response -> mapper.convertDailyForecastEntitiesFromResponse(cityId, response)))
+                .flatMapCompletable(entities -> weatherRepository.saveDailyForecast(entities));
     }
 }

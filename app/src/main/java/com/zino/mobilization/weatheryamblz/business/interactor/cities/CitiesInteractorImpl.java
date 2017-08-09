@@ -2,6 +2,7 @@ package com.zino.mobilization.weatheryamblz.business.interactor.cities;
 
 import com.zino.mobilization.weatheryamblz.business.Mapper;
 import com.zino.mobilization.weatheryamblz.business.entity.City;
+import com.zino.mobilization.weatheryamblz.business.interactor.base.BaseInteractorImpl;
 import com.zino.mobilization.weatheryamblz.data.db.entity.CityEntity;
 import com.zino.mobilization.weatheryamblz.data.settings.SettingsManager;
 import com.zino.mobilization.weatheryamblz.repository.city.CitiesRepository;
@@ -20,7 +21,7 @@ import timber.log.Timber;
  * <buzmakov.da@gmail.com>
  */
 
-public class CitiesInteractorImpl implements CitiesInteractor {
+public class CitiesInteractorImpl extends BaseInteractorImpl implements CitiesInteractor {
     private WeatherRepository weatherRepository;
     private CitiesRepository citiesRepository;
     private SettingsManager settingsManager;
@@ -31,6 +32,7 @@ public class CitiesInteractorImpl implements CitiesInteractor {
                          CitiesRepository citiesRepository,
                          SettingsManager settingsManager,
                          Mapper mapper) {
+        super(weatherRepository, citiesRepository, mapper);
         this.weatherRepository = weatherRepository;
         this.citiesRepository = citiesRepository;
         this.settingsManager = settingsManager;
@@ -58,25 +60,6 @@ public class CitiesInteractorImpl implements CitiesInteractor {
     public Completable addCity(City city) {
         Timber.d("add city: " + city);
         return citiesRepository.addCity(mapper.convertCityToCityEntity(city));
-    }
-
-    @Override
-    public Completable fetchAndSaveWeather(String cityId) {
-        Timber.d("fetch and save weather of city: " + cityId);
-        return citiesRepository.getCity(cityId)
-                .firstOrError()
-                .flatMap(cityEntity -> weatherRepository
-                                .getCurrentWeatherFromApi(cityEntity.getLatitude(), cityEntity.getLongitude())
-                                .map(mapper::convertResponseToWeatherEntity)
-                                .map(weatherEntity -> new CityEntity(
-                                        cityEntity.getId(),
-                                        cityEntity.getName(),
-                                        cityEntity.getAddress(),
-                                        cityEntity.getLatitude(),
-                                        cityEntity.getLongitude(),
-                                        weatherEntity
-                                ))
-                ).flatMapCompletable(cityEntity -> citiesRepository.updateCity(cityEntity));
     }
 
     @Override
