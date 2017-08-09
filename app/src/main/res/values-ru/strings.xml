@@ -6,10 +6,17 @@
     <string name="title_settings">Настройки</string>
 
     <string name="action_settings">Настройки</string>
+
     <string name="version">Версия: %s</string>
+
     <string name="pressure">Давление</string>
     <string name="humidity">Влажность</string>
     <string name="wind">Скорость ветра</string>
+
+    <string name="pressure_mmhg">мм рт.ст.</string>
+    <string name="pressure_hpa">гПа</string>
+    <string name="speed_ms">м/с</string>
+    <string name="speed_kmh">км/ч</string>
 
     <string name="manually">Вручную</string>
     <string name="fifteen_min">15 мин</string>
@@ -32,9 +39,9 @@
 
     <string name="template_temperature_metric">%1$d &#176;</string>
     <string name="template_temperature_imperial">%1$d &#176;</string>
-    <string name="template_wind_speed">%1$.1f м/с</string>
-    <string name="template_pressure">%1$.1f гПа</string>
-    <string name="template_humidity">%1$.0f%%</string>
+    <string name="template_wind_speed_ms">%1$d м/с</string>
+    <string name="template_pressure_hpa">%1$d гПа</string>
+    <string name="template_humidity">%1$d%%</string>
     <string name="template_visibility">%1$d м</string>
     <string name="template_cloudiness">%1$d%%</string>
 

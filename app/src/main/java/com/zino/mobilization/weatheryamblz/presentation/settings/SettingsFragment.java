@@ -1,17 +1,15 @@
 package com.zino.mobilization.weatheryamblz.presentation.settings;
 
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
+import com.bacecek.unitsswitch.UnitsSwitch;
 import com.zino.mobilization.weatheryamblz.R;
 import com.zino.mobilization.weatheryamblz.WeatherApplication;
 import com.zino.mobilization.weatheryamblz.presentation.common.BaseFragment;
@@ -24,16 +22,15 @@ public class SettingsFragment extends BaseFragment implements SettingsView {
     @InjectPresenter
     SettingsPresenter presenter;
 
-    @BindView(R.id.fahrenheit_button)
-    Button fahrenheitButton;
-    @BindView(R.id.celsius_button)
-    Button celsiusButton;
+    @BindView(R.id.switch_temp)
+    UnitsSwitch switchTemp;
+    @BindView(R.id.switch_pressure)
+    UnitsSwitch switchPressure;
+    @BindView(R.id.switch_wind_speed)
+    UnitsSwitch switchWindSpeed;
 
     @BindView(R.id.time_radio_group)
     RadioGroup timeRadioGroup;
-
-    @BindView(R.id.city_text_view)
-    TextView cityTextView;
 
     @ProvidePresenter
     SettingsPresenter provideSettingsPresenter() {
@@ -51,33 +48,54 @@ public class SettingsFragment extends BaseFragment implements SettingsView {
         super.onViewCreated(view, savedInstanceState);
 
         timeRadioGroup.setOnCheckedChangeListener((radioGroup, id) -> presenter.onTimeCheckedChanged(id));
-
     }
 
-    @OnClick(R.id.celsius_button)
-    void onCelsiusButtonClicked() {
-        presenter.onCelsiusButtonClicked();
+    @OnClick(R.id.switch_temp)
+    void onSwitchTemperatureUnit() {
+        if(switchTemp.isLeftActive()) presenter.onFahrenheitChosen();
+        else if(switchTemp.isRightActive()) presenter.onCelsiusChosen();
     }
 
-    @OnClick(R.id.fahrenheit_button)
-    void onFahrenheitButtonClicked() {
-        presenter.onFahrenheitButtonClicked();
+    @OnClick(R.id.switch_pressure)
+    void onSwitchPressureUnit() {
+        if(switchPressure.isLeftActive()) presenter.onMmhgChosen();
+        else if(switchPressure.isRightActive()) presenter.onHpaChosen();
+    }
+
+    @OnClick(R.id.switch_wind_speed)
+    void onSwitchWindSpeedUnit() {
+        if(switchWindSpeed.isLeftActive()) presenter.onKmhChosen();
+        else if(switchWindSpeed.isRightActive()) presenter.onMsChosen();
     }
 
     @Override
     public void setFahrenheitButtonActive() {
-        celsiusButton.setEnabled(true);
-        fahrenheitButton.setEnabled(false);
-        fahrenheitButton.setTextColor(Color.WHITE);
-        celsiusButton.setTextColor(getResources().getColor(R.color.colorPrimary));
+        switchTemp.setActiveRight();
     }
 
     @Override
     public void setCelsiusButtonActive() {
-        celsiusButton.setEnabled(false);
-        fahrenheitButton.setEnabled(true);
-        celsiusButton.setTextColor(Color.WHITE);
-        fahrenheitButton.setTextColor(getResources().getColor(R.color.colorPrimary));
+        switchTemp.setActiveLeft();
+    }
+
+    @Override
+    public void setHpaButtonActive() {
+        switchPressure.setActiveLeft();
+    }
+
+    @Override
+    public void setMmhgButtonActive() {
+        switchPressure.setActiveRight();
+    }
+
+    @Override
+    public void setMsButtonActive() {
+        switchWindSpeed.setActiveLeft();
+    }
+
+    @Override
+    public void setKmhButtonActive() {
+        switchWindSpeed.setActiveRight();
     }
 
     @Override

@@ -6,11 +6,17 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.zino.mobilization.weatheryamblz.R;
 import com.zino.mobilization.weatheryamblz.data.settings.SettingsManager;
+import com.zino.mobilization.weatheryamblz.data.settings.units.PressureUnit;
+import com.zino.mobilization.weatheryamblz.data.settings.units.TemperatureUnit;
+import com.zino.mobilization.weatheryamblz.data.settings.units.Units;
+import com.zino.mobilization.weatheryamblz.data.settings.units.WindSpeedUnit;
 
 import io.reactivex.disposables.CompositeDisposable;
+import timber.log.Timber;
 
 /**
- * Created by Алексей on 16.07.2017.
+ * Created by Denis Buzmakov on 16.07.2017.
+ * <buzmakov.da@gmail.com>
  */
 
 @InjectViewState
@@ -26,14 +32,8 @@ public class SettingsPresenter extends MvpPresenter<SettingsView> {
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
 
-        settingsManager.isCelsius()
-                .subscribe(isCelsius -> {
-                    if (isCelsius) {
-                        getViewState().setCelsiusButtonActive();
-                    } else {
-                        getViewState().setFahrenheitButtonActive();
-                    }
-                });
+        settingsManager.getUnits()
+                .subscribe(this::showUnits);
 
         settingsManager.getTimeRadioButtonId()
                 .subscribe(id -> {
@@ -44,12 +44,49 @@ public class SettingsPresenter extends MvpPresenter<SettingsView> {
                 });
     }
 
-    public void onCelsiusButtonClicked() {
-        settingsManager.setCelsius(true);
+    private void showUnits(Units units) {
+        switch (units.getTemperatureUnit()) {
+            case CELSIUS: getViewState().setCelsiusButtonActive(); break;
+            case FAHRENHEIT: getViewState().setFahrenheitButtonActive(); break;
+        }
+        switch (units.getPressureUnit()) {
+            case HPA: getViewState().setHpaButtonActive(); break;
+            case MMHG: getViewState().setMmhgButtonActive(); break;
+        }
+        switch (units.getWindSpeedUnit()) {
+            case MS: getViewState().setMsButtonActive(); break;
+            case KMH: getViewState().setKmhButtonActive(); break;
+        }
     }
 
-    public void onFahrenheitButtonClicked() {
-        settingsManager.setCelsius(false);
+    public void onCelsiusChosen() {
+        Timber.d("celsius chosen");
+        settingsManager.setTemperatureUnit(TemperatureUnit.CELSIUS);
+    }
+
+    public void onFahrenheitChosen() {
+        Timber.d("fahrenheit chosen");
+        settingsManager.setTemperatureUnit(TemperatureUnit.FAHRENHEIT);
+    }
+
+    public void onHpaChosen() {
+        Timber.d("hpa chosen");
+        settingsManager.setPressureUnit(PressureUnit.HPA);
+    }
+
+    public void onMmhgChosen() {
+        Timber.d("mmhg chosen");
+        settingsManager.setPressureUnit(PressureUnit.MMHG);
+    }
+
+    public void onMsChosen() {
+        Timber.d("ms chosen");
+        settingsManager.setWindSpeedUnit(WindSpeedUnit.MS);
+    }
+
+    public void onKmhChosen() {
+        Timber.d("kmh chosen");
+        settingsManager.setWindSpeedUnit(WindSpeedUnit.KMH);
     }
 
     public void onTimeCheckedChanged(@IdRes int id) {

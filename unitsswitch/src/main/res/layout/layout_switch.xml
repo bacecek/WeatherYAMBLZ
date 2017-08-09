@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/txt_title"
+        android:textSize="16sp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:includeFontPadding="false"/>
+
+    <TextView
+        android:layout_width="@dimen/switch_width"
+        android:layout_height="match_parent"
+        android:id="@+id/txt_left"
+        android:background="@drawable/switch_item_background"
+        style="@style/SwitchItem"/>
+
+    <TextView
+        android:layout_width="@dimen/switch_width"
+        android:layout_height="match_parent"
+        android:id="@+id/txt_right"
+        android:background="@drawable/switch_item_background"
+        style="@style/SwitchItem"/>
+
+</LinearLayout>

@@ -99,8 +99,20 @@ public class Utils {
         return Math.round((float) meters / 1000);
     }
 
-    public static double convertFromKelvinToChosenUnits(double kelvins, boolean isCelsius) {
-        return isCelsius ? kelvins - 273.15 : kelvins * 9 / 5 - 459.67;
+    public static double convertKelvinToCelsius(double kelvins) {
+        return kelvins - 273.15;
+    }
+
+    public static double convertKelvinToFahrenheit(double kelvins) {
+        return kelvins * 9 / 5 - 459.67;
+    }
+
+    public static double convertMsToKmh(double ms) {
+        return ms * 3.6;
+    }
+
+    public static double convertHpaToMmhg(double hpa) {
+        return hpa * 0.7500616827;
     }
 
     @Nullable

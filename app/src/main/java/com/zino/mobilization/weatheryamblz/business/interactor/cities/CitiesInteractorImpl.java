@@ -41,9 +41,9 @@ public class CitiesInteractorImpl implements CitiesInteractor {
     public Observable<List<City>> getCities() {
         Timber.d("get all cities");
         Observable<List<CityEntity>> cities = citiesRepository.getAllCities();
-        return settingsManager.isCelsius()
-                .flatMap(isCelsius ->
-                        cities.map(citiesEntities -> mapper.convertToCityFromEntities(citiesEntities, isCelsius)));
+        return settingsManager.getUnits()
+                .flatMap(units ->
+                        cities.map(citiesEntities -> mapper.convertToCityFromEntities(citiesEntities, units)));
     }
 
     @Override

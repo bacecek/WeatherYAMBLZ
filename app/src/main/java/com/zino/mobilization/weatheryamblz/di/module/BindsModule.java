@@ -6,6 +6,8 @@ import com.zino.mobilization.weatheryamblz.business.interactor.service.ServiceIn
 import com.zino.mobilization.weatheryamblz.business.interactor.service.ServiceInteractorImpl;
 import com.zino.mobilization.weatheryamblz.business.interactor.weather.WeatherInteractor;
 import com.zino.mobilization.weatheryamblz.business.interactor.weather.WeatherInteractorImpl;
+import com.zino.mobilization.weatheryamblz.data.settings.SettingsManager;
+import com.zino.mobilization.weatheryamblz.data.settings.SettingsManagerImpl;
 import com.zino.mobilization.weatheryamblz.repository.city.CitiesRepository;
 import com.zino.mobilization.weatheryamblz.repository.city.CitiesRepositoryImpl;
 import com.zino.mobilization.weatheryamblz.repository.weather.WeatherRepository;
@@ -22,18 +24,15 @@ import dagger.Module;
 @Module
 public abstract class BindsModule {
 
-    @Binds
-    public abstract CitiesRepository bindsCitiesRepository(CitiesRepositoryImpl repository);
+    @Binds public abstract CitiesRepository bindsCitiesRepository(CitiesRepositoryImpl repository);
 
-    @Binds
-    public abstract WeatherRepository bindsWeatherRepository(WeatherRepositoryImpl repository);
+    @Binds public abstract WeatherRepository bindsWeatherRepository(WeatherRepositoryImpl repository);
 
-    @Binds
-    public abstract WeatherInteractor bindsForecastRepository(WeatherInteractorImpl interactor);
+    @Binds public abstract WeatherInteractor bindsForecastRepository(WeatherInteractorImpl interactor);
 
-    @Binds
-    abstract CitiesInteractor bindsCitiesInteractor(CitiesInteractorImpl interactor);
+    @Binds abstract CitiesInteractor bindsCitiesInteractor(CitiesInteractorImpl interactor);
 
-    @Binds
-    abstract ServiceInteractor bindsServiceInteractor(ServiceInteractorImpl interactor);
+    @Binds abstract ServiceInteractor bindsServiceInteractor(ServiceInteractorImpl interactor);
+
+    @Binds abstract SettingsManager bindsSettingsManager(SettingsManagerImpl settingsManager);
 }

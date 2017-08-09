@@ -44,25 +44,25 @@ public class WeatherInteractorImpl implements WeatherInteractor {
     @Override
     public Observable<City> getCity(String cityId) {
         Observable<CityEntity> city = citiesRepository.getCity(cityId);
-        return settingsManager.isCelsius()
-                .flatMap(isCelsius ->
-                        city.map(citiesEntity -> mapper.convertCityEntityToCity(citiesEntity, isCelsius)));
+        return settingsManager.getUnits()
+                .flatMap(units ->
+                        city.map(citiesEntity -> mapper.convertCityEntityToCity(citiesEntity, units)));
     }
 
     @Override
     public Observable<List<HourlyForecast>> getHourlyForecast(String cityId) {
         Observable<List<HourlyForecastEntity>> forecasts = weatherRepository.getHourlyForecasts(cityId);
-        return settingsManager.isCelsius()
-                .flatMap(isCelsius ->
-                    forecasts.map(list -> mapper.convertHourlyForecastsFromEntities(list, isCelsius)));
+        return settingsManager.getUnits()
+                .flatMap(units ->
+                    forecasts.map(list -> mapper.convertHourlyForecastsFromEntities(list, units)));
     }
 
     @Override
     public Observable<List<DailyForecast>> getDailyForecast(String cityId) {
         Observable<List<DailyForecastEntity>> forecasts = weatherRepository.getDailyForecasts(cityId);
-        return settingsManager.isCelsius()
-                .flatMap(isCelsius ->
-                    forecasts.map(list -> mapper.convertDailyForecastsFromEntities(list, isCelsius)));
+        return settingsManager.getUnits()
+                .flatMap(units ->
+                    forecasts.map(list -> mapper.convertDailyForecastsFromEntities(list, units)));
     }
 
     @Override

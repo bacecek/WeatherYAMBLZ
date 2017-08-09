@@ -1,6 +1,6 @@
 package com.zino.mobilization.weatheryamblz.business;
 
-import android.support.annotation.StringRes;
+import android.support.annotation.Nullable;
 
 import com.zino.mobilization.weatheryamblz.R;
 import com.zino.mobilization.weatheryamblz.business.entity.City;
@@ -22,6 +22,10 @@ import com.zino.mobilization.weatheryamblz.data.network.response.forecast.hourly
 import com.zino.mobilization.weatheryamblz.data.network.response.forecast.hourly.HourlyForecastResponse;
 import com.zino.mobilization.weatheryamblz.data.network.response.weather.Sys;
 import com.zino.mobilization.weatheryamblz.data.network.response.weather.WeatherResponse;
+import com.zino.mobilization.weatheryamblz.data.settings.units.PressureUnit;
+import com.zino.mobilization.weatheryamblz.data.settings.units.TemperatureUnit;
+import com.zino.mobilization.weatheryamblz.data.settings.units.Units;
+import com.zino.mobilization.weatheryamblz.data.settings.units.WindSpeedUnit;
 import com.zino.mobilization.weatheryamblz.utils.AppResources;
 import com.zino.mobilization.weatheryamblz.utils.Utils;
 
@@ -46,25 +50,25 @@ public class Mapper {
     }
 
     public List<City> convertToCityFromEntities(List<CityEntity> cityEntities,
-                                                 boolean isCelsius) {
+                                                 Units units) {
         List<City> list = new ArrayList<>();
         for(CityEntity cityEntity : cityEntities) {
-            list.add(convertCityEntityToCity(cityEntity, isCelsius));
+            list.add(convertCityEntityToCity(cityEntity, units));
         }
         return list;
     }
 
-    public City convertCityEntityToCity(CityEntity cityEntity, boolean isCelsius) {
+    public City convertCityEntityToCity(CityEntity cityEntity, Units units) {
         if(cityEntity == null) return null;
 
         CurrentWeather currentWeather = null;
         WeatherEntity weatherEntity = cityEntity.getCurrentWeather();
         if(weatherEntity != null) {
             currentWeather = new CurrentWeather(
-                    formatTemperature(weatherEntity.getTemperature(), isCelsius),
+                    formatTemperature(weatherEntity.getTemperature(), units.getTemperatureUnit()),
                     weatherEntity.getDescription(),
-                    appResources.getString(R.string.template_humidity, weatherEntity.getHumidity()),
-                    appResources.getString(R.string.template_pressure, weatherEntity.getPressure()),
+                    appResources.getString(R.string.template_humidity, Math.round(weatherEntity.getHumidity())),
+                    formatPressure(weatherEntity.getPressure(), units.getPressureUnit()),
                     Utils.formatUnixTime(
                             weatherEntity.getSunriseTime(),
                             appResources.getString(R.string.format_sunrise)
@@ -73,7 +77,7 @@ public class Mapper {
                             weatherEntity.getSunsetTime(),
                             appResources.getString(R.string.format_sunrise)
                     ),
-                    appResources.getString(R.string.template_wind_speed, weatherEntity.getWindSpeed()),
+                    formatWindSpeed(weatherEntity.getWindSpeed(), units.getWindSpeedUnit()),
                     appResources.getString(R.string.template_visibility, weatherEntity.getVisibility()),
                     appResources.getString(R.string.template_cloudiness, weatherEntity.getCloudiness()),
                     weatherEntity.getConditionId(),
@@ -89,10 +93,38 @@ public class Mapper {
                 currentWeather);
     }
 
-    private String formatTemperature(double temp, boolean isCelsius) {
-        @StringRes int resTemplate = isCelsius ? R.string.template_temperature_metric
-                : R.string.template_temperature_imperial;
-        return appResources.getString(resTemplate, Math.round(Utils.convertFromKelvinToChosenUnits(temp, isCelsius)));
+    @Nullable
+    public String formatTemperature(double temp, TemperatureUnit unit) {
+        switch (unit) {
+            case CELSIUS: return appResources.getString(
+                    R.string.template_temperature_metric, Math.round(Utils.convertKelvinToCelsius(temp)));
+            case FAHRENHEIT: return appResources.getString(
+                    R.string.template_temperature_imperial,
+                    Math.round(Utils.convertKelvinToFahrenheit(temp)));
+            default: return null;
+        }
+    }
+
+    @Nullable
+    public String formatPressure(double pressure, PressureUnit unit) {
+        switch (unit) {
+            case HPA: return appResources.getString(R.string.template_pressure_hpa, Math.round(pressure));
+            case MMHG: return appResources.getString(
+                    R.string.template_pressure_mmhg,
+                    Math.round(Utils.convertHpaToMmhg(pressure)));
+            default: return null;
+        }
+    }
+
+    @Nullable
+    public String formatWindSpeed(double windSpeed, WindSpeedUnit unit) {
+        switch (unit) {
+            case MS: return appResources.getString(R.string.template_wind_speed_ms, Math.round(windSpeed));
+            case KMH: return appResources.getString(
+                    R.string.template_wind_speed_kmh,
+                    Math.round(Utils.convertMsToKmh(windSpeed)));
+            default: return null;
+        }
     }
 
     public CityEntity convertCityToCityEntity(City city) {
@@ -141,13 +173,13 @@ public class Mapper {
     }
 
     public List<HourlyForecast> convertHourlyForecastsFromEntities(List<HourlyForecastEntity> entities,
-                                                                   boolean isCelsius) {
+                                                                   Units units) {
         if(entities == null) return null;
 
         List<HourlyForecast> list = new ArrayList<>();
 
         for(HourlyForecastEntity entity : entities) {
-            String temperature = formatTemperature(entity.getTemperature(), isCelsius);
+            String temperature = formatTemperature(entity.getTemperature(), units.getTemperatureUnit());
             String time = Utils.formatUnixTime(entity.getTime(), appResources.getString(R.string.format_hourly_forecast));
             HourlyForecast forecast = new HourlyForecast(
                     temperature,
@@ -161,14 +193,14 @@ public class Mapper {
     }
 
     public List<DailyForecast> convertDailyForecastsFromEntities(List<DailyForecastEntity> entities,
-                                                                 boolean isCelsius) {
+                                                                 Units units) {
         if(entities == null) return null;
 
         List<DailyForecast> list = new ArrayList<>();
 
         for(DailyForecastEntity entity : entities) {
-            String tempDay = formatTemperature(entity.getTempDay(), isCelsius);
-            String tempNight = formatTemperature(entity.getTempNight(), isCelsius);
+            String tempDay = formatTemperature(entity.getTempDay(), units.getTemperatureUnit());
+            String tempNight = formatTemperature(entity.getTempNight(), units.getTemperatureUnit());
             String day = Utils.capitalize(Utils.formatUnixTime(entity.getDate(), appResources.getString(R.string.format_daily_forecast)));
             DailyForecast forecast = new DailyForecast(
                     tempDay,

@@ -1,5 +1,10 @@
 package com.zino.mobilization.weatheryamblz.data.settings;
 
+import com.zino.mobilization.weatheryamblz.data.settings.units.PressureUnit;
+import com.zino.mobilization.weatheryamblz.data.settings.units.TemperatureUnit;
+import com.zino.mobilization.weatheryamblz.data.settings.units.Units;
+import com.zino.mobilization.weatheryamblz.data.settings.units.WindSpeedUnit;
+
 import io.reactivex.Observable;
 
 /**
@@ -8,8 +13,10 @@ import io.reactivex.Observable;
  */
 
 public interface SettingsManager {
-    Observable<Boolean> isCelsius();
-    void setCelsius(boolean isCelsuis);
+    Observable<Units> getUnits();
+    void setTemperatureUnit(TemperatureUnit unit);
+    void setPressureUnit(PressureUnit unit);
+    void setWindSpeedUnit(WindSpeedUnit unit);
     void setUpdateTime(long periodInMillis);
     Observable<Long> getUpdateTime();
     void setTimeRadioButtonId(int id);
