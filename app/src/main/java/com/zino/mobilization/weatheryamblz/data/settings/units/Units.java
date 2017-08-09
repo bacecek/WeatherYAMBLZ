@@ -27,4 +27,33 @@ public class Units {
     public WindSpeedUnit getWindSpeedUnit() {
         return windSpeedUnit;
     }
+
+    @Override
+    public String toString() {
+        return "Units{" +
+                "temperatureUnit=" + temperatureUnit +
+                ", pressureUnit=" + pressureUnit +
+                ", windSpeedUnit=" + windSpeedUnit +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Units)) return false;
+
+        Units units = (Units) o;
+
+        if (temperatureUnit != units.temperatureUnit) return false;
+        if (pressureUnit != units.pressureUnit) return false;
+        return windSpeedUnit == units.windSpeedUnit;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = temperatureUnit != null ? temperatureUnit.hashCode() : 0;
+        result = 31 * result + (pressureUnit != null ? pressureUnit.hashCode() : 0);
+        result = 31 * result + (windSpeedUnit != null ? windSpeedUnit.hashCode() : 0);
+        return result;
+    }
 }

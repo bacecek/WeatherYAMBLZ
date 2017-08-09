@@ -3,7 +3,6 @@ package com.zino.mobilization.weatheryamblz.business.interactor.cities;
 import com.zino.mobilization.weatheryamblz.business.Mapper;
 import com.zino.mobilization.weatheryamblz.business.entity.City;
 import com.zino.mobilization.weatheryamblz.business.interactor.base.BaseInteractorImpl;
-import com.zino.mobilization.weatheryamblz.data.db.entity.CityEntity;
 import com.zino.mobilization.weatheryamblz.data.settings.SettingsManager;
 import com.zino.mobilization.weatheryamblz.repository.city.CitiesRepository;
 import com.zino.mobilization.weatheryamblz.repository.weather.WeatherRepository;
@@ -42,10 +41,9 @@ public class CitiesInteractorImpl extends BaseInteractorImpl implements CitiesIn
     @Override
     public Observable<List<City>> getCities() {
         Timber.d("get all cities");
-        Observable<List<CityEntity>> cities = citiesRepository.getAllCities();
         return settingsManager.getUnits()
-                .flatMap(units ->
-                        cities.map(citiesEntities -> mapper.convertToCityFromEntities(citiesEntities, units)));
+                .switchMap(units -> citiesRepository.getAllCities()
+                        .map(citiesEntities -> mapper.convertToCityFromEntities(citiesEntities, units)));
     }
 
     @Override

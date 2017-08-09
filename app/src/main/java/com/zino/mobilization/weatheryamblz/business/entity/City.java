@@ -52,6 +52,18 @@ public class City {
     }
 
     @Override
+    public String toString() {
+        return "City{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", currentWeather=" + currentWeather +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof City)) return false;

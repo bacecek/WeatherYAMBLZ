@@ -56,7 +56,8 @@ public class SettingsManagerImpl implements SettingsManager {
         Observable<TemperatureUnit> temperature = getTemperaturePreference().asObservable();
         Observable<PressureUnit> pressure = getPressurePreference().asObservable();
         Observable<WindSpeedUnit> wind = getWindSpeedPreference().asObservable();
-        return Observable.combineLatest(temperature, pressure, wind, (Units::new));
+        return Observable.combineLatest(temperature, pressure, wind, (Units::new))
+                .distinctUntilChanged();
     }
 
     @Override
