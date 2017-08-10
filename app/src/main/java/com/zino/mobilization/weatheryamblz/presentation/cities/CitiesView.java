@@ -3,6 +3,7 @@ package com.zino.mobilization.weatheryamblz.presentation.cities;
 import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
+import com.arellomobile.mvp.viewstate.strategy.SkipStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 import com.zino.mobilization.weatheryamblz.business.entity.City;
 
@@ -20,4 +21,6 @@ public interface CitiesView extends MvpView {
     void updateCities(List<City> cities);
     @StateStrategyType(OneExecutionStateStrategy.class)
     void openChooseCity();
+    @StateStrategyType(SkipStrategy.class)
+    void showInfoMessage(String message);
 }

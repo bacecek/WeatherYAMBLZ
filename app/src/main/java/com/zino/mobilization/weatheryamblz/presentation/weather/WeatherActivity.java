@@ -15,8 +15,7 @@ import butterknife.ButterKnife;
 public class WeatherActivity extends AppCompatActivity {
     private static final String KEY_CITY_ID = "city_id";
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    @BindView(R.id.toolbar) Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

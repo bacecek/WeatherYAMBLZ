@@ -97,6 +97,7 @@ public class Mapper {
         }
 
         return new City(cityEntity.getId(),
+                cityEntity.getTimestamp(),
                 cityEntity.getName(),
                 cityEntity.getAddress(),
                 cityEntity.getLatitude(),
@@ -143,6 +144,7 @@ public class Mapper {
         if(city == null) return null;
 
         return new CityEntity(city.getId(),
+                city.getTimestamp(),
                 city.getName(),
                 city.getAddress(),
                 city.getLatitude(),
@@ -329,6 +331,7 @@ public class Mapper {
         if(place == null) return null;
 
         return new CityEntity(place.getId(),
+                System.currentTimeMillis(),
                 place.getName(),
                 place.getAddress(),
                 place.getLatitude(),

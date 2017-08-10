@@ -5,8 +5,11 @@ import android.arch.persistence.room.EmptyResultSetException;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.zino.mobilization.weatheryamblz.R;
 import com.zino.mobilization.weatheryamblz.business.interactor.weather.WeatherInteractor;
+import com.zino.mobilization.weatheryamblz.utils.AppResources;
 
+import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -14,10 +17,12 @@ import io.reactivex.schedulers.Schedulers;
 @InjectViewState
 public class WeatherPresenter extends MvpPresenter<WeatherView> {
     private WeatherInteractor interactor;
+    private AppResources resources;
     private String cityId;
 
-    public WeatherPresenter(WeatherInteractor interactor) {
+    public WeatherPresenter(WeatherInteractor interactor, AppResources resources) {
         this.interactor = interactor;
+        this.resources = resources;
     }
 
     public void setCityId(String cityId) {
@@ -27,14 +32,14 @@ public class WeatherPresenter extends MvpPresenter<WeatherView> {
             interactor.getCity(cityId)
                     .doOnNext(city -> {
                         if(city.getCurrentWeather() == null) {
-                            onRefresh();
+                            fetchInfo();
                         }
                     })
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
+                    .doFinally(() -> getViewState().setLoadingVisibility(false))
                     .subscribe(city -> getViewState().showCity(city),
                             error -> {
-                                getViewState().hideLoading();
                                 if(error instanceof EmptyResultSetException) {
                                     getViewState().removeYourself();
                                 }
@@ -43,14 +48,16 @@ public class WeatherPresenter extends MvpPresenter<WeatherView> {
             interactor.getHourlyForecast(cityId)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
+                    .doFinally(() -> getViewState().setLoadingVisibility(false))
                     .subscribe(forecasts -> getViewState().showHourlyForecasts(forecasts),
-                            error -> getViewState().hideLoading());
+                            error -> showErrorMessage());
 
             interactor.getDailyForecast(cityId)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
+                    .doFinally(() -> getViewState().setLoadingVisibility(false))
                     .subscribe(forecasts -> getViewState().showDailyForecasts(forecasts),
-                            error -> getViewState().hideLoading());
+                            error -> showErrorMessage());
 
             fetchInfo();
         }
@@ -63,22 +70,22 @@ public class WeatherPresenter extends MvpPresenter<WeatherView> {
     }
 
     private void fetchInfo() {
-        interactor.fetchAndSaveWeather(cityId)
-                .subscribeOn(Schedulers.io())
+        Completable.concatArray(
+                interactor.fetchAndSaveWeather(cityId),
+                interactor.fetchAndSaveHourlyForecasts(cityId),
+                interactor.fetchAndSaveDailyForecasts(cityId)
+        ).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> getViewState().hideLoading(),
-                        error -> getViewState().hideLoading());
+                .doFinally(() -> getViewState().setLoadingVisibility(false))
+                .subscribe(this::showSuccessMessage,
+                        error -> showErrorMessage());
+    }
 
-        interactor.fetchAndSaveHourlyForecasts(cityId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> getViewState().hideLoading(),
-                        error -> getViewState().hideLoading());
+    private void showErrorMessage() {
+        getViewState().showInfoMessage(resources.getString(R.string.info_error_loading_weather));
+    }
 
-        interactor.fetchAndSaveDailyForecasts(cityId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> getViewState().hideLoading(),
-                        error -> getViewState().hideLoading());
+    private void showSuccessMessage() {
+        getViewState().showInfoMessage(resources.getString(R.string.info_place_updated));
     }
 }

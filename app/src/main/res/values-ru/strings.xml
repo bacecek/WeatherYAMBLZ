@@ -42,6 +42,12 @@
     <string name="error_play_services_not_available">Google Play Services недоступны: %1$s</string>
     <string name="error_loading_forecasts">Не удалось загрузить прогноз :(\nПопробуйте позже</string>
 
+    <string name="info_place_deleted">Место удалено</string>
+    <string name="info_place_added">Место добавлено</string>
+    <string name="info_places_updated">Места обновлены</string>
+    <string name="info_place_updated">Место обновлено</string>
+    <string name="info_error_loading_weather">Не удалось загрузить погоду</string>
+
     <string name="template_temperature_metric">%1$d °</string>
     <string name="template_temperature_imperial">%1$d °</string>
     <string name="template_wind_speed_ms">%1$d м/с</string>

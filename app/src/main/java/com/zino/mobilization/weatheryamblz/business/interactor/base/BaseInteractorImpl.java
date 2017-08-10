@@ -34,6 +34,7 @@ public class BaseInteractorImpl implements BaseInteractor {
                         .map(mapper::convertResponseToWeatherEntity)
                         .map(weatherEntity -> new CityEntity(
                                 cityEntity.getId(),
+                                cityEntity.getTimestamp(),
                                 cityEntity.getName(),
                                 cityEntity.getAddress(),
                                 cityEntity.getLatitude(),

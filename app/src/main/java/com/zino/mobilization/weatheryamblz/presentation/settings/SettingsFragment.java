@@ -22,15 +22,10 @@ public class SettingsFragment extends BaseFragment implements SettingsView {
     @InjectPresenter
     SettingsPresenter presenter;
 
-    @BindView(R.id.switch_temp)
-    UnitsSwitch switchTemp;
-    @BindView(R.id.switch_pressure)
-    UnitsSwitch switchPressure;
-    @BindView(R.id.switch_wind_speed)
-    UnitsSwitch switchWindSpeed;
-
-    @BindView(R.id.time_radio_group)
-    RadioGroup timeRadioGroup;
+    @BindView(R.id.switch_temp) UnitsSwitch switchTemp;
+    @BindView(R.id.switch_pressure) UnitsSwitch switchPressure;
+    @BindView(R.id.switch_wind_speed) UnitsSwitch switchWindSpeed;
+    @BindView(R.id.time_radio_group) RadioGroup timeRadioGroup;
 
     @ProvidePresenter
     SettingsPresenter provideSettingsPresenter() {

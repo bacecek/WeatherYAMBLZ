@@ -7,6 +7,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -46,62 +47,25 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
     @InjectPresenter
     WeatherPresenter presenter;
 
-    @BindView(R.id.swipe_refresh_layout)
-    SwipeRefreshLayout swipeRefreshLayout;
-
-    @BindView(R.id.txt_city)
-    TextView txtCity;
-
-    @BindView(R.id.txt_description)
-    TextView txtDescription;
-
-    @BindView(R.id.txt_temperature)
-    TextView txtTemp;
-
-    @BindView(R.id.txt_humidity_value)
-    TextView txtHumidity;
-
-    @BindView(R.id.txt_wind_value)
-    TextView txtWind;
-
-    @BindView(R.id.txt_pressure_value)
-    TextView txtPressure;
-
-    @BindView(R.id.list_hourly_forecast)
-    RecyclerView rvHourlyForecasts;
-
-    @BindView(R.id.list_daily_forecast)
-    RecyclerView rvDailyForecasts;
-
-    @BindView(R.id.txt_empty_daily)
-    TextView txtEmptyDaily;
-
-    @BindView(R.id.txt_empty_hourly)
-    TextView txtEmptyHourly;
-
-    @BindView(R.id.txt_humidity_title)
-    TextView txtHumidityTitle;
-
-    @BindView(R.id.txt_wind_title)
-    TextView txtWindTitle;
-
-    @BindView(R.id.txt_pressure_title)
-    TextView txtPressureTitle;
-
-    @BindView(R.id.view_background)
-    CardView viewBackgroundCurrentWeather;
-
-    @BindView(R.id.img_condition)
-    ImageView imgCondition;
-
-    @BindView(R.id.img_humidity)
-    ImageView imgHumidity;
-
-    @BindView(R.id.img_wind)
-    ImageView imgPressure;
-
-    @BindView(R.id.img_pressure)
-    ImageView imgWind;
+    @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.txt_city) TextView txtCity;
+    @BindView(R.id.txt_description) TextView txtDescription;
+    @BindView(R.id.txt_temperature) TextView txtTemp;
+    @BindView(R.id.txt_humidity_value) TextView txtHumidity;
+    @BindView(R.id.txt_wind_value) TextView txtWind;
+    @BindView(R.id.txt_pressure_value) TextView txtPressure;
+    @BindView(R.id.list_hourly_forecast) RecyclerView rvHourlyForecasts;
+    @BindView(R.id.list_daily_forecast) RecyclerView rvDailyForecasts;
+    @BindView(R.id.txt_empty_daily) TextView txtEmptyDaily;
+    @BindView(R.id.txt_empty_hourly) TextView txtEmptyHourly;
+    @BindView(R.id.txt_humidity_title) TextView txtHumidityTitle;
+    @BindView(R.id.txt_wind_title) TextView txtWindTitle;
+    @BindView(R.id.txt_pressure_title) TextView txtPressureTitle;
+    @BindView(R.id.view_background) CardView viewBackgroundCurrentWeather;
+    @BindView(R.id.img_condition) ImageView imgCondition;
+    @BindView(R.id.img_humidity) ImageView imgHumidity;
+    @BindView(R.id.img_wind) ImageView imgPressure;
+    @BindView(R.id.img_pressure) ImageView imgWind;
 
     private DailyForecastsAdapter dailyForecastsAdapter;
     private HourlyForecastsAdapter hourlyForecastsAdapter;
@@ -199,8 +163,8 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
     }
 
     @Override
-    public void hideLoading() {
-        swipeRefreshLayout.setRefreshing(false);
+    public void setLoadingVisibility(boolean visible) {
+        swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(visible));
     }
 
     private void applyColors(@Nullable CurrentWeather currentWeather) {
@@ -242,6 +206,11 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
                 .beginTransaction()
                 .remove(this)
                 .commit();
+    }
+
+    @Override
+    public void showInfoMessage(String message) {
+        Snackbar.make(swipeRefreshLayout, message, Snackbar.LENGTH_SHORT).show();
     }
 
     public static WeatherFragment newInstance(@NonNull String cityId) {

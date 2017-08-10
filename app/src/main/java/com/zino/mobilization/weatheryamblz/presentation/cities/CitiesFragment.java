@@ -6,6 +6,8 @@ import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
@@ -41,11 +43,9 @@ public class CitiesFragment extends BaseFragment implements CitiesView {
     @InjectPresenter
     CitiesPresenter presenter;
 
-    @BindView(R.id.list_cities)
-    RecyclerView rvCities;
-
-    @BindView(R.id.view_empty)
-    View viewEmpty;
+    @BindView(R.id.list_cities) RecyclerView rvCities;
+    @BindView(R.id.view_empty) View viewEmpty;
+    @BindView(R.id.layout_coordinator) CoordinatorLayout coordinatorLayout;
 
     private final ItemTouchHelper.SimpleCallback itemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
         @Override
@@ -161,6 +161,11 @@ public class CitiesFragment extends BaseFragment implements CitiesView {
     public void openChooseCity() {
         AddCityFragment.newInstance()
                 .show(getFragmentManager(), "add_city");
+    }
+
+    @Override
+    public void showInfoMessage(String message) {
+        Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_SHORT).show();
     }
 
     public static CitiesFragment newInstance() {

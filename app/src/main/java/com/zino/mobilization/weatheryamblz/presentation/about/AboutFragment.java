@@ -19,8 +19,7 @@ import butterknife.BindView;
  */
 public class AboutFragment extends BaseFragment {
 
-    @BindView(R.id.version_text_view)
-    TextView versionTextView;
+    @BindView(R.id.version_text_view) TextView versionTextView;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

@@ -2,8 +2,10 @@ package com.zino.mobilization.weatheryamblz.presentation.cities;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.zino.mobilization.weatheryamblz.R;
 import com.zino.mobilization.weatheryamblz.business.entity.City;
 import com.zino.mobilization.weatheryamblz.business.interactor.cities.CitiesInteractor;
+import com.zino.mobilization.weatheryamblz.utils.AppResources;
 
 import java.util.List;
 
@@ -21,9 +23,11 @@ import timber.log.Timber;
 @InjectViewState
 public class CitiesPresenter extends MvpPresenter<CitiesView> {
     private CitiesInteractor interactor;
+    private AppResources resources;
 
-    public CitiesPresenter(CitiesInteractor interactor) {
+    public CitiesPresenter(CitiesInteractor interactor, AppResources resources) {
         this.interactor = interactor;
+        this.resources = resources;
     }
 
     @Override
@@ -40,6 +44,7 @@ public class CitiesPresenter extends MvpPresenter<CitiesView> {
 
         interactor.getCitiesWithoutWeather()
                 .flatMapCompletable(cities -> Observable.fromIterable(cities)
+                        .doOnNext(__ -> getViewState().showInfoMessage(resources.getString(R.string.info_place_added)))
                         .flatMapCompletable(city -> Completable.concatArray(
                                 interactor.fetchAndSaveWeather(city.getId()),
                                 interactor.fetchAndSaveDailyForecasts(city.getId()),
@@ -54,6 +59,7 @@ public class CitiesPresenter extends MvpPresenter<CitiesView> {
     public void onSwipeCity(City city) {
         Timber.d("on swipe city: " + city.toString());
         interactor.removeCity(city.getId())
+                .doOnComplete(() -> getViewState().showInfoMessage(resources.getString(R.string.info_place_deleted)))
                 .subscribeOn(Schedulers.io())
                 .subscribe();
     }

@@ -15,6 +15,8 @@ public class CityEntity {
     @PrimaryKey
     private String id; //from Places API
 
+    private long timestamp;
+
     private String name;
 
     private String address;
@@ -26,8 +28,15 @@ public class CityEntity {
     @Embedded
     private WeatherEntity currentWeather;
 
-    public CityEntity(String id, String name, String address, double latitude, double longitude, WeatherEntity currentWeather) {
+    public CityEntity(String id,
+                      long timestamp,
+                      String name,
+                      String address,
+                      double latitude,
+                      double longitude,
+                      WeatherEntity currentWeather) {
         this.id = id;
+        this.timestamp = timestamp;
         this.name = name;
         this.address = address;
         this.latitude = latitude;
@@ -37,6 +46,10 @@ public class CityEntity {
 
     public String getId() {
         return id;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
     }
 
     public String getName() {
@@ -62,11 +75,13 @@ public class CityEntity {
     @Override
     public String toString() {
         return "CityEntity{" +
-                "id=" + id +
+                "id='" + id + '\'' +
+                ", timestamp=" + timestamp +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
+                ", currentWeather=" + currentWeather +
                 '}';
     }
 

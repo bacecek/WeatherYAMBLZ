@@ -27,13 +27,15 @@ public class PresenterModule {
     }
 
     @Provides
-    WeatherPresenter provideWeatherPresenter(WeatherInteractor interactor) {
-        return new WeatherPresenter(interactor);
+    WeatherPresenter provideWeatherPresenter(WeatherInteractor interactor,
+                                             AppResources resources) {
+        return new WeatherPresenter(interactor, resources);
     }
 
     @Provides
-    CitiesPresenter provideCitiesPresenter(CitiesInteractor interactor) {
-        return new CitiesPresenter(interactor);
+    CitiesPresenter provideCitiesPresenter(CitiesInteractor interactor,
+                                           AppResources resources) {
+        return new CitiesPresenter(interactor, resources);
     }
 
     @Provides

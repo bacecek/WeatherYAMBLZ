@@ -2,17 +2,23 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ccb4d962afc9d093855639a2ac9ca423",
+    "identityHash": "bb587568e9e95ecc72b841817dc5df25",
     "entities": [
       {
         "tableName": "cities",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT, `name` TEXT, `address` TEXT, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `temperature` REAL, `description` TEXT, `humidity` REAL, `pressure` REAL, `sunriseTime` INTEGER, `sunsetTime` INTEGER, `windSpeed` REAL, `visibility` INTEGER, `cloudiness` INTEGER, `conditionId` INTEGER, `iconId` TEXT, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT, `timestamp` INTEGER NOT NULL, `name` TEXT, `address` TEXT, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `temperature` REAL, `description` TEXT, `humidity` REAL, `pressure` REAL, `sunriseTime` INTEGER, `sunsetTime` INTEGER, `windSpeed` REAL, `visibility` INTEGER, `cloudiness` INTEGER, `conditionId` INTEGER, `iconId` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "timestamp",
+            "columnName": "timestamp",
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
             "fieldPath": "name",
@@ -323,7 +329,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"ccb4d962afc9d093855639a2ac9ca423\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"bb587568e9e95ecc72b841817dc5df25\")"
     ]
   }
 }

@@ -20,7 +20,7 @@ import io.reactivex.Flowable;
 @Dao
 public interface CityDao {
 
-    @Query("SELECT * FROM cities")
+    @Query("SELECT * FROM cities ORDER BY timestamp")
     Flowable<List<CityEntity>> getAllCities();
 
     //"Since Reactive Streams does not allow null, if the query returns a nullable type

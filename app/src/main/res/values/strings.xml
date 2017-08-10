@@ -63,6 +63,12 @@
     <string name="switch_default_left_value" translatable="false">°C</string>
     <string name="switch_default_right_value" translatable="false">°F</string>
 
+    <string name="info_place_deleted">Place deleted</string>
+    <string name="info_place_added">Place added</string>
+    <string name="info_places_updated">Places updated</string>
+    <string name="info_place_updated">Place updated</string>
+    <string name="info_error_loading_weather">Failed to load weather</string>
+
     <!--Time formats-->
     <string name="format_sunrise">H:mm</string>
     <string name="format_hourly_forecast">H:mm</string>

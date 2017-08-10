@@ -8,6 +8,8 @@ package com.zino.mobilization.weatheryamblz.business.entity;
 public class City {
     private String id;
 
+    private long timestamp;
+
     private String name;
 
     private String address;
@@ -18,8 +20,15 @@ public class City {
 
     private CurrentWeather currentWeather;
 
-    public City(String id, String name, String address, double latitude, double longitude, CurrentWeather currentWeather) {
+    public City(String id,
+                long timestamp,
+                String name,
+                String address,
+                double latitude,
+                double longitude,
+                CurrentWeather currentWeather) {
         this.id = id;
+        this.timestamp = timestamp;
         this.name = name;
         this.address = address;
         this.latitude = latitude;
@@ -29,6 +38,10 @@ public class City {
 
     public String getId() {
         return id;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
     }
 
     public String getName() {
@@ -55,6 +68,7 @@ public class City {
     public String toString() {
         return "City{" +
                 "id='" + id + '\'' +
+                ", timestamp=" + timestamp +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", latitude=" + latitude +
