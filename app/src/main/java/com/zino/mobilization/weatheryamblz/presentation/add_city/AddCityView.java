@@ -17,5 +17,6 @@ public interface AddCityView extends MvpView {
     void showSuggestions(List<Suggestion> suggestions);
     void showMessage(String message);
     void showLoading();
-    void dismiss();
+    void dismissWithSuccess();
+    void dismissWithError();
 }

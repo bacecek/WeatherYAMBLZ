@@ -17,6 +17,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -48,6 +49,7 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
     WeatherPresenter presenter;
 
     @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.layout_parent) LinearLayout layoutParent;
     @BindView(R.id.txt_city) TextView txtCity;
     @BindView(R.id.txt_description) TextView txtDescription;
     @BindView(R.id.txt_temperature) TextView txtTemp;
@@ -210,7 +212,7 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
 
     @Override
     public void showInfoMessage(String message) {
-        Snackbar.make(swipeRefreshLayout, message, Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(layoutParent, message, Snackbar.LENGTH_SHORT).show();
     }
 
     public static WeatherFragment newInstance(@NonNull String cityId) {

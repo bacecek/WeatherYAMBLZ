@@ -1,5 +1,6 @@
 package com.zino.mobilization.weatheryamblz.presentation.add_city;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -94,7 +95,6 @@ public class AddCityFragment extends MvpAppCompatDialogFragment implements AddCi
         txtMessage.setVisibility(View.GONE);
         progress.setVisibility(View.GONE);
         rvSuggestions.setVisibility(View.VISIBLE);
-
     }
 
     @Override
@@ -110,6 +110,24 @@ public class AddCityFragment extends MvpAppCompatDialogFragment implements AddCi
         txtMessage.setVisibility(View.GONE);
         progress.setVisibility(View.VISIBLE);
         rvSuggestions.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void dismissWithError() {
+        getTargetFragment().onActivityResult(getTargetRequestCode(),
+                Activity.RESULT_CANCELED,
+                getActivity().getIntent()
+        );
+        dismiss();
+    }
+
+    @Override
+    public void dismissWithSuccess() {
+        getTargetFragment().onActivityResult(getTargetRequestCode(),
+                Activity.RESULT_OK,
+                getActivity().getIntent()
+        );
+        dismiss();
     }
 
     @Override

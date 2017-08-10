@@ -1,6 +1,8 @@
 package com.zino.mobilization.weatheryamblz.presentation.cities;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.os.Bundle;
@@ -37,7 +39,8 @@ import butterknife.OnClick;
  * <buzmakov.da@gmail.com>
  */
 
-public class CitiesFragment extends BaseFragment implements CitiesView {
+public class CitiesFragment extends BaseFragment implements CitiesView{
+    private static final int REQUEST_ADD_CITY = 777;
     private OnCitySelectedListener onCitySelectedListener;
 
     @InjectPresenter
@@ -116,7 +119,6 @@ public class CitiesFragment extends BaseFragment implements CitiesView {
     }
 
     private RecyclerView.LayoutManager getLayoutManager() {
-        boolean isTablet = getResources().getBoolean(R.bool.is_tablet);
         int orientation = getResources().getConfiguration().orientation;
         if(orientation == Configuration.ORIENTATION_LANDSCAPE) {
             return new GridLayoutManager(getActivity(), 2);
@@ -159,8 +161,19 @@ public class CitiesFragment extends BaseFragment implements CitiesView {
 
     @Override
     public void openChooseCity() {
-        AddCityFragment.newInstance()
-                .show(getFragmentManager(), "add_city");
+        AddCityFragment fragment = AddCityFragment.newInstance();
+        fragment.setTargetFragment(this, REQUEST_ADD_CITY);
+        fragment.show(getFragmentManager(), "add_city");
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_ADD_CITY:
+                if(resultCode == Activity.RESULT_CANCELED) {
+                    showInfoMessage(getString(R.string.info_place_exists));
+                }
+        }
     }
 
     @Override

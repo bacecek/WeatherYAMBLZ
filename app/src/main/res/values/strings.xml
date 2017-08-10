@@ -68,6 +68,7 @@
     <string name="info_places_updated">Places updated</string>
     <string name="info_place_updated">Place updated</string>
     <string name="info_error_loading_weather">Failed to load weather</string>
+    <string name="info_place_exists">Place already exists</string>
 
     <!--Time formats-->
     <string name="format_sunrise">H:mm</string>

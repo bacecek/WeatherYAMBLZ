@@ -28,7 +28,7 @@ public interface CityDao {
     @Query("SELECT * FROM cities WHERE id = :id")
     Flowable<CityEntity[]> getCityById(String id);
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert
     void insertCity(CityEntity city);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)

@@ -47,6 +47,7 @@
     <string name="info_places_updated">Места обновлены</string>
     <string name="info_place_updated">Место обновлено</string>
     <string name="info_error_loading_weather">Не удалось загрузить погоду</string>
+    <string name="info_place_exists">Место уже есть в списке</string>
 
     <string name="template_temperature_metric">%1$d °</string>
     <string name="template_temperature_imperial">%1$d °</string>

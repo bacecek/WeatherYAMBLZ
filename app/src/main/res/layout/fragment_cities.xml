@@ -2,7 +2,6 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/layout_coordinator">
 
@@ -42,7 +41,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="24dp"
         android:layout_gravity="bottom|end"
-        android:src="@drawable/ic_add"
-        app:layout_behavior="com.zino.mobilization.weatheryamblz.utils.FabBehavior"/>
+        android:src="@drawable/ic_add"/>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -65,7 +65,8 @@ public class AddCityPresenter extends MvpPresenter<AddCityView> {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(__ -> getViewState().showLoading())
-                .subscribe(() -> getViewState().dismiss());
+                .subscribe(() -> getViewState().dismissWithSuccess(),
+                        e -> getViewState().dismissWithError());
     }
 
     @Override
