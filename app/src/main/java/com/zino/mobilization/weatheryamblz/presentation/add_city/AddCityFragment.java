@@ -74,7 +74,6 @@ public class AddCityFragment extends MvpAppCompatDialogFragment implements AddCi
         rvSuggestions.setHasFixedSize(true);
 
         Observable<String> inputChanges = RxTextView.textChanges(txtInput)
-                .skipInitialValue()
                 .map(CharSequence::toString)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(s -> btnClear.setVisibility(s.length() == 0 ? View.GONE : View.VISIBLE));

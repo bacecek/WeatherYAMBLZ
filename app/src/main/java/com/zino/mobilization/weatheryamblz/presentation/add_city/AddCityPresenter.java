@@ -46,6 +46,8 @@ public class AddCityPresenter extends MvpPresenter<AddCityView> {
                 .switchMapSingle(s -> interactor.getSuggestions(s))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(__ -> getViewState().showMessage(appResources.getString(R.string.message_error)))
+                .retryWhen(__ -> inputSubscription)
                 .subscribe(
                         suggestions -> {
                             if(suggestions.size() == 0) {
@@ -53,9 +55,7 @@ public class AddCityPresenter extends MvpPresenter<AddCityView> {
                             } else {
                                 getViewState().showSuggestions(suggestions);
                             }
-                        },
-                        error -> getViewState().showMessage(appResources.getString(R.string.message_error))
-                        // FIXME: 10.08.17 обойти отписку от Observable
+                        }
                 );
     }
 
