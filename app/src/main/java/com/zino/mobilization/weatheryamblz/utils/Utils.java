@@ -56,7 +56,7 @@ public class Utils {
     @ColorRes
     public static int getColorIdByWeatherCondition(String condition) {
         if(condition == null) return 0;
-        switch (condition) {
+        switch (condition.substring(0, 3)) { //******* openweathermap api
             case "01d":
             case "01n":
                 return R.color.colorSun;
