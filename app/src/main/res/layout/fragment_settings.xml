@@ -112,6 +112,15 @@
 
         </RelativeLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_about"
+            android:text="@string/action_about"
+            android:textSize="16sp"
+            android:padding="16dp"
+            android:background="?attr/selectableItemBackground"/>
+
     </LinearLayout>
 
 </ScrollView>

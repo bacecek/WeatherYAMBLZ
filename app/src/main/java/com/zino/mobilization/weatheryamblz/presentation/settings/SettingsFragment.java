@@ -9,10 +9,11 @@ import android.widget.RadioGroup;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
-import com.zino.mobilization.weatheryamblz.utils.UnitsSwitch;
 import com.zino.mobilization.weatheryamblz.R;
 import com.zino.mobilization.weatheryamblz.WeatherApplication;
+import com.zino.mobilization.weatheryamblz.presentation.about.AboutFragment;
 import com.zino.mobilization.weatheryamblz.presentation.common.BaseFragment;
+import com.zino.mobilization.weatheryamblz.utils.UnitsSwitch;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -26,6 +27,12 @@ public class SettingsFragment extends BaseFragment implements SettingsView {
     @BindView(R.id.switch_pressure) UnitsSwitch switchPressure;
     @BindView(R.id.switch_wind_speed) UnitsSwitch switchWindSpeed;
     @BindView(R.id.time_radio_group) RadioGroup timeRadioGroup;
+
+    @OnClick(R.id.txt_about)
+    void onClickAbout() {
+        AboutFragment.newInstance()
+                .show(getFragmentManager(), "about");
+    }
 
     @ProvidePresenter
     SettingsPresenter provideSettingsPresenter() {

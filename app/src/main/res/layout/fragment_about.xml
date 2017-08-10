@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.about.AboutFragment"
-    android:id="@+id/layout_about">
-
+    android:id="@+id/layout_about"
+    android:padding="24dp">
 
     <ImageView
         android:id="@+id/icon_image_view"
@@ -13,7 +13,7 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="16dp"
         android:src="@mipmap/ic_launcher_round"
-        />
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/name_text_view"
@@ -22,9 +22,7 @@
         android:layout_height="wrap_content"
         android:text="@string/app_name"
         android:textSize="26sp"
-        android:layout_centerHorizontal="true"
-        android:textColor="@android:color/black"
-        />
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:id="@+id/version_text_view"
@@ -33,8 +31,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:textSize="16sp"
-        android:layout_centerHorizontal="true"
-        android:textColor="@android:color/black"
-        />
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

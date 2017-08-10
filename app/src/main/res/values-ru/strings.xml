@@ -8,6 +8,7 @@
     <string name="action_settings">Настройки</string>
 
     <string name="version">Версия: %s</string>
+    <string name="action_about">О приложении</string>
 
     <string name="pressure">Давление</string>
     <string name="humidity">Влажность</string>
@@ -18,7 +19,7 @@
     <string name="speed_ms">м/с</string>
     <string name="speed_kmh">км/ч</string>
 
-    <string name="manually">Вручную</string>
+    <string name="manually">Только вручную</string>
     <string name="fifteen_min">15 мин</string>
     <string name="thirteen_min">30 мин</string>
     <string name="one_hour">1 час</string>
