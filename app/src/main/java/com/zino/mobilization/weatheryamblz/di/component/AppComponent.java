@@ -7,6 +7,8 @@ import com.zino.mobilization.weatheryamblz.di.module.BindsModule;
 import com.zino.mobilization.weatheryamblz.di.module.DatabaseModule;
 import com.zino.mobilization.weatheryamblz.di.module.NetworkModule;
 import com.zino.mobilization.weatheryamblz.di.module.PresenterModule;
+import com.zino.mobilization.weatheryamblz.di.module.StringsModule;
+import com.zino.mobilization.weatheryamblz.presentation.add_city.AddCityPresenter;
 import com.zino.mobilization.weatheryamblz.presentation.cities.CitiesPresenter;
 import com.zino.mobilization.weatheryamblz.presentation.settings.SettingsPresenter;
 import com.zino.mobilization.weatheryamblz.presentation.weather.WeatherPresenter;
@@ -25,7 +27,8 @@ import dagger.Component;
         NetworkModule.class,
         PresenterModule.class,
         BindsModule.class,
-        DatabaseModule.class})
+        DatabaseModule.class,
+        StringsModule.class})
 public interface AppComponent {
     void inject(UpdateWeatherService service);
     void inject(WeatherApplication application);
@@ -33,4 +36,5 @@ public interface AppComponent {
     SettingsPresenter getSettingsPresenter();
     WeatherPresenter getWeatherPresenter();
     CitiesPresenter getCitiesPresenter();
+    AddCityPresenter getAddCityPresenter();
 }

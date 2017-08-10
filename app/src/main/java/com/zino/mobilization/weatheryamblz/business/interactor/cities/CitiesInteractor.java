@@ -16,6 +16,5 @@ import io.reactivex.Observable;
 public interface CitiesInteractor extends BaseInteractor {
     Observable<List<City>> getCities();
     Observable<List<City>> getCitiesWithoutWeather();
-    Completable addCity(City city);
     Completable removeCity(String cityId);
 }

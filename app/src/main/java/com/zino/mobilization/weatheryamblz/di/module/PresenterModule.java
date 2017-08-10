@@ -1,11 +1,14 @@
 package com.zino.mobilization.weatheryamblz.di.module;
 
+import com.zino.mobilization.weatheryamblz.business.interactor.add_city.AddCityInteractor;
 import com.zino.mobilization.weatheryamblz.business.interactor.cities.CitiesInteractor;
 import com.zino.mobilization.weatheryamblz.business.interactor.weather.WeatherInteractor;
 import com.zino.mobilization.weatheryamblz.data.settings.SettingsManager;
+import com.zino.mobilization.weatheryamblz.presentation.add_city.AddCityPresenter;
 import com.zino.mobilization.weatheryamblz.presentation.cities.CitiesPresenter;
 import com.zino.mobilization.weatheryamblz.presentation.settings.SettingsPresenter;
 import com.zino.mobilization.weatheryamblz.presentation.weather.WeatherPresenter;
+import com.zino.mobilization.weatheryamblz.utils.AppResources;
 
 import dagger.Module;
 import dagger.Provides;
@@ -31,6 +34,12 @@ public class PresenterModule {
     @Provides
     CitiesPresenter provideCitiesPresenter(CitiesInteractor interactor) {
         return new CitiesPresenter(interactor);
+    }
+
+    @Provides
+    AddCityPresenter provideAddCityPresenter(AddCityInteractor interactor,
+                                             AppResources resources) {
+        return new AddCityPresenter(interactor, resources);
     }
 
 }

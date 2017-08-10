@@ -36,6 +36,11 @@
     <string name="moscow">Moscow</string>
     <string name="moscow_full">Moscow, Russia</string>
 
+    <string name="hint_add_city">Search</string>
+    <string name="message_empty_input">Enter location name</string>
+    <string name="message_empty_result">Nothing found\nmatching your query</string>
+    <string name="message_error">Failed to load suggestions</string>
+
     <string name="empty_list_cities_title">No cities added</string>
     <string name="empty_list_cities_subtitle">Tap "+" to add new city</string>
     <string name="empty_city_weather">No data yet. Downloading now…</string>
@@ -53,6 +58,10 @@
     <string name="template_humidity">%1$d%%</string>
     <string name="template_visibility">%1$d m</string>
     <string name="template_cloudiness">%1$d%%</string>
+
+    <string name="switch_default_title">Temperature</string>
+    <string name="switch_default_left_value" translatable="false">°C</string>
+    <string name="switch_default_right_value" translatable="false">°F</string>
 
     <!--Time formats-->
     <string name="format_sunrise">H:mm</string>

@@ -14,8 +14,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".presentation.main.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,7 +29,7 @@
             android:value="AIzaSyCzU9xWiP1MuSjcDERvDa0KoPJJGPFto-Y" />
 
         <activity android:name=".presentation.weather.WeatherActivity" />
-        <activity android:name=".presentation.settings.SettingsActivity"></activity>
+        <activity android:name=".presentation.settings.SettingsActivity" />
     </application>
 
 </manifest>

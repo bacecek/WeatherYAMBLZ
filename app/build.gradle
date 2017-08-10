@@ -51,7 +51,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(":unitsswitch")
     androidTestImplementation("com.android.support.test.espresso:espresso-contrib:$rootProject.espresso_version", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -100,6 +99,7 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.dagger_version"
 
     implementation "com.jakewharton.timber:timber:$rootProject.timber_version"
+    implementation "com.jakewharton.rxbinding2:rxbinding:$rootProject.rxbinding_version"
 
     implementation "android.arch.persistence.room:runtime:$rootProject.room_version"
     annotationProcessor "android.arch.persistence.room:compiler:$rootProject.room_version"

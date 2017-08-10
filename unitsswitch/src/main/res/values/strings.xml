@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">UnitsSwitch</string>
-    <string name="default_title">Temperature</string>
-    <string name="default_left_value" translatable="false">°C</string>
-    <string name="default_right_value" translatable="false">°F</string>
-</resources>

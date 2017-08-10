@@ -9,7 +9,7 @@ import android.widget.RadioGroup;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
-import com.bacecek.unitsswitch.UnitsSwitch;
+import com.zino.mobilization.weatheryamblz.utils.UnitsSwitch;
 import com.zino.mobilization.weatheryamblz.R;
 import com.zino.mobilization.weatheryamblz.WeatherApplication;
 import com.zino.mobilization.weatheryamblz.presentation.common.BaseFragment;

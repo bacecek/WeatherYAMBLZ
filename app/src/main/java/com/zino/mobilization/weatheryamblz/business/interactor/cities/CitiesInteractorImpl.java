@@ -21,7 +21,6 @@ import timber.log.Timber;
  */
 
 public class CitiesInteractorImpl extends BaseInteractorImpl implements CitiesInteractor {
-    private WeatherRepository weatherRepository;
     private CitiesRepository citiesRepository;
     private SettingsManager settingsManager;
     private Mapper mapper;
@@ -32,7 +31,6 @@ public class CitiesInteractorImpl extends BaseInteractorImpl implements CitiesIn
                          SettingsManager settingsManager,
                          Mapper mapper) {
         super(weatherRepository, citiesRepository, mapper);
-        this.weatherRepository = weatherRepository;
         this.citiesRepository = citiesRepository;
         this.settingsManager = settingsManager;
         this.mapper = mapper;
@@ -52,12 +50,6 @@ public class CitiesInteractorImpl extends BaseInteractorImpl implements CitiesIn
         return getCities().flatMapSingle(cities -> Observable.fromIterable(cities)
                 .filter(city -> city.getCurrentWeather() == null)
                 .toList());
-    }
-
-    @Override
-    public Completable addCity(City city) {
-        Timber.d("add city: " + city);
-        return citiesRepository.addCity(mapper.convertCityToCityEntity(city));
     }
 
     @Override

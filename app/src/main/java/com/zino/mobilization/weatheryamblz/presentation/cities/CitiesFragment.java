@@ -1,8 +1,6 @@
 package com.zino.mobilization.weatheryamblz.presentation.cities;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.os.Bundle;
@@ -15,20 +13,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
-import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.places.AutocompleteFilter;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.zino.mobilization.weatheryamblz.R;
 import com.zino.mobilization.weatheryamblz.WeatherApplication;
 import com.zino.mobilization.weatheryamblz.business.entity.City;
+import com.zino.mobilization.weatheryamblz.presentation.add_city.AddCityFragment;
 import com.zino.mobilization.weatheryamblz.presentation.common.BaseFragment;
 import com.zino.mobilization.weatheryamblz.presentation.main.OnCitySelectedListener;
 import com.zino.mobilization.weatheryamblz.utils.GridDividerItemDecoration;
@@ -38,7 +29,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import timber.log.Timber;
 
 /**
  * Created by Denis Buzmakov on 02.08.17.
@@ -46,7 +36,6 @@ import timber.log.Timber;
  */
 
 public class CitiesFragment extends BaseFragment implements CitiesView {
-    private final static int REQUEST_CHOOSE_CITY = 777;
     private OnCitySelectedListener onCitySelectedListener;
 
     @InjectPresenter
@@ -129,52 +118,22 @@ public class CitiesFragment extends BaseFragment implements CitiesView {
     private RecyclerView.LayoutManager getLayoutManager() {
         boolean isTablet = getResources().getBoolean(R.bool.is_tablet);
         int orientation = getResources().getConfiguration().orientation;
-        if(isTablet) {
-            if(orientation == Configuration.ORIENTATION_PORTRAIT) {
-                //return new GridLayoutManager(getActivity(), 2);
-                return new LinearLayoutManager(getActivity());
-            } else {
-                //return new GridLayoutManager(getActivity(), 3);
-                return new LinearLayoutManager(getActivity());
-            }
-        } else {
-            if(orientation == Configuration.ORIENTATION_PORTRAIT) {
-                return new LinearLayoutManager(getActivity());
-            } else {
-                return new GridLayoutManager(getActivity(), 2);
-            }
-        }
+        if(orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            return new GridLayoutManager(getActivity(), 2);
+        } else return new LinearLayoutManager(getActivity());
     }
 
     private RecyclerView.ItemDecoration getItemDecoration() {
         boolean isTablet = getResources().getBoolean(R.bool.is_tablet);
         int orientation = getResources().getConfiguration().orientation;
-        if(isTablet) {
-            if(orientation == Configuration.ORIENTATION_PORTRAIT) {
-                /*return new GridDividerItemDecoration(
-                        (int) Utils.dpToPx(getResources(), 16),
-                        2);*/
-                final DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
-                itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.divider_cities));
-                return itemDecoration;
-            } else {
-                /*return new GridDividerItemDecoration(
-                        (int) Utils.dpToPx(getResources(), 16),
-                        3);*/
-                final DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
-                itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.divider_cities));
-                return itemDecoration;
-            }
+        if(isTablet && orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            return new GridDividerItemDecoration(
+                    (int) Utils.dpToPx(getResources(), 16),
+                    2);
         } else {
-            if(orientation == Configuration.ORIENTATION_PORTRAIT) {
-                final DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
-                itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.divider_cities));
-                return itemDecoration;
-            } else {
-                return new GridDividerItemDecoration(
-                        (int) Utils.dpToPx(getResources(), 16),
-                        2);
-            }
+            final DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
+            itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.divider_cities));
+            return itemDecoration;
         }
     }
 
@@ -200,37 +159,8 @@ public class CitiesFragment extends BaseFragment implements CitiesView {
 
     @Override
     public void openChooseCity() {
-        try {
-            AutocompleteFilter filter = new AutocompleteFilter.Builder()
-                    .setTypeFilter(AutocompleteFilter.TYPE_FILTER_CITIES)
-                    .build();
-            Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
-                    .setFilter(filter)
-                    .build(getActivity());
-            startActivityForResult(intent, REQUEST_CHOOSE_CITY);
-        } catch (GooglePlayServicesRepairableException e) {
-            GoogleApiAvailability.getInstance().getErrorDialog(getActivity(), e.getConnectionStatusCode(), 0);
-        } catch (GooglePlayServicesNotAvailableException e) {
-            String message = getString(R.string.error_play_services_not_available,
-                    GoogleApiAvailability.getInstance().getErrorString(e.errorCode));
-            Timber.e(message);
-            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == REQUEST_CHOOSE_CITY) {
-            if(resultCode == Activity.RESULT_OK) {
-                Place place = PlaceAutocomplete.getPlace(getActivity(), data);
-                presenter.onCityChosen(place);
-                Timber.d("returned place from places api: " + place.toString());
-            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
-                Status status = PlaceAutocomplete.getStatus(getActivity(), data);
-                Timber.e(status.getStatusMessage());
-                Toast.makeText(getActivity(), status.getStatusMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }
+        AddCityFragment.newInstance()
+                .show(getFragmentManager(), "add_city");
     }
 
     public static CitiesFragment newInstance() {

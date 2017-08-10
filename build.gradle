@@ -4,7 +4,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-alpha9'
+        classpath 'com.android.tools.build:gradle:3.0.0-beta1'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.7.3'
     }
 }
@@ -42,6 +42,7 @@ ext {
     dagger_version = '2.11'
     room_version = '1.0.0-alpha8'
     constraint_version = '1.1.0-beta1'
+    rxbinding_version = '2.0.0'
 
     //tests
     hamcrest_version = '1.3'

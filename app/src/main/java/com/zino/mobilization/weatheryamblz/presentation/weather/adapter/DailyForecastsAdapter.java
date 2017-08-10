@@ -2,7 +2,6 @@ package com.zino.mobilization.weatheryamblz.presentation.weather.adapter;
 
 import android.support.annotation.ColorRes;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 
 import com.zino.mobilization.weatheryamblz.R;
 import com.zino.mobilization.weatheryamblz.business.entity.DailyForecast;
-import com.zino.mobilization.weatheryamblz.presentation.weather.diffutils.DailyForecastsDiffCallback;
 import com.zino.mobilization.weatheryamblz.utils.Utils;
 
 import java.util.ArrayList;
@@ -52,12 +50,9 @@ public class DailyForecastsAdapter extends RecyclerView.Adapter<DailyForecastsAd
 
     public void updateData(List<DailyForecast> newData) {
         Timber.d("update data: " + newData.toString());
-        final DailyForecastsDiffCallback diffCallback = new DailyForecastsDiffCallback(this.data, newData);
-        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
-
         this.data.clear();
         this.data.addAll(newData);
-        diffResult.dispatchUpdatesTo(this);
+        notifyDataSetChanged();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

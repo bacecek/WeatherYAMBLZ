@@ -1,9 +1,10 @@
 package com.zino.mobilization.weatheryamblz.presentation.cities;
 
-import android.support.v7.util.DiffUtil;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.zino.mobilization.weatheryamblz.business.entity.City;
+import com.zino.mobilization.weatheryamblz.presentation.common.BaseDiffUtilCallBack;
 
 import java.util.List;
 
@@ -12,28 +13,10 @@ import java.util.List;
  * <buzmakov.da@gmail.com>
  */
 
-public class CityDiffCallback extends DiffUtil.Callback {
-    private List<City> oldList;
-    private List<City> newList;
+public class CityDiffCallback extends BaseDiffUtilCallBack<City> {
 
-    CityDiffCallback(List<City> oldList, List<City> newList) {
-        this.oldList = oldList;
-        this.newList = newList;
-    }
-
-    @Override
-    public int getOldListSize() {
-        return oldList == null ? 0 : oldList.size();
-    }
-
-    @Override
-    public int getNewListSize() {
-        return newList == null ? 0 : newList.size();
-    }
-
-    @Override
-    public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        return oldList.get(oldItemPosition).equals(newList.get(newItemPosition));
+    CityDiffCallback(@NonNull List<City> oldList, @NonNull List<City> newList) {
+        super(oldList, newList);
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.zino.mobilization.weatheryamblz.presentation.cities;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.google.android.gms.location.places.Place;
 import com.zino.mobilization.weatheryamblz.business.entity.City;
 import com.zino.mobilization.weatheryamblz.business.interactor.cities.CitiesInteractor;
 
@@ -50,21 +49,6 @@ public class CitiesPresenter extends MvpPresenter<CitiesView> {
 
     public void onClickAddCity() {
         getViewState().openChooseCity();
-    }
-
-    public void onCityChosen(Place place) {
-        if(place == null) return;
-        City city = new City(
-                place.getId(),
-                place.getName().toString(),
-                place.getAddress().toString(),
-                place.getLatLng().latitude,
-                place.getLatLng().longitude,
-                null
-        );
-        interactor.addCity(city)
-                .subscribeOn(Schedulers.io())
-                .subscribe();
     }
 
     public void onSwipeCity(City city) {

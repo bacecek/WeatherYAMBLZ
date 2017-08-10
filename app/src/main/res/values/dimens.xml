@@ -13,4 +13,6 @@
 
     <dimen name="item_city_padding_left_right">25dp</dimen>
     <dimen name="item_city_padding_top_bottom">20dp</dimen>
+
+    <dimen name="switch_width">70dp</dimen>
 </resources>

@@ -12,12 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.bacecek.unitsswitch.UnitsSwitch
+        <com.zino.mobilization.weatheryamblz.utils.UnitsSwitch
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/switch_temp"/>
 
-        <com.bacecek.unitsswitch.UnitsSwitch
+        <com.zino.mobilization.weatheryamblz.utils.UnitsSwitch
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/switch_pressure"
@@ -25,7 +25,7 @@
             app:textLeft="@string/pressure_hpa"
             app:textRight="@string/pressure_mmhg"/>
 
-        <com.bacecek.unitsswitch.UnitsSwitch
+        <com.zino.mobilization.weatheryamblz.utils.UnitsSwitch
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/switch_wind_speed"
