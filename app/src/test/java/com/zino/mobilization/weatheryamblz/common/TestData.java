@@ -6,7 +6,6 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.gson.Gson;
-import com.zino.mobilization.weatheryamblz.data.cache.pojo.City;
 import com.zino.mobilization.weatheryamblz.data.network.response.weather.WeatherResponse;
 
 import java.util.List;
@@ -25,10 +24,6 @@ public class TestData {
 
     public static WeatherResponse getPermResponse() {
         return new Gson().fromJson(getPermWeatherJson(), WeatherResponse.class);
-    }
-
-    public static City getNewYork() {
-        return new City("New York", 40.730610, -73.935242);
     }
 
     private static String getMoscowWeatherJson() {
@@ -54,7 +49,7 @@ public class TestData {
                 "        \"temp_max\": 302.15\n" +
                 "    },\n" +
                 "    \"visibility\": 10000,\n" +
-                "    \"wind\": {\n" +
+                "    \"ic_wind\": {\n" +
                 "        \"speed\": 6,\n" +
                 "        \"deg\": 260\n" +
                 "    },\n" +
@@ -100,7 +95,7 @@ public class TestData {
                 "        \"sea_level\": 1022.12,\n" +
                 "        \"grnd_level\": 1001.94\n" +
                 "    },\n" +
-                "    \"wind\": {\n" +
+                "    \"ic_wind\": {\n" +
                 "        \"speed\": 2.47,\n" +
                 "        \"deg\": 320.504\n" +
                 "    },\n" +
@@ -192,10 +187,6 @@ public class TestData {
                 return false;
             }
         };
-    }
-
-    public static City getTestCity() {
-        return new City("", 55, 51);
     }
 
 }
