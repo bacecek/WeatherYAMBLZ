@@ -1,6 +1,5 @@
 package com.zino.mobilization.weatheryamblz.di.module;
 
-import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.zino.mobilization.weatheryamblz.BuildConfig;
 import com.zino.mobilization.weatheryamblz.data.network.api.PlacesApi;
@@ -64,9 +63,7 @@ public class NetworkModule {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.addInterceptor(languageInterceptor)
                 .addInterceptor(keyInterceptor);
-        if(BuildConfig.DEBUG) {
-            builder.addNetworkInterceptor(new StethoInterceptor());
-        }
+        BuildConfig.STETHO.configureNetworkClient(builder);
         return builder.build();
     }
 
@@ -114,9 +111,7 @@ public class NetworkModule {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.addInterceptor(languageInterceptor)
                 .addInterceptor(keyInterceptor);
-        if(BuildConfig.DEBUG) {
-            builder.addNetworkInterceptor(new StethoInterceptor());
-        }
+        BuildConfig.STETHO.configureNetworkClient(builder);
         return builder.build();
     }
 

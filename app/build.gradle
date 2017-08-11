@@ -42,11 +42,13 @@ android {
         debug {
             signingConfig signingConfigs.debug
             minifyEnabled false
+            buildConfigField 'com.zino.mobilization.weatheryamblz.utils.StethoHelper', 'STETHO', 'new com.zino.mobilization.weatheryamblz.utils.DebugStethoHelper()'
         }
         release {
             signingConfig signingConfigs.release
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'com.zino.mobilization.weatheryamblz.utils.StethoHelper', 'STETHO', 'new com.zino.mobilization.weatheryamblz.utils.ReleaseStethoHelper()'
         }
     }
 
@@ -92,8 +94,8 @@ dependencies {
 
     implementation "com.evernote:android-job:$rootProject.androidjob_version"
 
-    implementation "com.facebook.stetho:stetho:$rootProject.stetho_version"
-    implementation "com.facebook.stetho:stetho-okhttp3:$rootProject.stetho_version"
+    debugImplementation "com.facebook.stetho:stetho:$rootProject.stetho_version"
+    debugImplementation "com.facebook.stetho:stetho-okhttp3:$rootProject.stetho_version"
 
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.leak_canary_version"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leak_canary_version"
