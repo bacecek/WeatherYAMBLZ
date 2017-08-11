@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.IBinder;
 
 import com.zino.mobilization.weatheryamblz.WeatherApplication;
-import com.zino.mobilization.weatheryamblz.business.interactor.service.ServiceInteractor;
+import com.zino.mobilization.weatheryamblz.business.interactor.fetch_weather.FetchWeatherInteractor;
 import com.zino.mobilization.weatheryamblz.data.settings.SettingsManager;
 
 import javax.inject.Inject;
@@ -22,7 +22,7 @@ public class UpdateWeatherService extends Service {
     SettingsManager settingsManager;
 
     @Inject
-    ServiceInteractor serviceInteractor;
+    FetchWeatherInteractor fetchWeatherInteractor;
 
     public UpdateWeatherService(){
         WeatherApplication.getAppComponent().inject(this);
@@ -43,7 +43,7 @@ public class UpdateWeatherService extends Service {
     }
 
     void loadWeather() {
-        disposable = serviceInteractor.fetchAndSaveAllCities()
+        disposable = fetchWeatherInteractor.fetchAndSaveAllCities()
                 .subscribeOn(Schedulers.io())
                 .subscribe();
     }

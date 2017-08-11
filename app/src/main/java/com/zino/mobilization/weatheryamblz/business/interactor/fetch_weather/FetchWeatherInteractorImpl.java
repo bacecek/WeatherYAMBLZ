@@ -5,7 +5,10 @@ import com.zino.mobilization.weatheryamblz.data.db.entity.CityEntity;
 import com.zino.mobilization.weatheryamblz.repository.city.CitiesRepository;
 import com.zino.mobilization.weatheryamblz.repository.weather.WeatherRepository;
 
+import javax.inject.Inject;
+
 import io.reactivex.Completable;
+import io.reactivex.Observable;
 import timber.log.Timber;
 
 /**
@@ -18,6 +21,7 @@ public class FetchWeatherInteractorImpl implements FetchWeatherInteractor {
     private CitiesRepository citiesRepository;
     private Mapper mapper;
 
+    @Inject
     public FetchWeatherInteractorImpl(WeatherRepository weatherRepository, CitiesRepository citiesRepository, Mapper mapper) {
         this.weatherRepository = weatherRepository;
         this.citiesRepository = citiesRepository;
@@ -62,5 +66,13 @@ public class FetchWeatherInteractorImpl implements FetchWeatherInteractor {
                 .flatMap(city -> weatherRepository.getDailyForecastFromApi(city.getLatitude(), city.getLongitude())
                         .map(response -> mapper.convertDailyForecastEntitiesFromResponse(cityId, response)))
                 .flatMapCompletable(entities -> weatherRepository.saveDailyForecast(entities));
+    }
+
+    @Override
+    public Completable fetchAndSaveAllCities() {
+        Timber.d("fetch and save all cities");
+        return citiesRepository.getAllCities().firstOrError()
+                .flatMapCompletable(cityEntities -> Observable.fromIterable(cityEntities)
+                        .flatMapCompletable(cityEntity -> fetchAndSaveWeather(cityEntity.getId())));
     }
 }

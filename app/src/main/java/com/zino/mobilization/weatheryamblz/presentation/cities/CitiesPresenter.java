@@ -39,6 +39,7 @@ public class CitiesPresenter extends MvpPresenter<CitiesView> {
                 .doOnNext(cities -> {
                     getViewState().setCitiesListVisible(cities.size() != 0);
                     getViewState().setEmptyViewVisible(cities.size() == 0);
+                    getViewState().setRefreshingEnabled(cities.size() != 0);
                 })
                 .subscribe(this::showCities);
 
@@ -62,6 +63,15 @@ public class CitiesPresenter extends MvpPresenter<CitiesView> {
                 .doOnComplete(() -> getViewState().showInfoMessage(resources.getString(R.string.info_place_deleted)))
                 .subscribeOn(Schedulers.io())
                 .subscribe();
+    }
+
+    public void onRefresh() {
+        interactor.fetchAndSaveAllCities()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .doFinally(() -> getViewState().setLoadingVisible(false))
+                .subscribe(() -> getViewState().showInfoMessage(resources.getString(R.string.info_places_updated)),
+                        __ -> getViewState().showInfoMessage(resources.getString(R.string.info_error_loading_weather)));
     }
 
     private void showCities(List<City> cities) {

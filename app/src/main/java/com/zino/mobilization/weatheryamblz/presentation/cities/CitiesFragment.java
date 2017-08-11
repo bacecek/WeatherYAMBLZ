@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -49,6 +50,7 @@ public class CitiesFragment extends BaseFragment implements CitiesView{
     @BindView(R.id.list_cities) RecyclerView rvCities;
     @BindView(R.id.view_empty) View viewEmpty;
     @BindView(R.id.layout_coordinator) CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.layout_refresh) SwipeRefreshLayout swipeRefreshLayout;
 
     private final ItemTouchHelper.SimpleCallback itemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
         @Override
@@ -76,6 +78,13 @@ public class CitiesFragment extends BaseFragment implements CitiesView{
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY,
                         actionState, isCurrentlyActive);
             }
+        }
+
+        @Override
+        public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+            super.onSelectedChanged(viewHolder, actionState);
+            final boolean swiping = actionState == ItemTouchHelper.ACTION_STATE_SWIPE;
+            swipeRefreshLayout.setEnabled(!swiping);
         }
     };
     private final ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchCallback);
@@ -111,6 +120,8 @@ public class CitiesFragment extends BaseFragment implements CitiesView{
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        swipeRefreshLayout.setOnRefreshListener(() -> presenter.onRefresh());
+
         rvCities.setLayoutManager(getLayoutManager());
         rvCities.addItemDecoration(getItemDecoration());
         rvCities.setHasFixedSize(true);
@@ -179,6 +190,16 @@ public class CitiesFragment extends BaseFragment implements CitiesView{
     @Override
     public void showInfoMessage(String message) {
         Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void setLoadingVisible(boolean visible) {
+        swipeRefreshLayout.setRefreshing(visible);
+    }
+
+    @Override
+    public void setRefreshingEnabled(boolean enabled) {
+        swipeRefreshLayout.setEnabled(enabled);
     }
 
     public static CitiesFragment newInstance() {

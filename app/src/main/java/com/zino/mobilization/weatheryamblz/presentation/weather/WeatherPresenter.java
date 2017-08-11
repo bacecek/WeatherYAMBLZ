@@ -37,7 +37,7 @@ public class WeatherPresenter extends MvpPresenter<WeatherView> {
                     })
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .doFinally(() -> getViewState().setLoadingVisibility(false))
+                    .doFinally(() -> getViewState().setLoadingVisible(false))
                     .subscribe(city -> getViewState().showCity(city),
                             error -> {
                                 if(error instanceof EmptyResultSetException) {
@@ -48,14 +48,14 @@ public class WeatherPresenter extends MvpPresenter<WeatherView> {
             interactor.getHourlyForecast(cityId)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .doFinally(() -> getViewState().setLoadingVisibility(false))
+                    .doFinally(() -> getViewState().setLoadingVisible(false))
                     .subscribe(forecasts -> getViewState().showHourlyForecasts(forecasts),
                             error -> showErrorMessage());
 
             interactor.getDailyForecast(cityId)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .doFinally(() -> getViewState().setLoadingVisibility(false))
+                    .doFinally(() -> getViewState().setLoadingVisible(false))
                     .subscribe(forecasts -> getViewState().showDailyForecasts(forecasts),
                             error -> showErrorMessage());
 
@@ -76,7 +76,7 @@ public class WeatherPresenter extends MvpPresenter<WeatherView> {
                 interactor.fetchAndSaveDailyForecasts(cityId)
         ).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doFinally(() -> getViewState().setLoadingVisibility(false))
+                .doFinally(() -> getViewState().setLoadingVisible(false))
                 .subscribe(this::showSuccessMessage,
                         error -> showErrorMessage());
     }

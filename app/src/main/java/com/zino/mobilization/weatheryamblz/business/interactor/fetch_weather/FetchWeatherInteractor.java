@@ -11,4 +11,5 @@ public interface FetchWeatherInteractor {
     Completable fetchAndSaveWeather(String cityId);
     Completable fetchAndSaveHourlyForecasts(String cityId);
     Completable fetchAndSaveDailyForecasts(String cityId);
+    Completable fetchAndSaveAllCities();
 }

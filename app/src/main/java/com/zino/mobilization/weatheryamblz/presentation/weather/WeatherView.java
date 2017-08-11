@@ -16,7 +16,7 @@ import java.util.List;
 
 @StateStrategyType(AddToEndSingleStrategy.class)
 public interface WeatherView extends MvpView {
-    void setLoadingVisibility(boolean visible);
+    void setLoadingVisible(boolean visible);
     void showCity(@NonNull City city);
     void showHourlyForecasts(@NonNull List<HourlyForecast> forecasts);
     void showDailyForecasts(@NonNull List<DailyForecast> forecasts);

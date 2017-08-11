@@ -4,8 +4,8 @@ import com.zino.mobilization.weatheryamblz.business.interactor.add_city.AddCityI
 import com.zino.mobilization.weatheryamblz.business.interactor.add_city.AddCityInteractorImpl;
 import com.zino.mobilization.weatheryamblz.business.interactor.cities.CitiesInteractor;
 import com.zino.mobilization.weatheryamblz.business.interactor.cities.CitiesInteractorImpl;
-import com.zino.mobilization.weatheryamblz.business.interactor.service.ServiceInteractor;
-import com.zino.mobilization.weatheryamblz.business.interactor.service.ServiceInteractorImpl;
+import com.zino.mobilization.weatheryamblz.business.interactor.fetch_weather.FetchWeatherInteractor;
+import com.zino.mobilization.weatheryamblz.business.interactor.fetch_weather.FetchWeatherInteractorImpl;
 import com.zino.mobilization.weatheryamblz.business.interactor.weather.WeatherInteractor;
 import com.zino.mobilization.weatheryamblz.business.interactor.weather.WeatherInteractorImpl;
 import com.zino.mobilization.weatheryamblz.data.settings.SettingsManager;
@@ -38,7 +38,7 @@ public abstract class BindsModule {
 
     @Binds abstract CitiesInteractor bindsCitiesInteractor(CitiesInteractorImpl interactor);
 
-    @Binds abstract ServiceInteractor bindsServiceInteractor(ServiceInteractorImpl interactor);
+    @Binds abstract FetchWeatherInteractor bindsServiceInteractor(FetchWeatherInteractorImpl interactor);
 
     @Binds abstract AddCityInteractor bindsAddCityInteractor(AddCityInteractorImpl interactor);
 

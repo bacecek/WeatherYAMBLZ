@@ -18,6 +18,8 @@ import java.util.List;
 public interface CitiesView extends MvpView {
     void setEmptyViewVisible(boolean visible);
     void setCitiesListVisible(boolean visible);
+    void setLoadingVisible(boolean visible);
+    void setRefreshingEnabled(boolean enabled);
     void updateCities(List<City> cities);
     @StateStrategyType(OneExecutionStateStrategy.class)
     void openChooseCity();

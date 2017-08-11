@@ -165,7 +165,7 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
     }
 
     @Override
-    public void setLoadingVisibility(boolean visible) {
+    public void setLoadingVisible(boolean visible) {
         swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(visible));
     }
 
