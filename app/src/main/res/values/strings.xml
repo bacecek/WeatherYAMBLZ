@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Weather.YAMBLZ</string>
+    <string name="app_name">Weather</string>
 
+    <string name="title_main">Places</string>
+    <string name="title_weather">Forecast</string>
+    <string name="title_settings">Settings</string>
 
     <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
     <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
@@ -9,13 +12,19 @@
     <string name="fahrenheit" translatable="false">°F</string>
 
     <string name="action_settings">Settings</string>
-    <string name="action_about">About</string>
-    <string name="action_weather">Weather</string>
+
     <string name="version">Version: %s</string>
-    <string name="pressure">%s hPa\nPressure</string>
-    <string name="humidity">%s %%\nHumidity</string>
-    <string name="visibility">%s km\nVisibility</string>
-    <string name="wind">Wind speed: %s m/s</string>
+    <string name="action_about">About the app</string>
+
+    <string name="pressure">Pressure</string>
+    <string name="humidity">Humidity</string>
+    <string name="sunset">Sunset</string>
+    <string name="wind">Wind</string>
+
+    <string name="pressure_mmhg">mmHg</string>
+    <string name="pressure_hpa">hPa</string>
+    <string name="speed_ms">m/s</string>
+    <string name="speed_kmh">km/h</string>
 
     <string name="manually">Manually</string>
     <string name="fifteen_min">15 min</string>
@@ -24,11 +33,48 @@
     <string name="three_hour">3 hour</string>
 
     <string name="update_time">Update time</string>
-    <string name="temperature">Temperature</string>
+    <string name="tempDay">Temperature</string>
     <string name="city">City</string>
     <string name="moscow">Moscow</string>
     <string name="moscow_full">Moscow, Russia</string>
 
-    <string name="error_play_services_not_available">Google Play Services is not available: %1$s</string>
+    <string name="hint_add_city">Search</string>
+    <string name="message_empty_input">Enter location name</string>
+    <string name="message_empty_result">Nothing found\nmatching your query</string>
+    <string name="message_error">Failed to load suggestions</string>
+
+    <string name="empty_list_cities_title">No cities added</string>
+    <string name="empty_list_cities_subtitle">Tap "+" to add new city</string>
+    <string name="empty_city_weather">No data yet. Downloading now…</string>
+    <string name="empty_chosen_city">Please, choose city</string>
+
+    <string name="error_loading_forecasts">Failed to load forecast :(\nTry later</string>
+
+    <string name="template_temperature_metric">%1$d °</string>
+    <string name="template_temperature_imperial">%1$d °</string>
+    <string name="template_wind_speed_ms">%1$d m/s</string>
+    <string name="template_wind_speed_kmh">%1$d km/h</string>
+    <string name="template_pressure_hpa">%1$d hPa</string>
+    <string name="template_pressure_mmhg">%1$d mmHg</string>
+    <string name="template_humidity">%1$d%%</string>
+    <string name="template_visibility">%1$d m</string>
+    <string name="template_cloudiness">%1$d%%</string>
+
+    <string name="switch_default_title">Temperature</string>
+    <string name="switch_default_left_value" translatable="false">°C</string>
+    <string name="switch_default_right_value" translatable="false">°F</string>
+
+    <string name="info_place_deleted">Place deleted</string>
+    <string name="info_place_added">Place added</string>
+    <string name="info_places_updated">Places updated</string>
+    <string name="info_place_updated">Place updated</string>
+    <string name="info_error_loading_weather">Failed to load weather</string>
+    <string name="info_place_exists">Place already exists</string>
+
+    <!--Time formats-->
+    <string name="format_sunrise" translatable="false">H:mm</string>
+    <string name="format_hourly_forecast" translatable="false">H:mm</string>
+    <string name="format_daily_forecast" translatable="false">E, d MMMM</string>
+    <string name="format_update_weather" translatable="false">EEEE h:mm a</string>
 
 </resources>

@@ -1,28 +1,64 @@
 <resources>
-    <string name="app_name">Погода.Мобилизация</string>
+    <string name="app_name">Погода</string>
 
+    <string name="title_main">Места</string>
+    <string name="title_weather">Прогноз</string>
+    <string name="title_settings">Настройки</string>
 
     <string name="action_settings">Настройки</string>
-    <string name="action_about">О приложении</string>
-    <string name="action_weather">Погода</string>
+
     <string name="version">Версия: %s</string>
-    <string name="pressure">%s гПа\nДавление</string>
-    <string name="humidity">%s %%\nВлажность</string>
-    <string name="visibility">%s км\nВидимость</string>
-    <string name="wind">Скорость ветра: %s м/с</string>
+    <string name="action_about">О приложении</string>
 
+    <string name="pressure">Давление</string>
+    <string name="humidity">Влажность</string>
+    <string name="wind">Скорость ветра</string>
 
-    <string name="manually">Вручную</string>
+    <string name="pressure_mmhg">мм рт.ст.</string>
+    <string name="pressure_hpa">гПа</string>
+    <string name="speed_ms">м/с</string>
+    <string name="speed_kmh">км/ч</string>
+
+    <string name="manually">Только вручную</string>
     <string name="fifteen_min">15 мин</string>
     <string name="thirteen_min">30 мин</string>
     <string name="one_hour">1 час</string>
     <string name="three_hour">3 часа</string>
     <string name="update_time">Время обновления</string>
-    <string name="temperature">Температура</string>
+    <string name="tempDay">Температура</string>
     <string name="city">Город</string>
     <string name="moscow">Москва</string>
     <string name="moscow_full">Москва, Россия</string>
 
-    <string name="error_play_services_not_available">Google Play Services недоступны: %1$s</string>
+    <string name="hint_add_city">Поиск</string>
+    <string name="message_empty_input">Введите название населенного пункта</string>
+    <string name="message_empty_result">По вашему запросу ничего не найдено</string>
+    <string name="message_error">Не удалось загрузить список городов</string>
 
+    <string name="empty_list_cities_title">Список городов пуст</string>
+    <string name="empty_list_cities_subtitle">Нажмите "+", чтобы добавить город</string>
+    <string name="empty_city_weather">Данных о погоде пока нет. Загружаются…</string>
+    <string name="empty_chosen_city">Пожалуйста, выберите город</string>
+
+    <string name="error_loading_forecasts">Не удалось загрузить прогноз :(\nПопробуйте позже</string>
+
+    <string name="info_place_deleted">Место удалено</string>
+    <string name="info_place_added">Место добавлено</string>
+    <string name="info_places_updated">Места обновлены</string>
+    <string name="info_place_updated">Место обновлено</string>
+    <string name="info_error_loading_weather">Не удалось загрузить погоду</string>
+    <string name="info_place_exists">Место уже есть в списке</string>
+
+    <string name="template_temperature_metric">%1$d °</string>
+    <string name="template_temperature_imperial">%1$d °</string>
+    <string name="template_wind_speed_ms">%1$d м/с</string>
+    <string name="template_wind_speed_kmh">%1$d км/ч</string>
+    <string name="template_pressure_hpa">%1$d гПа</string>
+    <string name="template_pressure_mmhg">%1$d мм рт.ст.</string>
+    <string name="template_humidity">%1$d%%</string>
+    <string name="template_visibility">%1$d м</string>
+    <string name="template_cloudiness">%1$d%%</string>
+
+    <string name="switch_default_title">Температура</string>
+    <string name="sunset">Восход Солнца</string>
 </resources>

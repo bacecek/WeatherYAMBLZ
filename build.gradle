@@ -1,21 +1,19 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
     repositories {
         jcenter()
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-alpha8'
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath 'com.android.tools.build:gradle:3.0.0-beta1'
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.7.3'
+        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.2'
     }
 }
 
 allprojects {
     repositories {
         jcenter()
+        google()
     }
 }
 
@@ -30,20 +28,21 @@ ext {
     target_sdk_version = 26
 
     //libraries
-    support_version = '26.0.0-alpha1'
+    support_version = '26.0.1'
     butter_knife_version = '8.6.0'
     moxy_version = '1.5.3'
     retrofit_version = '2.3.0'
     rxjava_version = '2.1.1'
     rxandroid_version = '2.0.1'
     androidjob_version = '1.1.11'
-    play_services_version = '11.0.1'
     stetho_version = '1.5.0'
     leak_canary_version = '1.5.1'
     timber_version = '4.5.1'
-    play_services_version = '11.0.2'
     rxprefs_version = '2.0.0-RC2'
     dagger_version = '2.11'
+    room_version = '1.0.0-alpha8'
+    constraint_version = '1.1.0-beta1'
+    rxbinding_version = '2.0.0'
 
     //tests
     hamcrest_version = '1.3'

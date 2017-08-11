@@ -1,13 +1,13 @@
 package com.zino.mobilization.weatheryamblz.di.module;
 
-import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.zino.mobilization.weatheryamblz.BuildConfig;
-import com.zino.mobilization.weatheryamblz.model.api.WeatherAPI;
-import com.zino.mobilization.weatheryamblz.model.cache.CacheManager;
-import com.zino.mobilization.weatheryamblz.model.repository.WeatherRepository;
-import com.zino.mobilization.weatheryamblz.model.repository.WeatherRepositoryImp;
+import com.zino.mobilization.weatheryamblz.data.network.api.PlacesApi;
+import com.zino.mobilization.weatheryamblz.data.network.api.WeatherApi;
+import com.zino.mobilization.weatheryamblz.data.network.util.KeyInterceptor;
+import com.zino.mobilization.weatheryamblz.data.network.util.LanguageInterceptor;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -25,15 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class NetworkModule {
 
-    @Provides
-    @Singleton
-    OkHttpClient provideOkHttpClient() {
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        if(BuildConfig.DEBUG) {
-            builder.addNetworkInterceptor(new StethoInterceptor());
-        }
-        return builder.build();
-    }
+    //common
 
     @Provides
     @Singleton
@@ -47,12 +39,43 @@ public class NetworkModule {
         return GsonConverterFactory.create(gson);
     }
 
+    //weather
+
     @Provides
     @Singleton
-    Retrofit provideRetrofit(OkHttpClient client, GsonConverterFactory factory) {
+    @Named("weather")
+    KeyInterceptor provideWeatherKeyInterceptor(@Named("weather_key") String apiKey) {
+        return new KeyInterceptor("appid", apiKey);
+    }
+
+    @Provides
+    @Singleton
+    @Named("weather")
+    LanguageInterceptor provideWeatherLanguageInterceptor() {
+        return new LanguageInterceptor("lang");
+    }
+
+    @Provides
+    @Singleton
+    @Named("weather")
+    OkHttpClient provideWeatherOkHttpClient(@Named("weather") LanguageInterceptor languageInterceptor,
+                                            @Named("weather") KeyInterceptor keyInterceptor) {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.addInterceptor(languageInterceptor)
+                .addInterceptor(keyInterceptor);
+        BuildConfig.STETHO.configureNetworkClient(builder);
+        return builder.build();
+    }
+
+    @Provides
+    @Singleton
+    @Named("weather")
+    Retrofit provideWeatherRetrofit(@Named("weather") OkHttpClient client,
+                                    GsonConverterFactory factory,
+                                    @Named("weather_url") String url) {
         return new Retrofit.Builder()
                 .client(client)
-                .baseUrl(WeatherAPI.BASE_URL)
+                .baseUrl(url)
                 .addConverterFactory(factory)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
@@ -60,14 +83,55 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    WeatherAPI provideWeatherApi(Retrofit retrofit) {
-        return retrofit.create(WeatherAPI.class);
+    WeatherApi provideWeatherApi(@Named("weather") Retrofit retrofit) {
+        return retrofit.create(WeatherApi.class);
+    }
+
+    //places
+
+    @Provides
+    @Singleton
+    @Named("places")
+    KeyInterceptor providePlacesKeyInterceptor(@Named("places_key") String apiKey) {
+        return new KeyInterceptor("key", apiKey);
     }
 
     @Provides
     @Singleton
-    WeatherRepository provideWeatherRepository(CacheManager cacheManager, WeatherAPI api) {
-        return new WeatherRepositoryImp(cacheManager, api);
+    @Named("places")
+    LanguageInterceptor providePlacesLanguageInterceptor() {
+        return new LanguageInterceptor("language");
     }
 
+    @Provides
+    @Singleton
+    @Named("places")
+    OkHttpClient providePlacesOkHttpClient(@Named("places") LanguageInterceptor languageInterceptor,
+                                           @Named("places") KeyInterceptor keyInterceptor) {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.addInterceptor(languageInterceptor)
+                .addInterceptor(keyInterceptor);
+        BuildConfig.STETHO.configureNetworkClient(builder);
+        return builder.build();
+    }
+
+    @Provides
+    @Singleton
+    @Named("places")
+    Retrofit providePlacesRetrofit(@Named("places") OkHttpClient client,
+                                   GsonConverterFactory factory,
+                                   @Named("places_url") String url) {
+        return new Retrofit.Builder()
+                .client(client)
+                .baseUrl(url)
+                .addConverterFactory(factory)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+    }
+
+    @Provides
+    @Singleton
+    PlacesApi providePlacesApi(@Named("places") Retrofit retrofit) {
+        return retrofit.create(PlacesApi.class);
+    }
 }

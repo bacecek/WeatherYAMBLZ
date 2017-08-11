@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#FFCC00</color>
+    <color name="colorDownloadingWeatherBackground">#606060</color>
+    <color name="colorDownloadingWeatherText">#9F4B4B</color>
+
+    <!--Condition states-->
+    <color name="colorSun">#F5BE25</color>
+    <color name="colorCloudsSun">#DBD678</color>
+    <color name="colorClouds">#B4CFFB</color>
+    <color name="colorRain">#457AD1</color>
+    <color name="colorThunderstorm">#11274A</color>
+    <color name="colorSnow">@android:color/white</color>
+    <color name="colorMist">#89929F</color>
 </resources>

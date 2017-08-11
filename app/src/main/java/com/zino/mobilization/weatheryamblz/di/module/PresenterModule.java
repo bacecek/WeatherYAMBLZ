@@ -1,10 +1,14 @@
 package com.zino.mobilization.weatheryamblz.di.module;
 
-import com.zino.mobilization.weatheryamblz.model.prefs.SharedPreferencesHelper;
-import com.zino.mobilization.weatheryamblz.model.repository.WeatherRepository;
-import com.zino.mobilization.weatheryamblz.presentation.presenter.SettingsPresenter;
-import com.zino.mobilization.weatheryamblz.presentation.presenter.WeatherPresenter;
-import com.zino.mobilization.weatheryamblz.utils.AndroidJobHelper;
+import com.zino.mobilization.weatheryamblz.business.interactor.add_city.AddCityInteractor;
+import com.zino.mobilization.weatheryamblz.business.interactor.cities.CitiesInteractor;
+import com.zino.mobilization.weatheryamblz.business.interactor.weather.WeatherInteractor;
+import com.zino.mobilization.weatheryamblz.data.settings.SettingsManager;
+import com.zino.mobilization.weatheryamblz.presentation.add_city.AddCityPresenter;
+import com.zino.mobilization.weatheryamblz.presentation.cities.CitiesPresenter;
+import com.zino.mobilization.weatheryamblz.presentation.settings.SettingsPresenter;
+import com.zino.mobilization.weatheryamblz.presentation.weather.WeatherPresenter;
+import com.zino.mobilization.weatheryamblz.utils.AppResources;
 
 import dagger.Module;
 import dagger.Provides;
@@ -18,15 +22,26 @@ import dagger.Provides;
 public class PresenterModule {
 
     @Provides
-    SettingsPresenter provideSettingsPresenter(SharedPreferencesHelper preferencesHelper,
-                                               AndroidJobHelper jobHelper) {
-        return new SettingsPresenter(preferencesHelper, jobHelper);
+    SettingsPresenter provideSettingsPresenter(SettingsManager preferencesHelper) {
+        return new SettingsPresenter(preferencesHelper);
     }
 
     @Provides
-    WeatherPresenter provideWeatherPresenter(SharedPreferencesHelper preferencesHelper,
-                                              WeatherRepository repository) {
-        return new WeatherPresenter(preferencesHelper, repository);
+    WeatherPresenter provideWeatherPresenter(WeatherInteractor interactor,
+                                             AppResources resources) {
+        return new WeatherPresenter(interactor, resources);
+    }
+
+    @Provides
+    CitiesPresenter provideCitiesPresenter(CitiesInteractor interactor,
+                                           AppResources resources) {
+        return new CitiesPresenter(interactor, resources);
+    }
+
+    @Provides
+    AddCityPresenter provideAddCityPresenter(AddCityInteractor interactor,
+                                             AppResources resources) {
+        return new AddCityPresenter(interactor, resources);
     }
 
 }

@@ -23,19 +23,62 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-keep class butterknife.*
+-keepclasseswithmembernames class * { @butterknife.* <methods>; }
+-keepclasseswithmembernames class * { @butterknife.* <fields>; }
+-keep public class * implements butterknife.Unbinder { public <init>(**, android.view.View); }
+-dontwarn java.lang.invoke.**
 
--dontwarn javax.annotation.**
--dontwarn org.codehaus.mojo.**
+-optimizationpasses 5
+#-allowaccessmodification
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+-dontskipnonpubliclibraryclassmembers
+-dontpreverify
+-verbose
 
-##---------------Begin: proguard configuration for Gson  ----------
-# Gson uses generic type information stored in a class file when working with fields. Proguard
-# removes such information by default, so configure it to keep all of it.
+#your package path where your gson models are stored
+-keep class com.zino.mobilization.weatheryamblz.data.db.entity.** { *; }
+-keep class com.zino.mobilization.weatheryamblz.data.network.response.** { *; }
+-keep class com.zino.mobilization.weatheryamblz.business.entity.** { *; }
+
+# Retrofit, OkHttp, Gson
+-keepattributes *Annotation*
 -keepattributes Signature
-
-# Gson specific classes
+-keep class com.squareup.okhttp.** { *; }
+-keep interface com.squareup.okhttp.** { *; }
+-dontwarn com.squareup.okhttp.**
+-dontwarn rx.**
+-keep class retrofit2.** { *; }
 -keep class sun.misc.Unsafe { *; }
-#-keep class com.google.gson.stream.** { *; }
+-dontwarn java.nio.file.*
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+-dontwarn okio.**
+-dontwarn retrofit2.**
+-keepattributes Exceptions
+-keepclasseswithmembers class * {
+    @retrofit2.http.* <methods>;
+}
 
-# Application classes that will be serialized/deserialized over Gson
- -keep class com.zino.mobilization.weatheryamblz.model.pojo.** { *; }
+# OkHttp3
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class okhttp3.** { *; }
+-keep interface okhttp3.** { *; }
+-dontwarn okhttp3.**
 
+-keep class rx.schedulers.Schedulers {
+    public static <methods>;
+}
+-keep class rx.schedulers.ImmediateScheduler {
+    public <methods>;
+}
+-keep class rx.schedulers.TestScheduler {
+    public <methods>;
+}
+-keep class rx.schedulers.Schedulers {
+    public static ** test();
+}
+
+-dontwarn android.arch.util.paging.CountedDataSource
+-dontwarn android.arch.persistence.room.paging.LimitOffsetDataSource
