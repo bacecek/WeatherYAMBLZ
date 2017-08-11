@@ -22,7 +22,7 @@
             android:layout_height="48dp"
             android:id="@+id/img_condition"
             tools:src="@drawable/sun"
-            android:contentDescription="TODO" />
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="0dp"
