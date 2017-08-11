@@ -1,7 +1,7 @@
 package com.zino.mobilization.weatheryamblz.business.interactor.service;
 
 import com.zino.mobilization.weatheryamblz.business.Mapper;
-import com.zino.mobilization.weatheryamblz.business.interactor.base.BaseInteractorImpl;
+import com.zino.mobilization.weatheryamblz.business.interactor.fetch_weather.FetchWeatherInteractorImpl;
 import com.zino.mobilization.weatheryamblz.data.db.entity.CityEntity;
 import com.zino.mobilization.weatheryamblz.repository.city.CitiesRepository;
 import com.zino.mobilization.weatheryamblz.repository.weather.WeatherRepository;
@@ -17,7 +17,7 @@ import timber.log.Timber;
  * <buzmakov.da@gmail.com>
  */
 
-public class ServiceInteractorImpl extends BaseInteractorImpl implements ServiceInteractor {
+public class ServiceInteractorImpl extends FetchWeatherInteractorImpl implements ServiceInteractor {
     private CitiesRepository citiesRepository;
     private WeatherRepository weatherRepository;
     private Mapper mapper;

@@ -2,7 +2,7 @@ package com.zino.mobilization.weatheryamblz.business.interactor.cities;
 
 import com.zino.mobilization.weatheryamblz.business.Mapper;
 import com.zino.mobilization.weatheryamblz.business.entity.City;
-import com.zino.mobilization.weatheryamblz.business.interactor.base.BaseInteractorImpl;
+import com.zino.mobilization.weatheryamblz.business.interactor.fetch_weather.FetchWeatherInteractorImpl;
 import com.zino.mobilization.weatheryamblz.data.settings.SettingsManager;
 import com.zino.mobilization.weatheryamblz.repository.city.CitiesRepository;
 import com.zino.mobilization.weatheryamblz.repository.weather.WeatherRepository;
@@ -20,7 +20,7 @@ import timber.log.Timber;
  * <buzmakov.da@gmail.com>
  */
 
-public class CitiesInteractorImpl extends BaseInteractorImpl implements CitiesInteractor {
+public class CitiesInteractorImpl extends FetchWeatherInteractorImpl implements CitiesInteractor {
     private CitiesRepository citiesRepository;
     private SettingsManager settingsManager;
     private Mapper mapper;

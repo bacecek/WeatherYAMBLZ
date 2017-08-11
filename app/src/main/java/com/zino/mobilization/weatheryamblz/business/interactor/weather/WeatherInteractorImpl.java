@@ -4,7 +4,7 @@ import com.zino.mobilization.weatheryamblz.business.Mapper;
 import com.zino.mobilization.weatheryamblz.business.entity.City;
 import com.zino.mobilization.weatheryamblz.business.entity.DailyForecast;
 import com.zino.mobilization.weatheryamblz.business.entity.HourlyForecast;
-import com.zino.mobilization.weatheryamblz.business.interactor.base.BaseInteractorImpl;
+import com.zino.mobilization.weatheryamblz.business.interactor.fetch_weather.FetchWeatherInteractorImpl;
 import com.zino.mobilization.weatheryamblz.data.db.entity.CityEntity;
 import com.zino.mobilization.weatheryamblz.data.db.entity.DailyForecastEntity;
 import com.zino.mobilization.weatheryamblz.data.db.entity.HourlyForecastEntity;
@@ -23,7 +23,7 @@ import io.reactivex.Observable;
  * <buzmakov.da@gmail.com>
  */
 
-public class WeatherInteractorImpl extends BaseInteractorImpl implements WeatherInteractor {
+public class WeatherInteractorImpl extends FetchWeatherInteractorImpl implements WeatherInteractor {
     private CitiesRepository citiesRepository;
     private WeatherRepository weatherRepository;
     private Mapper mapper;

@@ -1,4 +1,4 @@
-package com.zino.mobilization.weatheryamblz.business.interactor.base;
+package com.zino.mobilization.weatheryamblz.business.interactor.fetch_weather;
 
 import com.zino.mobilization.weatheryamblz.business.Mapper;
 import com.zino.mobilization.weatheryamblz.data.db.entity.CityEntity;
@@ -13,12 +13,12 @@ import timber.log.Timber;
  * <buzmakov.da@gmail.com>
  */
 
-public class BaseInteractorImpl implements BaseInteractor {
+public class FetchWeatherInteractorImpl implements FetchWeatherInteractor {
     private WeatherRepository weatherRepository;
     private CitiesRepository citiesRepository;
     private Mapper mapper;
 
-    public BaseInteractorImpl(WeatherRepository weatherRepository, CitiesRepository citiesRepository, Mapper mapper) {
+    public FetchWeatherInteractorImpl(WeatherRepository weatherRepository, CitiesRepository citiesRepository, Mapper mapper) {
         this.weatherRepository = weatherRepository;
         this.citiesRepository = citiesRepository;
         this.mapper = mapper;
