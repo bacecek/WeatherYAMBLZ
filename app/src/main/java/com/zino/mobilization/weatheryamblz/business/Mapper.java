@@ -53,7 +53,7 @@ public class Mapper {
     private AppResources appResources;
 
     @Inject
-    Mapper(AppResources appResources) {
+    public Mapper(AppResources appResources) {
         this.appResources = appResources;
     }
 
