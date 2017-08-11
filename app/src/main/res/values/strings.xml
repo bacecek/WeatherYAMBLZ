@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Weather.YAMBLZ</string>
+    <string name="app_name">Weather</string>
 
     <string name="title_main">Places</string>
     <string name="title_weather">Forecast</string>
@@ -72,9 +72,9 @@
     <string name="info_place_exists">Place already exists</string>
 
     <!--Time formats-->
-    <string name="format_sunrise">H:mm</string>
-    <string name="format_hourly_forecast">H:mm</string>
-    <string name="format_daily_forecast">E, d MMMM</string>
-    <string name="format_update_weather">EEEE h:mm a</string>
+    <string name="format_sunrise" translatable="false">H:mm</string>
+    <string name="format_hourly_forecast" translatable="false">H:mm</string>
+    <string name="format_daily_forecast" translatable="false">E, d MMMM</string>
+    <string name="format_update_weather" translatable="false">EEEE h:mm a</string>
 
 </resources>

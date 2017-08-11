@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Погода.Мобилизация</string>
+    <string name="app_name">Погода</string>
 
     <string name="title_main">Места</string>
     <string name="title_weather">Прогноз</string>
@@ -60,4 +60,5 @@
     <string name="template_cloudiness">%1$d%%</string>
 
     <string name="switch_default_title">Температура</string>
+    <string name="sunset">Восход Солнца</string>
 </resources>
