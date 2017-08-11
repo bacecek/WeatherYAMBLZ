@@ -1,15 +1,7 @@
 package com.zino.mobilization.weatheryamblz.common;
 
-import android.net.Uri;
-
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.gson.Gson;
 import com.zino.mobilization.weatheryamblz.data.network.response.weather.WeatherResponse;
-
-import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by Denis Buzmakov on 29.07.17.
@@ -113,80 +105,6 @@ public class TestData {
                 "    \"name\": \"Perm\",\n" +
                 "    \"cod\": 200\n" +
                 "}";
-    }
-
-    public static Place getTestPlace() {
-        return new Place() {
-            @Override
-            public String getId() {
-                return null;
-            }
-
-            @Override
-            public List<Integer> getPlaceTypes() {
-                return null;
-            }
-
-            @Override
-            public CharSequence getAddress() {
-                return "Moscow, Russia";
-            }
-
-            @Override
-            public Locale getLocale() {
-                return null;
-            }
-
-            @Override
-            public CharSequence getName() {
-                return null;
-            }
-
-            @Override
-            public LatLng getLatLng() {
-                return new LatLng(57, 58);
-            }
-
-            @Override
-            public LatLngBounds getViewport() {
-                return null;
-            }
-
-            @Override
-            public Uri getWebsiteUri() {
-                return null;
-            }
-
-            @Override
-            public CharSequence getPhoneNumber() {
-                return null;
-            }
-
-            @Override
-            public float getRating() {
-                return 0;
-            }
-
-            @Override
-            public int getPriceLevel() {
-                return 0;
-            }
-
-            @Override
-            public CharSequence getAttributions() {
-                return null;
-            }
-
-            @Override
-            public Place freeze() {
-                return null;
-            }
-
-            @Override
-            public boolean isDataValid() {
-                return false;
-            }
-        };
     }
 
 }

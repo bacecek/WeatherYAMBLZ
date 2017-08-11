@@ -56,17 +56,10 @@ public class DailyForecastsAdapter extends RecyclerView.Adapter<DailyForecastsAd
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.txt_day)
-        TextView txtDay;
-
-        @BindView(R.id.txt_temp_day)
-        TextView txtTempDay;
-
-        @BindView(R.id.txt_temp_night)
-        TextView txtTempNight;
-
-        @BindView(R.id.img_daily_condition)
-        ImageView imgCondition;
+        @BindView(R.id.txt_day) TextView txtDay;
+        @BindView(R.id.txt_temp_day) TextView txtTempDay;
+        @BindView(R.id.txt_temp_night) TextView txtTempNight;
+        @BindView(R.id.img_daily_condition) ImageView imgCondition;
 
         ViewHolder(View itemView) {
             super(itemView);

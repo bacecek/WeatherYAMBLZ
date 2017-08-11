@@ -40,7 +40,6 @@
     <string name="empty_city_weather">Данных о погоде пока нет. Загружаются…</string>
     <string name="empty_chosen_city">Пожалуйста, выберите город</string>
 
-    <string name="error_play_services_not_available">Google Play Services недоступны: %1$s</string>
     <string name="error_loading_forecasts">Не удалось загрузить прогноз :(\nПопробуйте позже</string>
 
     <string name="info_place_deleted">Место удалено</string>

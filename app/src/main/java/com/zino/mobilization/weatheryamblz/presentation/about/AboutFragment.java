@@ -39,6 +39,12 @@ public class AboutFragment extends DialogFragment {
         setVersionName();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
     private void setVersionName() {
         String version = BuildConfig.VERSION_NAME;
         versionTextView.setText(String.format(getResources().getString(R.string.version), version));

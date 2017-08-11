@@ -56,14 +56,9 @@ public class HourlyForecastsAdapter extends RecyclerView.Adapter<HourlyForecasts
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.txt_time)
-        TextView txtTime;
-
-        @BindView(R.id.txt_hourly_temp)
-        TextView txtTemp;
-
-        @BindView(R.id.img_hourly_condition)
-        ImageView imgCondition;
+        @BindView(R.id.txt_time) TextView txtTime;
+        @BindView(R.id.txt_hourly_temp) TextView txtTemp;
+        @BindView(R.id.img_hourly_condition) ImageView imgCondition;
 
         ViewHolder(View itemView) {
             super(itemView);

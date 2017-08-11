@@ -72,29 +72,14 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.view_background)
-        CardView viewBackground;
-
-        @BindView(R.id.txt_downloading)
-        TextView txtDownloading;
-
-        @BindView(R.id.txt_city)
-        TextView txtCity;
-
-        @BindView(R.id.txt_address)
-        TextView txtAddress;
-
-        @BindView(R.id.txt_temperature)
-        TextView txtTemperature;
-
-        @BindView(R.id.txt_humidity)
-        TextView txtHumidity;
-
-        @BindView(R.id.img_umbrella)
-        ImageView imgUmbrella;
-
-        @BindView(R.id.img_condition)
-        ImageView imgCondition;
+        @BindView(R.id.view_background) CardView viewBackground;
+        @BindView(R.id.txt_downloading) TextView txtDownloading;
+        @BindView(R.id.txt_city) TextView txtCity;
+        @BindView(R.id.txt_address) TextView txtAddress;
+        @BindView(R.id.txt_temperature) TextView txtTemperature;
+        @BindView(R.id.txt_humidity) TextView txtHumidity;
+        @BindView(R.id.img_umbrella) ImageView imgUmbrella;
+        @BindView(R.id.img_condition) ImageView imgCondition;
 
         ViewHolder(View itemView) {
             super(itemView);

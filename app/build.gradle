@@ -90,16 +90,12 @@ dependencies {
 
     implementation "com.evernote:android-job:$rootProject.androidjob_version"
 
-    implementation "com.google.android.gms:play-services-gcm:$rootProject.play_services_version"
-
     implementation "com.facebook.stetho:stetho:$rootProject.stetho_version"
     implementation "com.facebook.stetho:stetho-okhttp3:$rootProject.stetho_version"
 
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.leak_canary_version"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leak_canary_version"
     testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leak_canary_version"
-
-    implementation "com.google.android.gms:play-services-places:$rootProject.play_services_version"
 
     implementation "com.google.dagger:dagger:$rootProject.dagger_version"
     annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.dagger_version"
