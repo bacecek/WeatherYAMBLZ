@@ -41,6 +41,7 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            testCoverageEnabled true
             minifyEnabled false
             buildConfigField 'com.zino.mobilization.weatheryamblz.utils.StethoHelper', 'STETHO', 'new com.zino.mobilization.weatheryamblz.utils.DebugStethoHelper()'
         }
@@ -55,6 +56,14 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    testOptions {
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
+        }
     }
 
 }

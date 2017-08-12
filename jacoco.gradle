@@ -31,10 +31,26 @@ project.afterEvaluate {
                 classDirectories = fileTree(
                         dir: "${project.buildDir}/intermediates/classes/${sourcePath}",
                         excludes: [
-                                '**/R.class', '**/R$*.class',
-                                '**/*$ViewInjector*.*', '**/*$ViewBinder*.*',
+                                '**/R.class',
+                                '**/R$*.class',
+                                '**/*$ViewInjector*.*', '**/*$ViewBinder*.*', '**/*_ViewBinding*.*',
                                 '**/BuildConfig.*', '**/Manifest*.*',
-                                '**/Dagger*.*', '**/di/*', '**/di/modules/*'
+                                '**/*$Lambda$*.*',
+                                '**/*Module.*', '**/*Dagger*.*',
+                                '**/*MembersInjector*.*',
+                                '**/*_Provide*Factory*.*', '**/*_Factory.*',
+                                '**/di/*', '**/di/module/*', "**di/component/*",
+                                '**/*$PresentersBinder$*.class', '**/*$PresentersBinder.class',
+                                '**/*$ViewStateProvider.class', '**/*$State$*.class', '**/*$State.class',
+                                '**/AppResources.class',
+                                '**/*StethoHelper*.*',
+                                '**/*Entity*.*', '**/*Reponse*.*',
+                                '**/*Unit*.*',
+                                '**/*Dao*.*', '**/*AppDatabase*.*',
+                                '**/entity/**', '**/response/**',
+                                'com/arellomobile/mvp/**',
+                                '**/*Adapter*.*', '**/*DiffCallBack*.*', '**/*ItemDecoration*.*',
+                                '**/network/util/**'
                         ]
                 )
                 def coverageSourceDirs = [
