@@ -26,7 +26,7 @@ public class CitiesInteractorImpl extends FetchWeatherInteractorImpl implements 
     private Mapper mapper;
 
     @Inject
-    CitiesInteractorImpl(WeatherRepository weatherRepository,
+    public CitiesInteractorImpl(WeatherRepository weatherRepository,
                          CitiesRepository citiesRepository,
                          SettingsManager settingsManager,
                          Mapper mapper) {

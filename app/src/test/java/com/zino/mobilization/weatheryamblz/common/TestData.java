@@ -1,7 +1,10 @@
 package com.zino.mobilization.weatheryamblz.common;
 
 import com.google.gson.Gson;
+import com.zino.mobilization.weatheryamblz.business.entity.City;
+import com.zino.mobilization.weatheryamblz.business.entity.CurrentWeather;
 import com.zino.mobilization.weatheryamblz.business.entity.Suggestion;
+import com.zino.mobilization.weatheryamblz.data.db.entity.CityEntity;
 import com.zino.mobilization.weatheryamblz.data.db.entity.WeatherEntity;
 import com.zino.mobilization.weatheryamblz.data.network.response.places.SuggestionsResponse;
 import com.zino.mobilization.weatheryamblz.data.network.response.weather.WeatherResponse;
@@ -32,8 +35,52 @@ public class TestData {
         return new Gson().fromJson(getEmptySuggestionsJson(), SuggestionsResponse.class);
     }
 
-    public static SuggestionsResponse getIncorrectSuggestionsReponse() {
-        return null;
+    public static CityEntity getCityEntity() {
+        return new CityEntity("afvnajdfjv",
+                143513456,
+                "Mosckw",
+                "Mosckw, Rssia",
+                33.3,
+                66.6,
+                getCorrectWeatherEntity());
+    }
+
+    public static City getCity() {
+        return new City("afvnajdfjv",
+                143513456,
+                "Mosckw",
+                "Mosckw, Rssia",
+                33.3,
+                66.6,
+                getCurrentWeather()
+        );
+    }
+
+    public static City getCityWithoutWeather() {
+        return new City("afvnajdfjv",
+                143513456,
+                "Mosckw",
+                "Mosckw, Rssia",
+                33.3,
+                66.6,
+                null
+        );
+    }
+
+    public static CurrentWeather getCurrentWeather() {
+        return new CurrentWeather(
+                "300.91",
+                "scattered clouds",
+                "51",
+                "1007",
+                "1501177452",
+                "1501118798",
+                "6",
+                "10000",
+                "40",
+                802,
+                "03d"
+        );
     }
 
     public static List<Suggestion> getCorrectSuggestions() {
