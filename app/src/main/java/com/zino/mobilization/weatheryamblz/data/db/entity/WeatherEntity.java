@@ -140,20 +140,20 @@ public class WeatherEntity {
         if (this == o) return true;
         if (!(o instanceof WeatherEntity)) return false;
 
-        WeatherEntity weather = (WeatherEntity) o;
+        WeatherEntity that = (WeatherEntity) o;
 
-        if (Double.compare(weather.temperature, temperature) != 0) return false;
-        if (Double.compare(weather.humidity, humidity) != 0) return false;
-        if (Double.compare(weather.pressure, pressure) != 0) return false;
-        if (sunriseTime != weather.sunriseTime) return false;
-        if (sunsetTime != weather.sunsetTime) return false;
-        if (Double.compare(weather.windSpeed, windSpeed) != 0) return false;
-        if (visibility != weather.visibility) return false;
-        if (cloudiness != weather.cloudiness) return false;
-        if (conditionId != weather.conditionId) return false;
-        if (description != null ? !description.equals(weather.description) : weather.description != null)
+        if (Double.compare(that.temperature, temperature) != 0) return false;
+        if (Double.compare(that.humidity, humidity) != 0) return false;
+        if (Double.compare(that.pressure, pressure) != 0) return false;
+        if (sunriseTime != that.sunriseTime) return false;
+        if (sunsetTime != that.sunsetTime) return false;
+        if (Double.compare(that.windSpeed, windSpeed) != 0) return false;
+        if (visibility != that.visibility) return false;
+        if (cloudiness != that.cloudiness) return false;
+        if (conditionId != that.conditionId) return false;
+        if (description != null ? !description.equals(that.description) : that.description != null)
             return false;
-        return iconId.equals(weather.iconId);
+        return iconId != null ? iconId.equals(that.iconId) : that.iconId == null;
     }
 
     @Override

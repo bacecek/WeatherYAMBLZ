@@ -164,11 +164,14 @@ public class Mapper {
             weatherEntity.setHumidity(mainInfo.getHumidity());
             weatherEntity.setPressure(mainInfo.getPressure());
         }
-        Weather weatherInfo = response.getWeather().get(0);
-        if(weatherInfo != null) {
-            weatherEntity.setDescription(weatherInfo.getDescription());
-            weatherEntity.setIconId(weatherInfo.getIcon());
-            weatherEntity.setConditionId(weatherInfo.getId());
+        List<Weather> weatherList = response.getWeather();
+        if(weatherList != null) {
+            Weather weatherInfo = response.getWeather().get(0);
+            if (weatherInfo != null) {
+                weatherEntity.setDescription(weatherInfo.getDescription());
+                weatherEntity.setIconId(weatherInfo.getIcon());
+                weatherEntity.setConditionId(weatherInfo.getId());
+            }
         }
         Sys sysInfo = response.getSys();
         if(sysInfo != null) {
@@ -295,7 +298,7 @@ public class Mapper {
 
     @Nullable
     public List<Suggestion> convertSuggestionsFromResponse(SuggestionsResponse response) {
-        if(response == null) return null;
+        if(response == null || response.getSuggestions() == null) return null;
 
         List<Suggestion> suggestions = new ArrayList<>();
         for(SuggestionItem suggestionItem : response.getSuggestions()) {
