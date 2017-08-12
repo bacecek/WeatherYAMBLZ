@@ -63,8 +63,8 @@ public class TestData {
         entity.setVisibility(10000);
         entity.setConditionId(802);
         entity.setIconId("03d");
-        entity.setSunsetTime(1501118798);
-        entity.setSunriseTime(1501177452);
+        entity.setSunsetTime(1501177452);
+        entity.setSunriseTime(1501118798);
         entity.setDescription("scattered clouds");
         return entity;
     }
@@ -102,7 +102,7 @@ public class TestData {
                 "        \"temp_max\": 302.15\n" +
                 "    },\n" +
                 "    \"visibility\": 10000,\n" +
-                "    \"ic_wind\": {\n" +
+                "    \"wind\": {\n" +
                 "        \"speed\": 6,\n" +
                 "        \"deg\": 260\n" +
                 "    },\n" +
