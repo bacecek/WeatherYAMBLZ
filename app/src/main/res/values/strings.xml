@@ -74,7 +74,7 @@
     <!--Time formats-->
     <string name="format_sunrise" translatable="false">H:mm</string>
     <string name="format_hourly_forecast" translatable="false">H:mm</string>
-    <string name="format_daily_forecast" translatable="false">E, d MMMM</string>
+    <string name="format_daily_forecast" translatable="false">E, MMMM d</string>
     <string name="format_update_weather" translatable="false">EEEE h:mm a</string>
 
 </resources>
