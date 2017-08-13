@@ -29,7 +29,7 @@ import timber.log.Timber;
  * <buzmakov.da@gmail.com>
  */
 
-public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder> {
+class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder> {
     private List<City> data = new ArrayList<>();
 
     @Nullable
@@ -132,7 +132,7 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
         }
     }
 
-    public interface OnItemClickListener {
+    interface OnItemClickListener {
         void onItemClick(City city);
     }
 }

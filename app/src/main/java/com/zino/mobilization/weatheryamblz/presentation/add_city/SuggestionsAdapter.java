@@ -23,11 +23,11 @@ import timber.log.Timber;
  * <buzmakov.da@gmail.com>
  */
 
-public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.ViewHolder> {
+class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.ViewHolder> {
     private List<Suggestion> data = new ArrayList<>();
     private OnItemClickListener clickListener;
 
-    public SuggestionsAdapter(@NonNull List<Suggestion> data,
+    SuggestionsAdapter(@NonNull List<Suggestion> data,
                               @Nullable OnItemClickListener clickListener) {
         this.data.addAll(data);
         this.clickListener = clickListener;
@@ -49,7 +49,7 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
         return data.size();
     }
 
-    public void updateData(List<Suggestion> data) {
+    void updateData(List<Suggestion> data) {
         Timber.d("update data: %s", data.toString());
         this.data.clear();
         this.data.addAll(data);
@@ -72,7 +72,7 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
         }
     }
 
-    public interface OnItemClickListener {
+    interface OnItemClickListener {
         void onItemClickListener(Suggestion suggestion);
     }
 }

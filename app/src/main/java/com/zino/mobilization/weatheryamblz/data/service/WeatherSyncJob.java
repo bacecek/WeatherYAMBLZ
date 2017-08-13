@@ -22,7 +22,7 @@ public class WeatherSyncJob extends Job {
         return Result.SUCCESS;
     }
 
-    public static void scheduleJob(long period) {
+    static void scheduleJob(long period) {
         new JobRequest.Builder(TAG)
                 .setRequiredNetworkType(JobRequest.NetworkType.CONNECTED)
                 .setPeriodic(period, 300_000L)
