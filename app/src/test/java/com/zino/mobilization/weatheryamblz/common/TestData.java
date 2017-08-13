@@ -3,10 +3,16 @@ package com.zino.mobilization.weatheryamblz.common;
 import com.google.gson.Gson;
 import com.zino.mobilization.weatheryamblz.business.entity.City;
 import com.zino.mobilization.weatheryamblz.business.entity.CurrentWeather;
+import com.zino.mobilization.weatheryamblz.business.entity.DailyForecast;
+import com.zino.mobilization.weatheryamblz.business.entity.HourlyForecast;
 import com.zino.mobilization.weatheryamblz.business.entity.Place;
 import com.zino.mobilization.weatheryamblz.business.entity.Suggestion;
 import com.zino.mobilization.weatheryamblz.data.db.entity.CityEntity;
+import com.zino.mobilization.weatheryamblz.data.db.entity.DailyForecastEntity;
+import com.zino.mobilization.weatheryamblz.data.db.entity.HourlyForecastEntity;
 import com.zino.mobilization.weatheryamblz.data.db.entity.WeatherEntity;
+import com.zino.mobilization.weatheryamblz.data.network.response.forecast.daily.DailyForecastResponse;
+import com.zino.mobilization.weatheryamblz.data.network.response.forecast.hourly.HourlyForecastResponse;
 import com.zino.mobilization.weatheryamblz.data.network.response.places.SuggestionsResponse;
 import com.zino.mobilization.weatheryamblz.data.network.response.weather.WeatherResponse;
 
@@ -21,19 +27,27 @@ import java.util.List;
 public class TestData {
 
     public static WeatherResponse getCorrectWeatherResponse() {
-        return new Gson().fromJson(getMoscowWeatherJson(), WeatherResponse.class);
+        return new Gson().fromJson(TestJsons.getMoscowWeatherJson(), WeatherResponse.class);
     }
 
     public static WeatherResponse getIncorrectWeatherResponse() {
-        return new Gson().fromJson(getPermWeatherJson(), WeatherResponse.class);
+        return new Gson().fromJson(TestJsons.getPermWeatherJson(), WeatherResponse.class);
     }
 
     public static SuggestionsResponse getCorrectSuggestionsReponse() {
-        return new Gson().fromJson(getCorrectSuggestionsJson(), SuggestionsResponse.class);
+        return new Gson().fromJson(TestJsons.getCorrectSuggestionsJson(), SuggestionsResponse.class);
     }
 
     public static SuggestionsResponse getEmptySuggestionsResponse() {
-        return new Gson().fromJson(getEmptySuggestionsJson(), SuggestionsResponse.class);
+        return new Gson().fromJson(TestJsons.getEmptySuggestionsJson(), SuggestionsResponse.class);
+    }
+
+    public static HourlyForecastResponse getHourlyForecastResponse() {
+        return new Gson().fromJson(TestJsons.getHourlyForecastJson(), HourlyForecastResponse.class);
+    }
+
+    public static DailyForecastResponse getDailyForecastResponse() {
+        return new Gson().fromJson(TestJsons.getDailyForecastJson(), DailyForecastResponse.class);
     }
 
     public static CityEntity getCityEntity() {
@@ -135,276 +149,43 @@ public class TestData {
                 66.6);
     }
 
-    private static String getMoscowWeatherJson() {
-        return "{\n" +
-                "    \"coord\": {\n" +
-                "        \"lon\": 37.62,\n" +
-                "        \"lat\": 55.75\n" +
-                "    },\n" +
-                "    \"weather\": [\n" +
-                "        {\n" +
-                "            \"id\": 802,\n" +
-                "            \"main\": \"Clouds\",\n" +
-                "            \"description\": \"scattered clouds\",\n" +
-                "            \"icon\": \"03d\"\n" +
-                "        }\n" +
-                "    ],\n" +
-                "    \"base\": \"stations\",\n" +
-                "    \"main\": {\n" +
-                "        \"temp\": 300.91,\n" +
-                "        \"pressure\": 1007,\n" +
-                "        \"humidity\": 51,\n" +
-                "        \"temp_min\": 300.15,\n" +
-                "        \"temp_max\": 302.15\n" +
-                "    },\n" +
-                "    \"visibility\": 10000,\n" +
-                "    \"wind\": {\n" +
-                "        \"speed\": 6,\n" +
-                "        \"deg\": 260\n" +
-                "    },\n" +
-                "    \"clouds\": {\n" +
-                "        \"all\": 40\n" +
-                "    },\n" +
-                "    \"dt\": 1501158600,\n" +
-                "    \"sys\": {\n" +
-                "        \"type\": 1,\n" +
-                "        \"id\": 7325,\n" +
-                "        \"message\": 0.0044,\n" +
-                "        \"country\": \"RU\",\n" +
-                "        \"sunrise\": 1501118798,\n" +
-                "        \"sunset\": 1501177452\n" +
-                "    },\n" +
-                "    \"id\": 524901,\n" +
-                "    \"name\": \"Moscow\",\n" +
-                "    \"cod\": 200\n" +
-                "}";
+    public static List<HourlyForecastEntity> getHourlyForecastEntities() {
+        List<HourlyForecastEntity> list = new ArrayList<>();
+        HourlyForecastEntity hourlyForecast = new HourlyForecastEntity();
+        hourlyForecast.setCityId("01");
+        hourlyForecast.setHumidity(15);
+        hourlyForecast.setTime(14525469);
+        hourlyForecast.setTemperature(33);
+        list.add(hourlyForecast);
+        list.add(hourlyForecast);
+        return list;
     }
 
-    private static String getPermWeatherJson() {
-        return "{\n" +
-                "    \"coord\": {\n" +
-                "        \"lon\": 56.29,\n" +
-                "        \"lat\": 58.02\n" +
-                "    },\n" +
-                "    \"base\": \"stations\",\n" +
-                "    \"main\": {\n" +
-                "        \"temp\": 294.845,\n" +
-                "        \"pressure\": 1001.94,\n" +
-                "        \"humidity\": 78,\n" +
-                "        \"temp_min\": 294.845,\n" +
-                "        \"temp_max\": 294.845,\n" +
-                "        \"sea_level\": 1022.12,\n" +
-                "        \"grnd_level\": 1001.94\n" +
-                "    },\n" +
-                "    \"wind\": {\n" +
-                "        \"speed\": 2.47,\n" +
-                "        \"deg\": 320.504\n" +
-                "    },\n" +
-                "    \"clouds\": {\n" +
-                "        \"all\": 8\n" +
-                "    },\n" +
-                "    \"dt\": 1501162005,\n" +
-                "    \"id\": 511196,\n" +
-                "    \"name\": \"Perm\",\n" +
-                "    \"cod\": 200\n" +
-                "}";
+    public static List<DailyForecastEntity> getDailyForecastEntities() {
+        List<DailyForecastEntity> list = new ArrayList<>();
+        DailyForecastEntity dailyForecastEntity = new DailyForecastEntity();
+        dailyForecastEntity.setCityId("01");
+        dailyForecastEntity.setHumidity(15);
+        dailyForecastEntity.setPressure(1009);
+        list.add(dailyForecastEntity);
+        list.add(dailyForecastEntity);
+        return list;
     }
 
-    private static String getCorrectSuggestionsJson() {
-        return "{\n" +
-                "   \"predictions\" : [\n" +
-                "      {\n" +
-                "         \"description\" : \"Toronto, ON, Canada\",\n" +
-                "         \"id\" : \"9cdc0b86ce6052ab269593184e7762372e698584\",\n" +
-                "         \"matched_substrings\" : [\n" +
-                "            {\n" +
-                "               \"length\" : 1,\n" +
-                "               \"offset\" : 0\n" +
-                "            }\n" +
-                "         ],\n" +
-                "         \"place_id\" : \"ChIJpTvG15DL1IkRd8S0KlBVNTI\",\n" +
-                "         \"reference\" : \"CjQrAAAA-v8kuHVbvPB-NQh-yxpX6v2-XFc3-RLuw057aCiKxuq1se6aFY6QAZEqQxZIys8sEhDMkJCk1W73l-Ce8i7umtwyGhQAO6VWR2hVEDiqvBljCyJrhcIG1w\",\n" +
-                "         \"structured_formatting\" : {\n" +
-                "            \"main_text\" : \"Toronto\",\n" +
-                "            \"main_text_matched_substrings\" : [\n" +
-                "               {\n" +
-                "                  \"length\" : 1,\n" +
-                "                  \"offset\" : 0\n" +
-                "               }\n" +
-                "            ],\n" +
-                "            \"secondary_text\" : \"ON, Canada\"\n" +
-                "         },\n" +
-                "         \"terms\" : [\n" +
-                "            {\n" +
-                "               \"offset\" : 0,\n" +
-                "               \"value\" : \"Toronto\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "               \"offset\" : 9,\n" +
-                "               \"value\" : \"ON\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "               \"offset\" : 13,\n" +
-                "               \"value\" : \"Canada\"\n" +
-                "            }\n" +
-                "         ],\n" +
-                "         \"types\" : [ \"locality\", \"political\", \"geocode\" ]\n" +
-                "      },\n" +
-                "      {\n" +
-                "         \"description\" : \"Tampa, FL, United States\",\n" +
-                "         \"id\" : \"9adf33187c5522ad19e75ec85d5537d812467a52\",\n" +
-                "         \"matched_substrings\" : [\n" +
-                "            {\n" +
-                "               \"length\" : 1,\n" +
-                "               \"offset\" : 0\n" +
-                "            }\n" +
-                "         ],\n" +
-                "         \"place_id\" : \"ChIJ4dG5s4K3wogRY7SWr4kTX6c\",\n" +
-                "         \"reference\" : \"CjQwAAAAZRRmONgaE6CE5T9R411__CpWg1SwpnHo7acKjvwX-8sVQMprX0gJskQAOXxsuJJuEhB8GQQENl9bP6U5OuUi6Y0xGhSUUacpRft9RT5JEO09_wBU9pE_mA\",\n" +
-                "         \"structured_formatting\" : {\n" +
-                "            \"main_text\" : \"Tampa\",\n" +
-                "            \"main_text_matched_substrings\" : [\n" +
-                "               {\n" +
-                "                  \"length\" : 1,\n" +
-                "                  \"offset\" : 0\n" +
-                "               }\n" +
-                "            ],\n" +
-                "            \"secondary_text\" : \"FL, United States\"\n" +
-                "         },\n" +
-                "         \"terms\" : [\n" +
-                "            {\n" +
-                "               \"offset\" : 0,\n" +
-                "               \"value\" : \"Tampa\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "               \"offset\" : 7,\n" +
-                "               \"value\" : \"FL\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "               \"offset\" : 11,\n" +
-                "               \"value\" : \"United States\"\n" +
-                "            }\n" +
-                "         ],\n" +
-                "         \"types\" : [ \"locality\", \"political\", \"geocode\" ]\n" +
-                "      },\n" +
-                "      {\n" +
-                "         \"description\" : \"Tucson, AZ, United States\",\n" +
-                "         \"id\" : \"18a0d3df0043eb1e84edb9c94856352a4be45104\",\n" +
-                "         \"matched_substrings\" : [\n" +
-                "            {\n" +
-                "               \"length\" : 1,\n" +
-                "               \"offset\" : 0\n" +
-                "            }\n" +
-                "         ],\n" +
-                "         \"place_id\" : \"ChIJK-0sC0Fl1oYRFccWTTgtw3M\",\n" +
-                "         \"reference\" : \"CkQxAAAA_eu4TiuBNQn9njETkRzlWiluxA44pJUkQPXXfSq67b9o_3EOAVa97Q1jkqEpcc15B4CaEYAEtqGS9VAps0k_AxIQM5uhfSig33PIBQWyrsI8xBoUKDf-Jb6ExgPeNLZv6AOYe3wNqjA\",\n" +
-                "         \"structured_formatting\" : {\n" +
-                "            \"main_text\" : \"Tucson\",\n" +
-                "            \"main_text_matched_substrings\" : [\n" +
-                "               {\n" +
-                "                  \"length\" : 1,\n" +
-                "                  \"offset\" : 0\n" +
-                "               }\n" +
-                "            ],\n" +
-                "            \"secondary_text\" : \"AZ, United States\"\n" +
-                "         },\n" +
-                "         \"terms\" : [\n" +
-                "            {\n" +
-                "               \"offset\" : 0,\n" +
-                "               \"value\" : \"Tucson\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "               \"offset\" : 8,\n" +
-                "               \"value\" : \"AZ\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "               \"offset\" : 12,\n" +
-                "               \"value\" : \"United States\"\n" +
-                "            }\n" +
-                "         ],\n" +
-                "         \"types\" : [ \"locality\", \"political\", \"geocode\" ]\n" +
-                "      },\n" +
-                "      {\n" +
-                "         \"description\" : \"Torino, TO, Italia\",\n" +
-                "         \"id\" : \"6df1d595fb03452c4811e884eb6b6d0bf3a92714\",\n" +
-                "         \"matched_substrings\" : [\n" +
-                "            {\n" +
-                "               \"length\" : 1,\n" +
-                "               \"offset\" : 0\n" +
-                "            }\n" +
-                "         ],\n" +
-                "         \"place_id\" : \"ChIJJb4YZBJtiEcRv3ec1gP4A4k\",\n" +
-                "         \"reference\" : \"CjQqAAAA_3yQEhhUG36d0kuDiV1TUQnGDwGkRvmGMDsaPjgMKBzyvsYVh5mOmzXAAetWNUfuEhCF1fTwmaW7zs447zmX6Kd-GhTZaWoRpZg9bQ9gjTO8Yqwht9bRGw\",\n" +
-                "         \"structured_formatting\" : {\n" +
-                "            \"main_text\" : \"Torino\",\n" +
-                "            \"main_text_matched_substrings\" : [\n" +
-                "               {\n" +
-                "                  \"length\" : 1,\n" +
-                "                  \"offset\" : 0\n" +
-                "               }\n" +
-                "            ],\n" +
-                "            \"secondary_text\" : \"TO, Italia\"\n" +
-                "         },\n" +
-                "         \"terms\" : [\n" +
-                "            {\n" +
-                "               \"offset\" : 0,\n" +
-                "               \"value\" : \"Torino\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "               \"offset\" : 8,\n" +
-                "               \"value\" : \"TO\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "               \"offset\" : 12,\n" +
-                "               \"value\" : \"Italia\"\n" +
-                "            }\n" +
-                "         ],\n" +
-                "         \"types\" : [ \"locality\", \"political\", \"geocode\" ]\n" +
-                "      },\n" +
-                "      {\n" +
-                "         \"description\" : \"Toulouse, France\",\n" +
-                "         \"id\" : \"57be81a36442e5303533878989d72092b99e6ecf\",\n" +
-                "         \"matched_substrings\" : [\n" +
-                "            {\n" +
-                "               \"length\" : 1,\n" +
-                "               \"offset\" : 0\n" +
-                "            }\n" +
-                "         ],\n" +
-                "         \"place_id\" : \"ChIJ_1J17G-7rhIRMBBBL5z2BgQ\",\n" +
-                "         \"reference\" : \"CjQoAAAAjs9P3vkOb_UWqIlJznOb2aSC3lVTnCrmlqnBmkbbxKtX7F30Cu9bYqIHo_CU0QUfEhBce6af0BLyvMf7-IhstuDoGhTI9NTfd7HqwOb5F7YEQMx6T6zE3w\",\n" +
-                "         \"structured_formatting\" : {\n" +
-                "            \"main_text\" : \"Toulouse\",\n" +
-                "            \"main_text_matched_substrings\" : [\n" +
-                "               {\n" +
-                "                  \"length\" : 1,\n" +
-                "                  \"offset\" : 0\n" +
-                "               }\n" +
-                "            ],\n" +
-                "            \"secondary_text\" : \"France\"\n" +
-                "         },\n" +
-                "         \"terms\" : [\n" +
-                "            {\n" +
-                "               \"offset\" : 0,\n" +
-                "               \"value\" : \"Toulouse\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "               \"offset\" : 10,\n" +
-                "               \"value\" : \"France\"\n" +
-                "            }\n" +
-                "         ],\n" +
-                "         \"types\" : [ \"locality\", \"political\", \"geocode\" ]\n" +
-                "      }\n" +
-                "   ],\n" +
-                "   \"status\" : \"OK\"\n" +
-                "}";
+    public static List<HourlyForecast> getHourlyForecast() {
+        List<HourlyForecast> list = new ArrayList<>();
+        HourlyForecast hourlyForecast = new HourlyForecast("31", "5:00", 800, "03d");
+        list.add(hourlyForecast);
+        list.add(hourlyForecast);
+        return list;
     }
 
-    private static String getEmptySuggestionsJson() {
-        return "{\n" +
-                "   \"predictions\" : [\n" +
-                "   ],\n" +
-                "   \"status\" : \"OK\"\n" +
-                "}";
+    public static List<DailyForecast> getDailyForecast() {
+        List<DailyForecast> list = new ArrayList<>();
+        DailyForecast dailyForecast = new DailyForecast("31", "31", "rain", "Moscow", 800, "03d");
+        list.add(dailyForecast);
+        list.add(dailyForecast);
+        return list;
     }
 
 }
