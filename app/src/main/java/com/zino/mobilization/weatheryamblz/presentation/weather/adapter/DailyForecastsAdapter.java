@@ -49,7 +49,7 @@ public class DailyForecastsAdapter extends RecyclerView.Adapter<DailyForecastsAd
     }
 
     public void updateData(List<DailyForecast> newData) {
-        Timber.d("update data: " + newData.toString());
+        Timber.d("update data: %s", newData.toString());
         this.data.clear();
         this.data.addAll(newData);
         notifyDataSetChanged();

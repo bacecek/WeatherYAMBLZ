@@ -25,10 +25,6 @@
     <string name="one_hour">1 час</string>
     <string name="three_hour">3 часа</string>
     <string name="update_time">Время обновления</string>
-    <string name="tempDay">Температура</string>
-    <string name="city">Город</string>
-    <string name="moscow">Москва</string>
-    <string name="moscow_full">Москва, Россия</string>
 
     <string name="hint_add_city">Поиск</string>
     <string name="message_empty_input">Введите название населенного пункта</string>
@@ -60,5 +56,4 @@
     <string name="template_cloudiness">%1$d%%</string>
 
     <string name="switch_default_title">Температура</string>
-    <string name="sunset">Восход Солнца</string>
 </resources>

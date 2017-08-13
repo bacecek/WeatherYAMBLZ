@@ -35,46 +35,46 @@ public class WeatherRepositoryImpl implements WeatherRepository {
 
     @Override
     public Single<WeatherResponse> getCurrentWeatherFromApi(double lat, double lon) {
-        Timber.d("getting weather from api: " + lat + " " + lon);
+        Timber.d("getting weather from api: %d %d", lat, lon);
         return api.getCurrentWeather(lat, lon);
     }
 
     @Override
     public Single<HourlyForecastResponse> getHourlyForecastFromApi(double lat, double lon) {
-        Timber.d("getting hourly forecast from api: " + lat + " " + lon);
+        Timber.d("getting hourly forecast from api: %d %d", lat, lon);
         return api.getHourlyForecast(lat, lon);
     }
 
     @Override
     public Single<DailyForecastResponse> getDailyForecastFromApi(double lat, double lon) {
-        Timber.d("getting daily forecast from api: " + lat + " " + lon);
+        Timber.d("getting daily forecast from api: %d %d", lat, lon);
         return api.getDailyForecast(lat, lon);
     }
 
     @Override
     public Observable<List<HourlyForecastEntity>> getHourlyForecasts(String cityId) {
-        Timber.d("getting hourly forecasts from db: " + cityId);
+        Timber.d("getting hourly forecasts from db: %s", cityId);
         return hourlyForecastDao.getForecastsByCityId(cityId)
                 .toObservable();
     }
 
     @Override
     public Completable saveHourlyForecast(List<HourlyForecastEntity> forecasts) {
-        Timber.d("saving hourly forecasts: " + forecasts);
+        Timber.d("saving hourly forecasts: %s", forecasts.toString());
         return Completable.fromAction(() -> hourlyForecastDao.removeForecastsByCityId(forecasts.get(0).getCityId()))
                 .doOnComplete(() -> hourlyForecastDao.insert(forecasts));
     }
 
     @Override
     public Observable<List<DailyForecastEntity>> getDailyForecasts(String cityId) {
-        Timber.d("getting daily forecasts from db: " + cityId);
+        Timber.d("getting daily forecasts from db: %s", cityId);
         return dailyForecastDao.getForecastsByCityId(cityId)
                 .toObservable();
     }
 
     @Override
     public Completable saveDailyForecast(List<DailyForecastEntity> forecasts) {
-        Timber.d("saving daily forecasts: " + forecasts);
+        Timber.d("saving daily forecasts: %s", forecasts.toString());
         return Completable.fromAction(() -> dailyForecastDao.removeForecastsByCityId(forecasts.get(0).getCityId()))
                 .doOnComplete(() -> dailyForecastDao.insert(forecasts));
     }

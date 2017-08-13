@@ -54,7 +54,7 @@ public class CitiesInteractorImpl extends FetchWeatherInteractorImpl implements 
 
     @Override
     public Completable removeCity(String cityId) {
-        Timber.d("remove city: " + cityId);
+        Timber.d("remove city: %s", cityId);
         return citiesRepository.removeCity(cityId);
     }
 }

@@ -115,7 +115,7 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
 
     @Override
     public void showCity(@NonNull City city) {
-        Timber.d("showing city: " + city);
+        Timber.d("showing city: %s", city);
         txtCity.setText(city.getName());
         CurrentWeather currentWeather = city.getCurrentWeather();
         if (currentWeather != null) {
@@ -130,7 +130,7 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
 
     @Override
     public void showHourlyForecasts(@NonNull List<HourlyForecast> forecasts) {
-        Timber.d("showing hourly forecasts: " + forecasts);
+        Timber.d("showing hourly forecasts: %s", forecasts);
         if(forecasts.size() > 0) {
             txtEmptyHourly.setVisibility(View.GONE);
             rvHourlyForecasts.setVisibility(View.VISIBLE);
@@ -148,7 +148,7 @@ public class WeatherFragment extends BaseFragment implements WeatherView {
 
     @Override
     public void showDailyForecasts(@NonNull List<DailyForecast> forecasts) {
-        Timber.d("showing daily forecasts: " + forecasts);
+        Timber.d("showing daily forecasts: %s", forecasts);
         if(forecasts.size() > 0) {
             txtEmptyDaily.setVisibility(View.GONE);
             rvDailyForecasts.setVisibility(View.VISIBLE);

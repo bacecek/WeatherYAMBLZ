@@ -58,7 +58,7 @@ public class CitiesPresenter extends MvpPresenter<CitiesView> {
     }
 
     public void onSwipeCity(City city) {
-        Timber.d("on swipe city: " + city.toString());
+        Timber.d("on swipe city: %s", city.toString());
         interactor.removeCity(city.getId())
                 .doOnComplete(() -> getViewState().showInfoMessage(resources.getString(R.string.info_place_deleted)))
                 .subscribeOn(Schedulers.io())
@@ -75,7 +75,7 @@ public class CitiesPresenter extends MvpPresenter<CitiesView> {
     }
 
     private void showCities(List<City> cities) {
-        Timber.d("show cities on view: " + cities.toString());
+        Timber.d("show cities on view: %s", cities.toString());
         getViewState().updateCities(cities);
     }
 }

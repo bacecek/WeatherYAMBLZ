@@ -186,7 +186,7 @@ public class Mapper {
         if(cloudsInfo != null) {
             weatherEntity.setCloudiness(cloudsInfo.getAll());
         }
-        Timber.d("convert response to weather entity: " + weatherEntity.toString());
+        Timber.d("convert response to weather entity: %s", weatherEntity.toString());
         return weatherEntity;
     }
 

@@ -57,7 +57,7 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
     }
 
     void updateData(List<City> data) {
-        Timber.d("update data: " + data.toString());
+        Timber.d("update data: %s", data.toString());
         final CityDiffCallback diffCallback = new CityDiffCallback(this.data, data);
         final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
 
@@ -87,7 +87,7 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
         }
 
         public void bind(City city, @Nullable OnItemClickListener onItemClickListener) {
-            Timber.d("bind city to holder: " + city.toString());
+            Timber.d("bind city to holder: %s", city.toString());
             txtCity.setText(city.getName());
             txtAddress.setText(city.getAddress());
             changeVisibleState(city, city.getCurrentWeather() == null);

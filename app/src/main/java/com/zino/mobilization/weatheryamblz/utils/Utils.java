@@ -130,6 +130,6 @@ public class Utils {
 
     public static String capitalize(String string) {
         if(string == null) return null;
-        return string.substring(0, 1).toUpperCase() + string.substring(1);
+        return string.substring(0, 1).toUpperCase(Locale.getDefault()) + string.substring(1);
     }
 }

@@ -50,7 +50,7 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
     }
 
     public void updateData(List<Suggestion> data) {
-        Timber.d("update data: " + data.toString());
+        Timber.d("update data: %s", data.toString());
         this.data.clear();
         this.data.addAll(data);
         notifyDataSetChanged();
