@@ -22,7 +22,7 @@ public class CitiesRepositoryImpl implements CitiesRepository {
     private CityDao cityDao;
 
     @Inject
-    CitiesRepositoryImpl(CityDao cityDao) {
+    public CitiesRepositoryImpl(CityDao cityDao) {
         this.cityDao = cityDao;
     }
 
