@@ -37,7 +37,7 @@ import static org.mockito.Mockito.when;
 
 public class AddCityInteractorTest {
     @ClassRule
-    public static RxImmediateSchedulerRule rxRule;
+    public static final RxImmediateSchedulerRule rxRule = new RxImmediateSchedulerRule();
 
     @Mock
     private CitiesRepository citiesRepository;

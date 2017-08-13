@@ -98,6 +98,10 @@ public class TestData {
         );
     }
 
+    public static Suggestion getCorrectSuggestion() {
+        return new Suggestion("ChIJpTvG15DL1IkRd8S0KlBVNTI", "Toronto, ON, Canada");
+    }
+
     public static List<Suggestion> getCorrectSuggestions() {
         List<Suggestion> list = new ArrayList<>();
 

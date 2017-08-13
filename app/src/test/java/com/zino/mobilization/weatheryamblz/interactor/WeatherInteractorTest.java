@@ -33,7 +33,7 @@ import static org.mockito.Mockito.when;
 
 public class WeatherInteractorTest {
     @ClassRule
-    public static RxImmediateSchedulerRule rxRule;
+    public static final RxImmediateSchedulerRule rxRule = new RxImmediateSchedulerRule();
 
     @Mock
     private SettingsManager settingsManager;
