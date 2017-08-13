@@ -7,6 +7,7 @@ import com.zino.mobilization.weatheryamblz.business.interactor.add_city.AddCityI
 import com.zino.mobilization.weatheryamblz.business.interactor.add_city.AddCityInteractorImpl;
 import com.zino.mobilization.weatheryamblz.common.RxImmediateSchedulerRule;
 import com.zino.mobilization.weatheryamblz.common.TestData;
+import com.zino.mobilization.weatheryamblz.data.db.entity.CityEntity;
 import com.zino.mobilization.weatheryamblz.data.network.response.places.PlaceResponse;
 import com.zino.mobilization.weatheryamblz.data.network.response.places.SuggestionsResponse;
 import com.zino.mobilization.weatheryamblz.repository.city.CitiesRepository;
@@ -114,7 +115,8 @@ public class AddCityInteractorTest {
     @Test
     public void shouldSuccessSavePlace() {
         when(citiesRepository.addCity(any())).thenReturn(Completable.complete());
-        when(mapper.convertPlaceToCityEntity(any())).thenReturn(any());
+        CityEntity cityEntity = TestData.getCityEntity();
+        when(mapper.convertPlaceToCityEntity(any())).thenReturn(cityEntity);
 
         cityInteractor.savePlace(place)
                 .test()
@@ -122,20 +124,22 @@ public class AddCityInteractorTest {
                 .assertComplete();
 
         verify(mapper).convertPlaceToCityEntity(any());
-        verify(citiesRepository).addCity(any());
+        verify(citiesRepository).addCity(cityEntity);
     }
 
     @Test
     public void shouldFailSavePlace() {
         when(citiesRepository.addCity(any())).thenReturn(Completable.error(throwable));
+        CityEntity cityEntity = TestData.getCityEntity();
+        when(mapper.convertPlaceToCityEntity(any())).thenReturn(cityEntity);
 
         cityInteractor.savePlace(place)
                 .test()
-                .assertNoErrors()
-                .assertComplete();
+                .assertError(throwable)
+                .assertNotComplete();
 
         verify(mapper).convertPlaceToCityEntity(any());
-        verify(citiesRepository, never()).addCity(any());
+        verify(citiesRepository).addCity(any());
     }
 
     @Test
