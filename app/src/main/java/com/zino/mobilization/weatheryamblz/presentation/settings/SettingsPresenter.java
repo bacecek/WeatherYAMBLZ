@@ -36,12 +36,7 @@ public class SettingsPresenter extends MvpPresenter<SettingsView> {
                 .subscribe(this::showUnits);
 
         settingsManager.getTimeRadioButtonId()
-                .subscribe(id -> {
-                    if (id == 0) {
-                        id = R.id.radio_fifteen;
-                    }
-                    getViewState().checkRadioButton(id);
-                });
+                .subscribe(getViewState()::checkRadioButton);
     }
 
     private void showUnits(Units units) {

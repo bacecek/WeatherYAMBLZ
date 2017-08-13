@@ -60,7 +60,7 @@ public class Mapper {
     @Nullable
     public List<City> convertToCityFromEntities(List<CityEntity> cityEntities,
                                                  Units units) {
-        if(cityEntities == null) return null;
+        if(cityEntities == null || units == null) return null;
         List<City> list = new ArrayList<>();
         for(CityEntity cityEntity : cityEntities) {
             list.add(convertCityEntityToCity(cityEntity, units));
