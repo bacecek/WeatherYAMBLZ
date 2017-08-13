@@ -3,6 +3,7 @@ package com.zino.mobilization.weatheryamblz.common;
 import com.google.gson.Gson;
 import com.zino.mobilization.weatheryamblz.business.entity.City;
 import com.zino.mobilization.weatheryamblz.business.entity.CurrentWeather;
+import com.zino.mobilization.weatheryamblz.business.entity.Place;
 import com.zino.mobilization.weatheryamblz.business.entity.Suggestion;
 import com.zino.mobilization.weatheryamblz.data.db.entity.CityEntity;
 import com.zino.mobilization.weatheryamblz.data.db.entity.WeatherEntity;
@@ -124,6 +125,14 @@ public class TestData {
         entity.setCloudiness(8);
         entity.setWindSpeed(2.47);
         return entity;
+    }
+
+    public static Place getCorrectPlace() {
+        return new Place("afvnajdfjv",
+                "Mosckw",
+                "Mosckw, Rssia",
+                33.3,
+                66.6);
     }
 
     private static String getMoscowWeatherJson() {

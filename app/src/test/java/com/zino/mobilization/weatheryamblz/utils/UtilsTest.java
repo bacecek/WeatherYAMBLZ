@@ -21,13 +21,6 @@ public class UtilsTest {
     }
 
     @Test
-    public void shouldFormatUnitTimeCorrect() {
-        assertEquals("Сб, 12 августа", Utils.formatUnixTime(1502556408, "E, d MMMM"));
-        assertEquals(" ", Utils.formatUnixTime(1502556408, " "));
-        assertEquals("8:00", Utils.formatUnixTime(1501736408, "H:mm"));
-    }
-
-    @Test
     public void shouldConvertMsToKmh() {
         assertEquals(0d, Utils.convertMsToKmh(0), 0);
         assertEquals(36d, Utils.convertMsToKmh(10), 0);
