@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="RestrictedApi">
+        <ignore regexp=".*/.*_Impl.*" />
+    </issue>
+    <issue id="InconsistentLayout">
+    	<ignore path="res/layout-sw720p/activity_main.xml" />
+    </issue>
+    <issue id="Overdraw">
+    	<ignore path="res/layout/item_suggestion.xml" />
+    	<ignore path="res/layout/layout_switch.xml" />
+    </issue>
+    <issue id="IconLauncherShape" severity="ignore"/>
+    <issue id="GoogleAppIndexingWarning" severity="ignore"/>
+</lint>

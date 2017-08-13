@@ -49,7 +49,7 @@ public class HourlyForecastsAdapter extends RecyclerView.Adapter<HourlyForecasts
     }
 
     public void updateData(List<HourlyForecast> newData) {
-        Timber.d("update data: " + newData.toString());
+        Timber.d("update data: %s", newData.toString());
         this.data.clear();
         this.data.addAll(newData);
         notifyDataSetChanged();

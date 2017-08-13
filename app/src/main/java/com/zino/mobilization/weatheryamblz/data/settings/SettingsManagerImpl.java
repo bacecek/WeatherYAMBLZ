@@ -2,6 +2,7 @@ package com.zino.mobilization.weatheryamblz.data.settings;
 
 import com.f2prateek.rx.preferences2.Preference;
 import com.f2prateek.rx.preferences2.RxSharedPreferences;
+import com.zino.mobilization.weatheryamblz.R;
 import com.zino.mobilization.weatheryamblz.data.settings.units.PressureUnit;
 import com.zino.mobilization.weatheryamblz.data.settings.units.TemperatureUnit;
 import com.zino.mobilization.weatheryamblz.data.settings.units.Units;
@@ -26,7 +27,7 @@ public class SettingsManagerImpl implements SettingsManager {
     private RxSharedPreferences rxSharedPreferences;
 
     @Inject
-    SettingsManagerImpl(RxSharedPreferences rxSharedPreferences) {
+    public SettingsManagerImpl(RxSharedPreferences rxSharedPreferences) {
         this.rxSharedPreferences = rxSharedPreferences;
     }
 
@@ -76,7 +77,7 @@ public class SettingsManagerImpl implements SettingsManager {
     }
 
     private Preference<Integer> getTimeRadioButtonIdPreference() {
-        return rxSharedPreferences.getInteger(SELECTED_RADIO_KEY, 0);
+        return rxSharedPreferences.getInteger(SELECTED_RADIO_KEY, R.id.radio_fifteen);
     }
 
     private Preference<Long> getUpdateTimePreference() {

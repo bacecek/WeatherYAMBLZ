@@ -31,10 +31,21 @@ project.afterEvaluate {
                 classDirectories = fileTree(
                         dir: "${project.buildDir}/intermediates/classes/${sourcePath}",
                         excludes: [
-                                '**/R.class', '**/R$*.class',
-                                '**/*$ViewInjector*.*', '**/*$ViewBinder*.*',
-                                '**/BuildConfig.*', '**/Manifest*.*',
-                                '**/Dagger*.*', '**/di/*', '**/di/modules/*'
+                                '**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*',
+                                '**/*_ViewBinding*.*',
+                                '**/*$Lambda$*.*',
+                                '**/*Module.*', '**/*Dagger*.*',
+                                '**/*MembersInjector*.*', '**/*_Provide*Factory*.*', '**/*_Factory.*',
+                                '**/di/*',
+                                '**/*$PresentersBinder$*.class', '**/*$PresentersBinder.class',
+                                '**/*$ViewStateProvider.class', '**/*$State$*.class', '**/*$State.class',
+                                '**/*StethoHelper*.*',
+                                '**/*Unit*.*',
+                                '**/*Dao*.*', '**/*AppDatabase*.*',
+                                '**/entity/**', '**/response/**',
+                                'com/arellomobile/mvp/**',
+                                '**/*Adapter*.*', '**/*DiffCallBack*.*', '**/*ItemDecoration*.*',
+                                '**/network/util/**'
                         ]
                 )
                 def coverageSourceDirs = [
@@ -49,6 +60,8 @@ project.afterEvaluate {
                     xml.enabled = true
                     html.enabled = true
                 }
+
+                outputs.upToDateWhen { false }
             }
         }
     }

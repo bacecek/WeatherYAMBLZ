@@ -1,19 +1,25 @@
 buildscript {
     repositories {
         jcenter()
-        google()
+        mavenCentral()
+        maven {
+            url "https://maven.google.com"
+        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-beta1'
+        classpath 'com.android.tools.build:gradle:2.3.3'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.7.3'
-        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.2'
+        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.1'
+        classpath 'me.tatarka:gradle-retrolambda:3.6.1'
     }
 }
 
 allprojects {
     repositories {
         jcenter()
-        google()
+        maven {
+            url "https://maven.google.com"
+        }
     }
 }
 
@@ -49,5 +55,5 @@ ext {
     mockito_version = '2.8.47'
     junit_version = '4.12'
     espresso_version = '2.2.2'
-    robolectric_version = '3.3.2'
+    robolectric_version = '3.4.2'
 }

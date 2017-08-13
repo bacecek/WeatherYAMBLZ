@@ -30,7 +30,7 @@ public class FetchWeatherInteractorImpl implements FetchWeatherInteractor {
 
     @Override
     public Completable fetchAndSaveWeather(String cityId) {
-        Timber.d("fetch and save weather of city: " + cityId);
+        Timber.d("fetch and save weather of city: %s", cityId);
         return citiesRepository.getCity(cityId)
                 .firstOrError()
                 .flatMap(cityEntity -> weatherRepository
@@ -50,7 +50,7 @@ public class FetchWeatherInteractorImpl implements FetchWeatherInteractor {
 
     @Override
     public Completable fetchAndSaveHourlyForecasts(String cityId) {
-        Timber.d("fetch and save hourly forecasts of city: " + cityId);
+        Timber.d("fetch and save hourly forecasts of city: %s", cityId);
         return citiesRepository.getCity(cityId)
                 .firstOrError()
                 .flatMap(city -> weatherRepository.getHourlyForecastFromApi(city.getLatitude(), city.getLongitude())
@@ -60,7 +60,7 @@ public class FetchWeatherInteractorImpl implements FetchWeatherInteractor {
 
     @Override
     public Completable fetchAndSaveDailyForecasts(String cityId) {
-        Timber.d("fetch and save daily forecasts of city: " + cityId);
+        Timber.d("fetch and save daily forecasts of city: %s", cityId);
         return citiesRepository.getCity(cityId)
                 .firstOrError()
                 .flatMap(city -> weatherRepository.getDailyForecastFromApi(city.getLatitude(), city.getLongitude())

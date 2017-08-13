@@ -26,7 +26,7 @@ public class CitiesInteractorImpl extends FetchWeatherInteractorImpl implements 
     private Mapper mapper;
 
     @Inject
-    CitiesInteractorImpl(WeatherRepository weatherRepository,
+    public CitiesInteractorImpl(WeatherRepository weatherRepository,
                          CitiesRepository citiesRepository,
                          SettingsManager settingsManager,
                          Mapper mapper) {
@@ -54,7 +54,7 @@ public class CitiesInteractorImpl extends FetchWeatherInteractorImpl implements 
 
     @Override
     public Completable removeCity(String cityId) {
-        Timber.d("remove city: " + cityId);
+        Timber.d("remove city: %s", cityId);
         return citiesRepository.removeCity(cityId);
     }
 }

@@ -22,13 +22,13 @@ public class CitiesRepositoryImpl implements CitiesRepository {
     private CityDao cityDao;
 
     @Inject
-    CitiesRepositoryImpl(CityDao cityDao) {
+    public CitiesRepositoryImpl(CityDao cityDao) {
         this.cityDao = cityDao;
     }
 
     @Override
     public Observable<CityEntity> getCity(String id) {
-        Timber.d("get city by id: " + id);
+        Timber.d("get city by id: %s", id);
         return cityDao.getCityById(id)
                 .doOnNext(list -> {
                     if(list.length == 0) {
@@ -48,19 +48,19 @@ public class CitiesRepositoryImpl implements CitiesRepository {
 
     @Override
     public Completable addCity(CityEntity city) {
-        Timber.d("save city: " + city.toString());
+        Timber.d("save city: %s", city.toString());
         return Completable.fromAction(() -> cityDao.insertCity(city));
     }
 
     @Override
     public Completable updateCity(CityEntity city) {
-        Timber.d("update city: " + city.toString());
+        Timber.d("update city: %s", city.toString());
         return Completable.fromAction(() -> cityDao.updateCity(city));
     }
 
     @Override
     public Completable removeCity(String cityId) {
-        Timber.d("remove city " + cityId);
+        Timber.d("remove city %s", cityId);
         return Completable.fromAction(() -> cityDao.removeCity(cityId));
     }
 }

@@ -2,7 +2,6 @@ package com.zino.mobilization.weatheryamblz.data.service;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobRequest;
@@ -15,7 +14,6 @@ public class WeatherSyncJob extends Job {
     @Override
     @NonNull
     protected Result onRunJob(Params params) {
-        Log.i("kkkkk", "onRunJob: ");
         if (params.getTag().equals(TAG)) {
             Intent intent = new Intent(getContext(), UpdateWeatherService.class);
             getContext().startService(intent);
@@ -24,7 +22,7 @@ public class WeatherSyncJob extends Job {
         return Result.SUCCESS;
     }
 
-    public static void scheduleJob(long period) {
+    static void scheduleJob(long period) {
         new JobRequest.Builder(TAG)
                 .setRequiredNetworkType(JobRequest.NetworkType.CONNECTED)
                 .setPeriodic(period, 300_000L)

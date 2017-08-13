@@ -53,14 +53,14 @@ public class Mapper {
     private AppResources appResources;
 
     @Inject
-    Mapper(AppResources appResources) {
+    public Mapper(AppResources appResources) {
         this.appResources = appResources;
     }
 
     @Nullable
     public List<City> convertToCityFromEntities(List<CityEntity> cityEntities,
                                                  Units units) {
-        if(cityEntities == null) return null;
+        if(cityEntities == null || units == null) return null;
         List<City> list = new ArrayList<>();
         for(CityEntity cityEntity : cityEntities) {
             list.add(convertCityEntityToCity(cityEntity, units));
@@ -164,11 +164,14 @@ public class Mapper {
             weatherEntity.setHumidity(mainInfo.getHumidity());
             weatherEntity.setPressure(mainInfo.getPressure());
         }
-        Weather weatherInfo = response.getWeather().get(0);
-        if(weatherInfo != null) {
-            weatherEntity.setDescription(weatherInfo.getDescription());
-            weatherEntity.setIconId(weatherInfo.getIcon());
-            weatherEntity.setConditionId(weatherInfo.getId());
+        List<Weather> weatherList = response.getWeather();
+        if(weatherList != null) {
+            Weather weatherInfo = response.getWeather().get(0);
+            if (weatherInfo != null) {
+                weatherEntity.setDescription(weatherInfo.getDescription());
+                weatherEntity.setIconId(weatherInfo.getIcon());
+                weatherEntity.setConditionId(weatherInfo.getId());
+            }
         }
         Sys sysInfo = response.getSys();
         if(sysInfo != null) {
@@ -183,7 +186,7 @@ public class Mapper {
         if(cloudsInfo != null) {
             weatherEntity.setCloudiness(cloudsInfo.getAll());
         }
-        Timber.d("convert response to weather entity: " + weatherEntity.toString());
+        Timber.d("convert response to weather entity: %s", weatherEntity.toString());
         return weatherEntity;
     }
 
@@ -295,7 +298,7 @@ public class Mapper {
 
     @Nullable
     public List<Suggestion> convertSuggestionsFromResponse(SuggestionsResponse response) {
-        if(response == null) return null;
+        if(response == null || response.getSuggestions() == null) return null;
 
         List<Suggestion> suggestions = new ArrayList<>();
         for(SuggestionItem suggestionItem : response.getSuggestions()) {

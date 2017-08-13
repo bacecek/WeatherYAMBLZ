@@ -117,7 +117,7 @@ public class Utils {
 
     @Nullable
     public static String formatUnixTime(long time, String pattern) {
-        if(time == 0) return null;
+        if(time == 0 || pattern == null) return null;
         Date date = new Date(TimeUnit.SECONDS.toMillis(time));
         SimpleDateFormat convertFormat = new SimpleDateFormat(pattern, Locale.getDefault());
         convertFormat.setTimeZone(TimeZone.getDefault());
@@ -129,6 +129,7 @@ public class Utils {
     }
 
     public static String capitalize(String string) {
-        return string.substring(0, 1).toUpperCase() + string.substring(1);
+        if(string == null) return null;
+        return string.substring(0, 1).toUpperCase(Locale.getDefault()) + string.substring(1);
     }
 }

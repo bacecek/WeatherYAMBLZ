@@ -9,6 +9,11 @@ public class TestApplication extends WeatherApplication {
 
     @Override
     protected void initJobHelper() {
-        //no functionality here because Android Job is *******
+        //no implementation here because Android Job is *******
+    }
+
+    @Override
+    protected void initLibraries() {
+        //no implementation here because Leak Canary and Stetho is  *******
     }
 }
